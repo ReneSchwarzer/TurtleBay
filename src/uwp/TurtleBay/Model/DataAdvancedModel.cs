@@ -134,6 +134,10 @@ namespace TurtleBay.Model
                     var t = new DateTime(now.Year, now.Month, now.Day, Till, 0, 0);
                     var lightTime = f <= now && now <= t;
 
+                    f = new DateTime(now.Year, now.Month, now.Day, From2, 0, 0);
+                    t = new DateTime(now.Year, now.Month, now.Day, Till2, 0, 0);
+                    lightTime = lightTime || f <= now && now <= t;
+
                     f = new DateTime(now.Year, now.Month, now.Day, DayFrom, 0, 0);
                     t = new DateTime(now.Year, now.Month, now.Day, DayTill, 0, 0);
                     var day = f <= now && now <= t;

@@ -112,6 +112,8 @@ namespace TurtleBay
             ApplicationData.Current.RoamingSettings.Values["max"] = _data.Max;
             ApplicationData.Current.RoamingSettings.Values["from"] = _data.From;
             ApplicationData.Current.RoamingSettings.Values["till"] = _data.Till;
+            ApplicationData.Current.RoamingSettings.Values["from2"] = _data.From2;
+            ApplicationData.Current.RoamingSettings.Values["till2"] = _data.Till2;
             ApplicationData.Current.RoamingSettings.Values["dayfrom"] = _data.DayFrom;
             ApplicationData.Current.RoamingSettings.Values["daytill"] = _data.DayTill;
         }
@@ -129,6 +131,8 @@ namespace TurtleBay
             _data.Max = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["max"]);
             _data.From = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["from"]);
             _data.Till = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["till"]);
+            _data.From2 = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["from2"]);
+            _data.Till2 = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["till2"]);
             _data.DayFrom = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["dayfrom"]);
             _data.DayTill = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["daytill"]);
         }

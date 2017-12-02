@@ -45,6 +45,16 @@ namespace TurtleBay.Model
         private int _till;
 
         /// <summary>
+        /// Startzeit der UVB-Lampe
+        /// </summary>
+        private int _from2;
+
+        /// <summary>
+        /// Endzeit der UVB-Lampe
+        /// </summary>
+        private int _till2;
+
+        /// <summary>
         /// Endzeit des Tages
         /// </summary>
         private int _dayTill;
@@ -245,6 +255,44 @@ namespace TurtleBay.Model
                 if (_till != value)
                 {
                     _till = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Setzt oder liefert die Startzeit
+        /// </summary>
+        public int From2
+        {
+            get
+            {
+                return _from2;
+            }
+            set
+            {
+                if (_from2 != value)
+                {
+                    _from2 = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Setzt oder liefert die Endzeit
+        /// </summary>
+        public int Till2
+        {
+            get
+            {
+                return _till2;
+            }
+            set
+            {
+                if (_till2 != value)
+                {
+                    _till2 = value;
                     NotifyPropertyChanged();
                 }
             }

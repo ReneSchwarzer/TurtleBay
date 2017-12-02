@@ -179,3 +179,4 @@ UpgradeLog*.htm
 *.rdl.data
 *.bim.layout
 *.bim_*.settings
+/src/uwp/.vs/TurtleBay/v15/sqlite3/storage.ide

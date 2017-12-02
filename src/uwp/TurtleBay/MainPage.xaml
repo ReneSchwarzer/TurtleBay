@@ -125,6 +125,8 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="80"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -168,26 +170,40 @@
                             <TextBlock Text="°C" Margin="3" VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        <TextBlock Text="Startzeitpunkt Scheinwerfer:" Grid.Column="0" Grid.Row="5" Margin="3" VerticalAlignment="Center"/>
+                        <TextBlock Text="Startzeitpunkt 1 Scheinwerfer:" Grid.Column="0" Grid.Row="5" Margin="3" VerticalAlignment="Center"/>
                         <Slider Value="{Binding From, Mode=TwoWay}" Grid.Column="1" Grid.Row="5" Margin="3" VerticalAlignment="Center" Minimum="0" Maximum="{Binding Till}" Foreground="Goldenrod"/>
                         <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="5">
                             <TextBlock Text="{Binding From}" Margin="3" VerticalAlignment="Center"/>
                             <TextBlock Text="Uhr" Margin="3" VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        <TextBlock Text="Endzeitpunkt Scheinwerfer:" Grid.Column="0" Grid.Row="6" Margin="3" VerticalAlignment="Center"/>
+                        <TextBlock Text="Endzeitpunkt 1 Scheinwerfer:" Grid.Column="0" Grid.Row="6" Margin="3" VerticalAlignment="Center"/>
                         <Slider Value="{Binding Till, Mode=TwoWay}" Grid.Column="1" Grid.Row="6" Margin="3" VerticalAlignment="Center" Minimum="{Binding From}" Maximum="23" Foreground="Goldenrod"/>
                         <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="6">
                             <TextBlock Text="{Binding Till}" Margin="3" VerticalAlignment="Center"/>
                             <TextBlock Text="Uhr" Margin="3" VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="0" Grid.Row="7" Orientation="Horizontal">
+                        <TextBlock Text="Startzeitpunkt 2 Scheinwerfer:" Grid.Column="0" Grid.Row="7" Margin="3" VerticalAlignment="Center"/>
+                        <Slider Value="{Binding From2, Mode=TwoWay}" Grid.Column="1" Grid.Row="7" Margin="3" VerticalAlignment="Center" Minimum="0" Maximum="{Binding Till2}" Foreground="Goldenrod"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="7">
+                            <TextBlock Text="{Binding From2}" Margin="3" VerticalAlignment="Center"/>
+                            <TextBlock Text="Uhr" Margin="3" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Endzeitpunkt 2 Scheinwerfer:" Grid.Column="0" Grid.Row="8" Margin="3" VerticalAlignment="Center"/>
+                        <Slider Value="{Binding Till2, Mode=TwoWay}" Grid.Column="1" Grid.Row="8" Margin="3" VerticalAlignment="Center" Minimum="{Binding From2}" Maximum="23" Foreground="Goldenrod"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="8">
+                            <TextBlock Text="{Binding Till2}" Margin="3" VerticalAlignment="Center"/>
+                            <TextBlock Text="Uhr" Margin="3" VerticalAlignment="Center"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0" Grid.Row="9" Orientation="Horizontal">
                             <Button Content="Speichern" Click="OnSaveSettings" Margin="3"  />
                             <Button Content="Zurücksetzen" Click="OnResetSettings" Margin="3"  />
                         </StackPanel>
 
-                        <TextBlock TextWrapping="Wrap" Text="{Binding Now}" TextAlignment="Center" FontSize="12" Grid.Column="2" Grid.Row="8" Margin="6" FontWeight="Bold" FontFamily="Courier New" Foreground="Gray" VerticalAlignment="Bottom"/>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding Now}" TextAlignment="Center" FontSize="12" Grid.Column="2" Grid.Row="10" Margin="6" FontWeight="Bold" FontFamily="Courier New" Foreground="Gray" VerticalAlignment="Bottom"/>
 
                     </Grid>
                 </ScrollViewer>
