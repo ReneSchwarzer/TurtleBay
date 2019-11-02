@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.SerialCommunication;
@@ -12,7 +10,7 @@ using Windows.Storage.Streams;
 /// </summary>
 namespace DS18B201WireLib
 {
-    class WireSearchResult
+    internal class WireSearchResult
     {
         public byte[] id = new byte[8];
         public int lastForkPoint = 0;
@@ -21,14 +19,14 @@ namespace DS18B201WireLib
     public class OneWire
     {
         private SerialDevice serialPort = null;
-        DataWriter dataWriteObject = null;
-        DataReader dataReaderObject = null;
+        private DataWriter dataWriteObject = null;
+        private DataReader dataReaderObject = null;
 
         public async Task<string> GetFirstSerialPort()
         {
             try
             {
-                string aqs = SerialDevice.GetDeviceSelector();
+                var aqs = SerialDevice.GetDeviceSelector();
                 var dis = await DeviceInformation.FindAllAsync(aqs);
                 if (dis.Count > 0)
                 {
@@ -53,12 +51,14 @@ namespace DS18B201WireLib
             }
         }
 
-        async Task<bool> OnewireReset(string deviceId)
+        private async Task<bool> OnewireReset(string deviceId)
         {
             try
             {
                 if (serialPort != null)
+                {
                     serialPort.Dispose();
+                }
 
                 serialPort = await SerialDevice.FromIdAsync(deviceId);
 
@@ -77,7 +77,7 @@ namespace DS18B201WireLib
 
                 dataReaderObject = new DataReader(serialPort.InputStream);
                 await dataReaderObject.LoadAsync(1);
-                byte resp = dataReaderObject.ReadByte();
+                var resp = dataReaderObject.ReadByte();
                 if (resp == 0xFF)
                 {
                     System.Diagnostics.Debug.WriteLine("Nothing connected to UART");
@@ -107,9 +107,9 @@ namespace DS18B201WireLib
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
+                //System.Diagnostics.Debug.WriteLine("Exception: " + ex.Message);
                 return false;
             }
         }
@@ -124,7 +124,7 @@ namespace DS18B201WireLib
             }
         }
 
-        async Task<byte> OnewireBit(byte b)
+        private async Task<byte> OnewireBit(byte b)
         {
             var bit = b > 0 ? 0xFF : 0x00;
             dataWriteObject.WriteByte((byte)bit);
@@ -134,7 +134,7 @@ namespace DS18B201WireLib
             return (byte)(data & 0xFF);
         }
 
-        async Task<byte> OnewireReadByte()
+        private async Task<byte> OnewireReadByte()
         {
             byte b = 0;
             for (byte i = 0; i < 8; i++)
@@ -142,10 +142,15 @@ namespace DS18B201WireLib
                 // Build up byte bit by bit, LSB first
                 b = (byte)((b >> 1) + 0x80 * await OnewireBit(1));
             }
-            System.Diagnostics.Debug.WriteLine("onewireReadByte result: " + b);
+            //System.Diagnostics.Debug.WriteLine("onewireReadByte result: " + b);
             return b;
         }
 
+        /// <summary>
+        /// Ermittle die aktuelle Temperatur
+        /// </summary>
+        /// <param name="deviceId">Die DeviceID des Temperaturfühlers</param>
+        /// <returns>Die Temperatur in °C</returns>
         public async Task<double> GetTemperature(string deviceId)
         {
             double tempCelsius = 0;
@@ -168,18 +173,19 @@ namespace DS18B201WireLib
                                               // DS18B20 will transmit 9 bytes to master (us)
                                               // starting with the LSB
 
-                byte tempLSB = await OnewireReadByte(); //read lsb
-                byte tempMSB = await OnewireReadByte(); //read msb
+                var tempLSB = await OnewireReadByte(); //read lsb
+                var tempMSB = await OnewireReadByte(); //read msb
 
                 // Reset bus to stop sensor sending unwanted data
                 await OnewireReset(deviceId);
 
                 // Log the Celsius temperature
                 tempCelsius = ((tempMSB * 256) + tempLSB) / 16.0;
-                var temp2 = ((tempMSB << 8) + tempLSB) * 0.0625; //just another way of calculating it
+                //var temp2 = ((tempMSB << 8) + tempLSB) * 0.0625; //just another way of calculating it
 
-                System.Diagnostics.Debug.WriteLine("Temperature: " + tempCelsius + " degrees C " + temp2);
+                //System.Diagnostics.Debug.WriteLine("Temperature: " + tempCelsius + " degrees C " + temp2);
             }
+
             return tempCelsius;
         }
     }

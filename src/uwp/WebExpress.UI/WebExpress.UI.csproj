@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{56A8E697-27E5-4FDE-BCF4-84EA9A8FB2A1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebExpress.UI</RootNamespace>
+    <AssemblyName>WebExpress.UI</AssemblyName>
+    <DefaultLanguage>de-DE</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Controls\Control.cs" />
+    <Compile Include="Controls\ControlArlert.cs" />
+    <Compile Include="Controls\ControlAvatar.cs" />
+    <Compile Include="Controls\ControlBadge.cs" />
+    <Compile Include="Controls\ControlBreadcrumb.cs" />
+    <Compile Include="Controls\ControlButton.cs" />
+    <Compile Include="Controls\ControlButtonLink.cs" />
+    <Compile Include="Controls\ControlCard.cs" />
+    <Compile Include="Controls\ControlCardCounter.cs" />
+    <Compile Include="Controls\ControlDropdownMenu.cs" />
+    <Compile Include="Controls\ControlDropdownMenuHeader.cs" />
+    <Compile Include="Controls\ControlFoot.cs" />
+    <Compile Include="Controls\ControlFormularItem.cs" />
+    <Compile Include="Controls\ControlFormularItemButton.cs" />
+    <Compile Include="Controls\ControlFormularItemCheckbox.cs" />
+    <Compile Include="Controls\ControlFormularItemComboBox.cs" />
+    <Compile Include="Controls\ControlFormularItemComboBoxItem.cs" />
+    <Compile Include="Controls\ControlFormularItemDatepicker.cs" />
+    <Compile Include="Controls\ControlFormularItemInput.cs" />
+    <Compile Include="Controls\ControlFormularItemInputPrepend.cs" />
+    <Compile Include="Controls\ControlFormularItemLabel.cs" />
+    <Compile Include="Controls\ControlFormularItemRadio.cs" />
+    <Compile Include="Controls\ControlFormularItemStaticText.cs" />
+    <Compile Include="Controls\ControlFormularItemTextBox.cs" />
+    <Compile Include="Controls\ControlFormularLabelGroup.cs" />
+    <Compile Include="Controls\ControlGrid.cs" />
+    <Compile Include="Controls\ControlHamburgerMenu.cs" />
+    <Compile Include="Controls\ControlLine.cs" />
+    <Compile Include="Controls\ControlLink.cs" />
+    <Compile Include="Controls\ControlList.cs" />
+    <Compile Include="Controls\ControlListItem.cs" />
+    <Compile Include="Controls\ControlModal.cs" />
+    <Compile Include="Controls\ControlModalForm.cs" />
+    <Compile Include="Controls\ControlMultipleProgressBar.cs" />
+    <Compile Include="Controls\ControlMultipleProgressBarItem.cs" />
+    <Compile Include="Controls\ControlPagination.cs" />
+    <Compile Include="Controls\ControlPanelHeader.cs" />
+    <Compile Include="Controls\ControlPanel.cs" />
+    <Compile Include="Controls\ControlPanelDialog.cs" />
+    <Compile Include="Controls\ControlPanelFilter.cs" />
+    <Compile Include="Controls\ControlPanelFormular.cs" />
+    <Compile Include="Controls\ControlPanelMain.cs" />
+    <Compile Include="Controls\ControlPanelNavbar.cs" />
+    <Compile Include="Controls\ControlPanelNotification.cs" />
+    <Compile Include="Controls\ControlProgressBar.cs" />
+    <Compile Include="Controls\ControlSplitButton.cs" />
+    <Compile Include="Controls\ControlSplitButtonLink.cs" />
+    <Compile Include="Controls\ControlPanelCenter.cs" />
+    <Compile Include="Controls\ControlTab.cs" />
+    <Compile Include="Controls\ControlTable.cs" />
+    <Compile Include="Controls\ControlTableColumn.cs" />
+    <Compile Include="Controls\ControlTableRow.cs" />
+    <Compile Include="Controls\ControlTableSortable.cs" />
+    <Compile Include="Controls\ControlTag.cs" />
+    <Compile Include="Controls\ControlImage.cs" />
+    <Compile Include="Controls\ControlText.cs" />
+    <Compile Include="Controls\ControlTimeline.cs" />
+    <Compile Include="Controls\ControlTimelineComment.cs" />
+    <Compile Include="Controls\ControlTimelineItem.cs" />
+    <Compile Include="Controls\ControlToolBar.cs" />
+    <Compile Include="Controls\IControl.cs" />
+    <Compile Include="Controls\IControlFormular.cs" />
+    <Compile Include="Controls\IControlFormularLabel.cs" />
+    <Compile Include="Controls\TypesBackgroundColor.cs" />
+    <Compile Include="Controls\TypesEditTextFormat.cs" />
+    <Compile Include="Controls\TypesHorizontalAlignment.cs" />
+    <Compile Include="Controls\TypesInputValidity.cs" />
+    <Compile Include="Controls\TypesLayoutAlert.cs" />
+    <Compile Include="Controls\TypesLayoutBadge.cs" />
+    <Compile Include="Controls\TypesLayoutButton.cs" />
+    <Compile Include="Controls\TypesLayoutCard.cs" />
+    <Compile Include="Controls\TypesLayoutForm.cs" />
+    <Compile Include="Controls\TypesLayoutList.cs" />
+    <Compile Include="Controls\TypesLayoutProgressBar.cs" />
+    <Compile Include="Controls\TypesLayoutTab.cs" />
+    <Compile Include="Controls\TypesLayoutTableRow.cs" />
+    <Compile Include="Controls\TypesProgressBarFormat.cs" />
+    <Compile Include="Controls\TypesSize.cs" />
+    <Compile Include="Controls\TypesTabHorizontalAlignment.cs" />
+    <Compile Include="Controls\TypesTextColor.cs" />
+    <Compile Include="Controls\TypesTextFormat.cs" />
+    <Compile Include="Controls\ValidationEventArgs.cs" />
+    <Compile Include="Controls\ValidationResult.cs" />
+    <Compile Include="Pages\PageBlank.cs" />
+    <Compile Include="Pages\PageTemplateWebApp.cs" />
+    <Compile Include="Pages\PageTemplate.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\JQuerry.cs" />
+    <Compile Include="Scripts\JQuerryBool.cs" />
+    <Compile Include="Scripts\JQuerryIs.cs" />
+    <Compile Include="Scripts\JQuerryIsChecked.cs" />
+    <Compile Include="Scripts\JQuerryOn.cs" />
+    <Compile Include="Scripts\JQuerryOnChange.cs" />
+    <Compile Include="Scripts\JQuerryPropperty.cs" />
+    <Compile Include="Scripts\JQuerryProppertyChecked.cs" />
+    <Compile Include="Scripts\JQuerryProppertyDisabled.cs" />
+    <EmbeddedResource Include="Properties\WebExpress.Pages.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.0.6</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\css\bootstrap-datepicker3.min.css" />
+    <Content Include="Assets\css\bootstrap.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\css\express.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\css\express.form.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\css\fa-solid.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\css\fontawesome.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\css\summernote-bs4.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\fonts\fa-brands-400.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\fonts\fa-regular-400.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\fonts\fa-solid-900.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\js\bootstrap-datepicker.de.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\js\bootstrap-datepicker.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\js\bootstrap.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\js\jquery-3.3.1.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\js\popper.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\js\summernote-bs4.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\js\summernote-de-DE.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\fonts\fa-brands-400.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Assets\fonts\fa-brands-400.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Assets\fonts\fa-brands-400.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\fonts\fa-brands-400.woff2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\fonts\fa-regular-400.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Assets\fonts\fa-regular-400.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Assets\fonts\fa-regular-400.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\fonts\fa-regular-400.woff2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\fonts\fa-solid-900.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Assets\fonts\fa-solid-900.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Assets\fonts\fa-solid-900.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\fonts\fa-solid-900.woff2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Assets\fonts\summernote.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Assets\fonts\summernote.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Assets\fonts\summernote.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebExpress\WebExpress.csproj">
+      <Project>{d8312de4-87d8-488c-a684-efb565292b24}</Project>
+      <Name>WebExpress</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
