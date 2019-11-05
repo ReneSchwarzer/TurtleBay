@@ -130,6 +130,7 @@
     <Content Include="Assets\fonts\fa-brands-400.svg" />
     <Content Include="Assets\fonts\fa-regular-400.svg" />
     <Content Include="Assets\fonts\fa-solid-900.svg" />
+    <Content Include="Assets\img\Favicon.png" />
     <Content Include="Assets\img\Logo.png" />
     <Content Include="Assets\img\Reboot.png" />
     <Content Include="Assets\img\Turtle.png" />
@@ -186,7 +187,11 @@
       <Name>WebExpress</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="WindowsIoT, Version=10.0.16299.0">
+      <Name>Windows IoT Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0' ">
     <VisualStudioVersion>15.0</VisualStudioVersion>
   </PropertyGroup>

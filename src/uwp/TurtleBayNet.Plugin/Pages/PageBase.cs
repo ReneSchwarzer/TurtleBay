@@ -16,9 +16,14 @@ namespace TurtleBayNet.Plugin.Pages
         public PageBase(string title)
             : base()
         {
-            Title = title;
+            Title = "TurtleBay";
 
-            Favicons.Add(new Favicon("/Assets/img/Logo.png", TypesFavicon.PNG));
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                Title += " - " + title;
+            }
+            
+            Favicons.Add(new Favicon("/Assets/img/Favicon.png", TypesFavicon.PNG));
         }
 
         /// <summary>

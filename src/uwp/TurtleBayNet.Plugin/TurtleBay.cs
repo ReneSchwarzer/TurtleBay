@@ -25,6 +25,8 @@ namespace TurtleBayNet.Plugin
         /// <param name="configFileName">Der Dateiname der Konfiguration oder null</param>
         public override void Init(string configFileName)
         {
+            ViewModel.Instance.Logging.Add(new LogItem(LogItem.LogLevel.Info, "TurtleBay initialisierung"));
+
             Register(new WorkerFile(new Path("", "Assets/.*"), ApplicationData.Current.LocalFolder.Path));
 
             var root = new VariationPath("dashboard", new PathItem("Zentrale"));
@@ -36,6 +38,7 @@ namespace TurtleBayNet.Plugin
             var reset = new VariationPath(root, "reset", new PathItem("Reset", "reset"));
             var reboot = new VariationPath(root, "reboot", new PathItem("Reboot", "reboot"));
             var api = new VariationPath(root, "api", new PathItem("API", "api"));
+            var debug = new VariationPath(root, "debug", new PathItem("Debug", "debug"));
 
             root.GetUrls("Zentrale").ForEach(x => Register(new WorkerPage<PageDashboard>(x) { }));
             history.GetUrls("Verlauf").ForEach(x => Register(new WorkerPage<PageHistory>(x) { }));
@@ -46,6 +49,7 @@ namespace TurtleBayNet.Plugin
             reset.GetUrls("Reset").ForEach(x => Register(new WorkerPage<PageReset>(x) { }));
             reboot.GetUrls("Reboot").ForEach(x => Register(new WorkerPage<PageReboot>(x) { }));
             api.GetUrls("API").ForEach(x => Register(new WorkerPage<PageApiBase>(x) { }));
+            debug.GetUrls("Debug").ForEach(x => Register(new WorkerPage<PageDebug>(x) { }));
 
             Task.Run(() => { Run(); });
         }
@@ -58,9 +62,14 @@ namespace TurtleBayNet.Plugin
             // Loop
             while (true)
             {
-                Update();
-
-                Thread.Sleep(5000);
+                try
+                {
+                    Update();
+                }
+                finally
+                {
+                    Thread.Sleep(5000);
+                }
             }
         }
 

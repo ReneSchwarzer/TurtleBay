@@ -59,5 +59,11 @@
 
   <Capabilities>
     <Capability Name="internetClientServer"/>
-    <iot:Capability Name="systemManagement"/></Capabilities>
+    <iot:Capability Name="systemManagement"/>
+    <DeviceCapability Name="serialcommunication">
+      <Device Id="any">
+        <Function Type="name:serialPort" />
+      </Device>
+    </DeviceCapability>
+  </Capabilities>
 </Package>

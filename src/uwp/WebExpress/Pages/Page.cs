@@ -96,7 +96,8 @@ namespace WebExpress.Pages
 
             Meta = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("charset", "UTF-8")
+                new KeyValuePair<string, string>("charset", "UTF-8"),
+                new KeyValuePair<string, string>("viewport", "width=device-width, initial-scale=1")
             };
         }
 

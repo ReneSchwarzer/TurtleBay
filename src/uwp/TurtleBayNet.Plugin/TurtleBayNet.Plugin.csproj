@@ -131,6 +131,7 @@
     <Compile Include="Pages\PageBase.cs" />
     <Compile Include="Pages\PageLog.cs" />
     <Compile Include="Pages\PageReboot.cs" />
+    <Compile Include="Pages\PageDebug.cs" />
     <Compile Include="Pages\PageReset.cs" />
     <Compile Include="Pages\PageInfo.cs" />
     <Compile Include="Pages\PageSettings.cs" />

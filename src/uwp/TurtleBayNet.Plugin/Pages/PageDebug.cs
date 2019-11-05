@@ -1,15 +1,14 @@
 ﻿using TurtleBayNet.Plugin.Model;
-using WebExpress.UI.Controls;
 
 namespace TurtleBayNet.Plugin.Pages
 {
-    public sealed class PageDS18B201 : PageBase
+    public sealed class PageDebug : PageBase
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageDS18B201()
-            : base("DS18B201")
+        public PageDebug()
+            : base("Debug")
         {
         }
 
@@ -28,8 +27,9 @@ namespace TurtleBayNet.Plugin.Pages
         {
             base.Process();
 
-            Main.Content.Add(new ControlText(this) { Text = string.Format("GeräteID der seriellen Verbindung: {0}", ViewModel.Instance.DeviceId) });
-            Main.Content.Add(new ControlText(this) { Text = string.Format("Aktuelle Temperatur: {0} °C", ViewModel.Instance.Temperature) });
+            ViewModel.Instance.DebugMode = !ViewModel.Instance.DebugMode;
+
+            Redirecting("/log");
         }
 
         /// <summary>

@@ -63,18 +63,33 @@ namespace TurtleBayNet.Plugin.Pages
                 return "";
             };
 
-            foreach (var v in ViewModel.Instance.Logging.OrderByDescending(x => x.Time))
+            var log = ViewModel.Instance.Logging;
+
+            if (!ViewModel.Instance.DebugMode)
+            {
+                log = log.Where(x => !(x.Level == LogItem.LogLevel.Debug || x.Level == LogItem.LogLevel.Exception)).ToList();
+            }
+
+            foreach (var v in log.OrderByDescending(x => x.Time))
             {
                 var row = new ControlTableRow(this) { };
                 row.Cells.Add(new ControlText(this) { Class = func(v.Level) });
                 row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.Instance) });
                 row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.Massage) });
-                row.Cells.Add(new ControlText(this) { Text = string.Format("{0} {1}", v.Time.ToShortDateString(), v.Time.ToShortTimeString()) });
+                row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.Time.ToString("dd.MM.yyyy HH.mm.ss.f")) });
 
                 table.Rows.Add(row);
             }
 
             Main.Content.Add(table);
+            Main.Content.Add(new ControlPanelCenter(this, new ControlButtonLink(this)
+            {
+                Text = ViewModel.Instance.DebugMode ? "Debug-Ausgaben ausblenden" : "Debug-Ausgaben einblenden",
+                Icon = "fas fa-bug",
+                Color = TypesTextColor.Warning,
+                Url = "/debug",
+                Class = "m-3"
+            })); ;
         }
 
         /// <summary>

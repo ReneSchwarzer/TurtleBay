@@ -33,13 +33,27 @@ namespace TurtleBayNet.Plugin.Pages
 
             var grid = new ControlGrid(this) { Fluid = true };
 
+            var layout = TypesLayoutCard.Success;
+            if (double.IsNaN(ViewModel.Instance.Temperature))
+            {
+                layout = TypesLayoutCard.Danger;
+            }
+            else if(ViewModel.Instance.Temperature < ViewModel.Instance.Min)
+            {
+                layout = TypesLayoutCard.Warning;
+            }
+            else if (ViewModel.Instance.Temperature > ViewModel.Instance.Max)
+            {
+                layout = TypesLayoutCard.Danger;
+            }
+
             grid.Add(0, new ControlCardCounter(this)
             {
                 Text = "Aktuelle Temperatur",
-                Value = string.Format("{0} °C", ViewModel.Instance.Temperature),
+                Value = string.Format("{0} °C", ViewModel.Instance.Temperature.ToString("0.0")),
                 Icon = "fas fa-thermometer-quarter",
                 Color = TypesTextColor.White,
-                Layout = ViewModel.Instance.Temperature < ViewModel.Instance.Min || ViewModel.Instance.Temperature > ViewModel.Instance.Max ? TypesLayoutCard.Danger : TypesLayoutCard.Success
+                Layout = layout
             });
 
             grid.Add(0, new ControlCardCounter(this)

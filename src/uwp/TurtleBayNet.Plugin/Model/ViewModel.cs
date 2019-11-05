@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 using Windows.Storage;
 using Windows.System;
@@ -78,16 +80,26 @@ namespace TurtleBayNet.Plugin.Model
         /// Liefert oder setzt die Zeit des letzen Aufruf der Updatefunktion
         /// </summary>
         private DateTime _lastUpdate;
-
-        private TimeSpan _heatingCount;
-        private TimeSpan _lightingCount;
-
-        private readonly DateTime _start = DateTime.Now;
+        
+        // <summary>
+        /// Liefert oder setzt die Zeit des letzen auslesen der Temperatur
+        /// </summary>
+        private DateTime _lastMetering;
 
         /// <summary>
-        /// Zeitspanne beim Auftreten eines Fehlers
+        /// Liefert oder setzt die Einschaltdauer der Heizung 
         /// </summary>
-        private TimeSpan _diagnosticErrorTimeSpan = new TimeSpan();
+        private TimeSpan _heatingCount;
+
+        /// <summary>
+        /// Liefert oder setzt die Einschaltdauer des Scheinwerfers 
+        /// </summary>
+        private TimeSpan _lightingCount;
+
+        /// <summary>
+        /// Liefert oder setzt die Startzeit
+        /// </summary>
+        private readonly DateTime _start = DateTime.Now;
 
         /// <summary>
         /// Der GPIO-Pin, welcher die StatusLED steuert
@@ -105,11 +117,6 @@ namespace TurtleBayNet.Plugin.Model
         private GpioPin _heatingPin;
 
         /// <summary>
-        /// Die 1Wire-Schnittstelle
-        /// </summary>
-        private OneWire _onewire;
-
-        /// <summary>
         /// Die ID des Temperaturfühlers DS18B20
         /// </summary>
         private string _deviceId = string.Empty;
@@ -117,7 +124,7 @@ namespace TurtleBayNet.Plugin.Model
         /// <summary>
         /// Instanz des einzigen Modells
         /// </summary>
-        private static ViewModel m_this = null;
+        private static ViewModel _this = null;
 
         /// <summary>
         /// Lifert die einzige Instanz der Modell-Klasse
@@ -126,12 +133,12 @@ namespace TurtleBayNet.Plugin.Model
         {
             get
             {
-                if (m_this == null)
+                if (_this == null)
                 {
-                    m_this = new ViewModel();
+                    _this = new ViewModel();
                 }
 
-                return m_this;
+                return _this;
             }
         }
 
@@ -163,12 +170,12 @@ namespace TurtleBayNet.Plugin.Model
                 _heatingPin.SetDriveMode(GpioPinDriveMode.Output);
 
                 Logging.Add(new LogItem(LogItem.LogLevel.Info, "GpioController gestartet"));
-                Logging.Add(new LogItem(LogItem.LogLevel.Info, "StatusPin " + _statusPin.PinNumber));
-                Logging.Add(new LogItem(LogItem.LogLevel.Info, "LightingPin " + _lightingPin.PinNumber));
-                Logging.Add(new LogItem(LogItem.LogLevel.Info, "HeatingPin " + _heatingPin.PinNumber));
+                Logging.Add(new LogItem(LogItem.LogLevel.Debug, "StatusPin " + _statusPin.PinNumber));
+                Logging.Add(new LogItem(LogItem.LogLevel.Debug, "LightingPin " + _lightingPin.PinNumber));
+                Logging.Add(new LogItem(LogItem.LogLevel.Debug, "HeatingPin " + _heatingPin.PinNumber));
             }
 
-            _onewire = new OneWire();
+            InitAsync();
 
             NightMin = 10; // °C
             DayMin = 15; // °C
@@ -195,18 +202,28 @@ namespace TurtleBayNet.Plugin.Model
 
                 for (var i = 24; i >= 0; i--)
                 {
+                    var temp = 0;
+                    var t = ApplicationData.Current.RoamingSettings.Values["h" + i];
+                    
+                    if (t != null)
+                    {
+                        double dt = Convert.ToDouble(t);
+                        if (!double.IsNaN(dt))
+                        {
+                            temp = (int)dt;
+                        }
+                    }
+
                     Chart24h.Add(new ChartData()
                     {
                         Time = time,
-                        Temperature = ApplicationData.Current.RoamingSettings.Values["h" + i] != null ? Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["h" + i]) : 0,
+                        Temperature = temp,
                         HeatingCount = ApplicationData.Current.RoamingSettings.Values["heatingCount" + i] != null ? Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["heatingCount" + i]) : 0,
                         LightingCount = ApplicationData.Current.RoamingSettings.Values["lightingCount" + i] != null ? Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["lightingCount" + i]) : 0
                     });
 
                     time = time.AddHours(1);
                 }
-
-                UpdateAsync();
             }
             catch (Exception ex)
             {
@@ -224,7 +241,8 @@ namespace TurtleBayNet.Plugin.Model
             Lighting = false;
             Heating = false;
 
-            _deviceId = await _onewire.GetFirstSerialPort();
+            _deviceId = await OneWire.GetDeviceID();
+            Logging.Add(new LogItem(LogItem.LogLevel.Debug, "Ermittle die DeviceId" + _deviceId));
         }
 
         /// <summary>
@@ -234,7 +252,18 @@ namespace TurtleBayNet.Plugin.Model
         {
             try
             {
-                Temperature = await _onewire.GetTemperature(_deviceId);
+                if (_lastMetering == null || (DateTime.Now - _lastMetering).TotalSeconds > 60)
+                {
+                    _lastMetering = DateTime.Now;
+                    var hash = Guid.NewGuid();
+
+                    Action<string> logging = (l) =>
+                    {
+                        Logging.Add(new LogItem(LogItem.LogLevel.Debug, l.Replace(" ", "&nbsp;"), hash.GetHashCode().ToString("X")));
+                    };
+
+                    Temperature = await OneWire.Instance.GetTemperature(logging);
+                }
             }
             catch (Exception ex)
             {
@@ -246,7 +275,7 @@ namespace TurtleBayNet.Plugin.Model
 
             if (Logging.Count > 10000)
             {
-                Logging.RemoveAt(0);
+                Logging.RemoveRange(0, 100);
             }
 
             try
@@ -312,19 +341,9 @@ namespace TurtleBayNet.Plugin.Model
             }
 
             // Fehlerdiagnose und Selbstreperatur
-            if (_diagnosticErrorTimeSpan.TotalMinutes > 10)
+            if (Logging.Where(x => x.Level == LogItem.LogLevel.Exception || x.Level == LogItem.LogLevel.Error).Count() > 500)
             {
                 Reboot();
-                _diagnosticErrorTimeSpan = new TimeSpan();
-            }
-
-            if (Logging.Where(x => x.Level == LogItem.LogLevel.Exception || x.Level == LogItem.LogLevel.Error).Count() > 0)
-            {
-                _diagnosticErrorTimeSpan += now - _lastUpdate;
-            }
-            else
-            {
-                _diagnosticErrorTimeSpan = new TimeSpan();
             }
 
             _lastUpdate = DateTime.Now;
@@ -337,6 +356,33 @@ namespace TurtleBayNet.Plugin.Model
         protected void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Liefert oder setzt den Debug-Modus
+        /// </summary>
+        public bool DebugMode
+        {
+            get
+            {
+                try
+                {
+                    var debugMode = Convert.ToBoolean(ApplicationData.Current.RoamingSettings.Values["debugmode"].ToString());
+                    return debugMode;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            set
+            {
+                if (DebugMode != value)
+                {
+                    ApplicationData.Current.RoamingSettings.Values["debugmode"] = value;
+                    NotifyPropertyChanged();
+                }
+            }
         }
 
         /// <summary>
@@ -819,14 +865,25 @@ namespace TurtleBayNet.Plugin.Model
 
             // Konfiguration laden
             NightMin = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["nightmin"]);
+            Logging.Add(new LogItem(LogItem.LogLevel.Debug, "NightMin = " + NightMin + " °C"));
             DayMin = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["daymin"]);
+            Logging.Add(new LogItem(LogItem.LogLevel.Debug, "DayMin = " + DayMin + " °C"));
             Max = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["max"]);
+            Logging.Add(new LogItem(LogItem.LogLevel.Debug, "Max = " + Max + " °C"));
             From = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["from"]);
+            Logging.Add(new LogItem(LogItem.LogLevel.Debug, "From = " + From + " Uhr"));
             Till = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["till"]);
+            Logging.Add(new LogItem(LogItem.LogLevel.Debug, "Till = " + Till + " Uhr"));
             From2 = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["from2"]);
+            Logging.Add(new LogItem(LogItem.LogLevel.Debug, "From2 = " + From2 + " Uhr"));
             Till2 = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["till2"]);
+            Logging.Add(new LogItem(LogItem.LogLevel.Debug, "Till2 = " + Till2 + " Uhr"));
             DayFrom = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["dayfrom"]);
+            Logging.Add(new LogItem(LogItem.LogLevel.Debug, "DayFrom = " + DayFrom + " Uhr"));
             DayTill = Convert.ToInt32(ApplicationData.Current.RoamingSettings.Values["daytill"]);
+            Logging.Add(new LogItem(LogItem.LogLevel.Debug, "DayTill = " + DayTill + " Uhr"));
+
+
         }
 
         /// <summary>

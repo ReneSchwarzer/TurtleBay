@@ -10,7 +10,7 @@ namespace TurtleBayNet.Plugin.Pages
         /// Konstruktor
         /// </summary>
         public PageInfo()
-            : base("TurtleBay")
+            : base("")
         {
         }
 
