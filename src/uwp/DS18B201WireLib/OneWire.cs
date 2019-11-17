@@ -21,11 +21,6 @@ namespace DS18B201WireLib
         private readonly byte FunctionCommand_READ_SCRATCHPAD = 0xBE;
 
         /// <summary>
-        /// Das SerialDevice
-        /// </summary>
-        private readonly SerialDevice _serialPort = null;
-
-        /// <summary>
         /// Instanz des einzigen Modells
         /// </summary>
         private static OneWire _this = null;
@@ -58,9 +53,6 @@ namespace DS18B201WireLib
         {
             var task = GetDeviceID();
             DeviceId = task.Result;
-
-            var t = CreateSerialPortAsync(DeviceId);
-            _serialPort = t.Result;
         }
 
         /// <summary>
@@ -172,101 +164,117 @@ namespace DS18B201WireLib
 
             log("OneWire: GetTemperature >>>>>>>>>>>>>>>>>>");
 
-            if (_serialPort == null)
+            var serialPort = await CreateSerialPortAsync(DeviceId);
+            if (serialPort == null)
             {
                 log("OneWire: SerialPort wurde nicht erstellt");
                 return double.NaN;
             }
 
-            var writer = new DataWriter(_serialPort.OutputStream);
-            var reader = new DataReader(_serialPort.InputStream);
+            var writer = new DataWriter(serialPort.OutputStream);
+            var reader = new DataReader(serialPort.InputStream);
 
             try
             {
-                log("OneWire: 1. Initialisiere Temperaturermittlung auf dem DS18B20");
-                log("OneWire: 1.1. Initialisierung");
+                log("OneWire: Anfrage an DS18B20 um Temperatur zu ermitteln");
+                log("OneWire: Sende RESET Signal");
 
-                _serialPort.BaudRate = 9600;
+                serialPort.BaudRate = 9600;
                 writer.WriteByte(FunctionCommand_RESET);
                 await writer.StoreAsync();
 
+                log("OneWire: Empfange Presence Pulse");
                 await reader.LoadAsync(1);
                 var response = reader.ReadByte();
 
                 if (response == 0xFF)
                 {
-                    log("OneWire: 1.1.4. Keine Verbindung zum UART");
+                    log("OneWire: Keine Verbindung zum UART!");
 
                     return double.NaN;
                 }
                 else if (response == 0xF0)
                 {
-                    log("OneWire: 1.1.4. Es sind keine OnwWire-Geräte präsent");
+                    log("OneWire: Es sind keine OnwWire-Geräte präsent!");
 
                     return double.NaN;
                 }
 
-                _serialPort.BaudRate = 115200;
+                serialPort.BaudRate = 115200;
 
-                log("OneWire: 1.2. Sende SKIP ROM command an DS18B20");
+                log("OneWire: Sende SKIP ROM command an DS18B20");
                 await WriteByte(FunctionCommand_SKIP_ROM, writer, reader); 
 
-                log("OneWire: 1.3. Sende convert T command an DS18B20");
+                log("OneWire: Sende convert T command an DS18B20");
                 await WriteByte(FunctionCommand_CONVERT_T, writer, reader); 
 
                 // Warte für 750ms bis die Daten zusammen gesammelt sind
                 await Task.Delay(750);
 
-                log("OneWire: 2. Auslesen der Temperatur vom DS18B20");
-                log("OneWire: 2.1. Initialisierung");
+                log("OneWire: Auslesen der Temperatur vom DS18B20");
+                log("OneWire: Sende RESET Signal");
 
-                _serialPort.BaudRate = 9600;
+                serialPort.BaudRate = 9600;
                 writer.WriteByte(FunctionCommand_RESET);
                 await writer.StoreAsync();
 
+                log("OneWire: Empfange Presence Pulse");
                 await reader.LoadAsync(1);
                 response = reader.ReadByte();
 
                 if (response == 0xFF)
                 {
-                    log("OneWire: 2.1.4. Keine Verbindung zum UART");
+                    log("OneWire: Keine Verbindung zum UART!");
 
                     return double.NaN;
                 }
                 else if (response == 0xF0)
                 {
-                    log("OneWire: 2.1.4. Es sind keine OnwWire-Geräte präsent");
+                    log("OneWire: Es sind keine OnwWire-Geräte präsent!");
 
                     return double.NaN;
                 }
 
-                _serialPort.BaudRate = 115200;
+                serialPort.BaudRate = 115200;
 
-                log("OneWire: 2.2. Sende skip ROM command an DS18B20");
+                log("OneWire: Sende skip ROM command an DS18B20");
                 await WriteByte(FunctionCommand_SKIP_ROM, writer, reader); 
 
-                log("OneWire: 2.3. Sende read scratchpad command an DS18B20");
+                log("OneWire: Sende read scratchpad command an DS18B20");
                 await WriteByte(FunctionCommand_READ_SCRATCHPAD, writer, reader); 
 
                 var tempLSB = await ReadByte(writer, reader); // Lese lsb
-
                 var tempMSB = await ReadByte(writer, reader); // Lese msb
+                var thRegister = await ReadByte(writer, reader); // Lese Th Register
+                var tlRegister = await ReadByte(writer, reader); // Lese Tl Register
+                var configRegister = await ReadByte(writer, reader); // Lese Configguration Register
+                var reserved1 = await ReadByte(writer, reader); // 0xFF
+                var reserved2 = await ReadByte(writer, reader); //
+                var reserved3 = await ReadByte(writer, reader); // 0x10h
+                var crc = await ReadByte(writer, reader); // CRC
 
-                log("OneWire: 2.3. TempLSB = " + BitConverter.ToString(new byte[] { tempLSB }));
-                log("OneWire: 2.3. TempMSB = " + BitConverter.ToString(new byte[] { tempMSB }));
+                log("OneWire: Sende RESET Signal");
 
-                // Reset zum Anhalten des Sensors, damit nicht unerwünschte Daten gesendet werden
-                log("OneWire: 3. Senden des Reset-Signals zum Anhalten des Sensors");
-
+                serialPort.BaudRate = 9600;
                 writer.WriteByte(FunctionCommand_RESET);
                 await writer.StoreAsync();
+
+                log("OneWire: Empfange Presence Pulse");
                 await reader.LoadAsync(1);
                 response = reader.ReadByte();
 
+                log("OneWire: TempLSB = " + BitConverter.ToString(new byte[] { tempLSB }));
+                log("OneWire: TempMSB = " + BitConverter.ToString(new byte[] { tempMSB }));
+                log("OneWire: Th Register = " + BitConverter.ToString(new byte[] { thRegister }));
+                log("OneWire: Tl Register = " + BitConverter.ToString(new byte[] { tlRegister }));
+                log("OneWire: Config Register = " + BitConverter.ToString(new byte[] { configRegister }));
+                log("OneWire: Reserved1 (FFh) = " + BitConverter.ToString(new byte[] { reserved1 }));
+                log("OneWire: Reserved2 = " + BitConverter.ToString(new byte[] { reserved2 }));
+                log("OneWire: Reserved3 (10h)= " + BitConverter.ToString(new byte[] { reserved3 }));
+                log("OneWire: CRC = " + BitConverter.ToString(new byte[] { tempLSB }));
+
                 // Berechne die Temperatur
                 tempCelsius = ((tempMSB * 256) + tempLSB) / 16.0;
-                var temp2 = ((tempMSB << 8) + tempLSB) * 0.0625; //just another way of calculating it
-
                 log("OneWire: Die Temperatur beträgt " + tempCelsius + " °C");
             }
             catch (Exception ex)
@@ -279,6 +287,9 @@ namespace DS18B201WireLib
                 reader.DetachStream();
                 writer.Dispose();
                 reader.Dispose();
+
+                serialPort.BreakSignalState = true;
+                serialPort.Dispose();
 
                 log("OneWire: GetTemperature <<<<<<<<<<<<<<<<<<");
             }
