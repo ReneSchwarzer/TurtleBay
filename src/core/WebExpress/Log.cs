@@ -239,7 +239,7 @@ namespace WebExpress
             foreach (var l in message.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
             {
                 var item = new LogItem(level, instance, l, TimePattern);
-                Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString());
+                //Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString());
 
                 lock (m_queue)
                 {
@@ -273,7 +273,7 @@ namespace WebExpress
 #endif
 
                 //#if DEBUG
-                Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString());
+                //Console.WriteLine(item.ToString().Length > m_seperatorWidth ? item.ToString().Substring(0, m_seperatorWidth - 3) + "..." : item.ToString());
                 //#endif
 
                 lock (m_queue)
@@ -512,7 +512,7 @@ namespace WebExpress
         {
             while (!m_done)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(5000);
 
                 // Dateischreiben vor nebenläufigen Zugriff schützen
                 lock (m_path)

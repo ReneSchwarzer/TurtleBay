@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DS18B201WireLib\DS18B201WireLib.csproj" />
     <ProjectReference Include="..\WebExpress.UI\WebExpress.UI.csproj" />
     <ProjectReference Include="..\WebExpress\WebExpress.csproj" />
   </ItemGroup>

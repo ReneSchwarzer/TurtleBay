@@ -89,8 +89,6 @@ namespace TurtleBay.Plugin.Pages
         {
             base.Process();
 
-            Main.Content.Add(new ControlText(this) { Text = string.Format("GeräteID der seriellen Verbindung: {0}", ViewModel.Instance.PortName) });
-
             foreach (var v in ViewModel.Instance.Temperature)
             {
                 Main.Content.Add(new ControlText(this) { Text = string.Format("Aktuelle Temperatur des Sensors {0}: {1} °C", v.Key, v.Value) });

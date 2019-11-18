@@ -1,5 +1,4 @@
-﻿using DS18B201WireLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Device.Gpio;
 using System.Diagnostics;
@@ -78,11 +77,6 @@ namespace TurtleBay.Plugin.Model
         private bool _heating;
 
         /// <summary>
-        /// Der Portname der seriellen Verbindung
-        /// </summary>
-        private string _portName = string.Empty;
-
-        /// <summary>
         /// Liefert oder setzt die Settings
         /// </summary>
         public Settings Settings { get; private set; } = new Settings();
@@ -133,15 +127,7 @@ namespace TurtleBay.Plugin.Model
             try
             {
                 // Initialisierung des Controllers
-                GPIO = new GpioController(PinNumberingScheme.Board);
-            }
-            catch
-            {
-
-            }
-
-            if (GPIO != null)
-            {
+                GPIO = new GpioController(PinNumberingScheme.Logical);
                 GPIO.OpenPin(_statusPin, PinMode.Output);
                 GPIO.OpenPin(_lightingPin, PinMode.Output);
                 GPIO.OpenPin(_heatingPin, PinMode.Output);
@@ -151,13 +137,14 @@ namespace TurtleBay.Plugin.Model
                 Log(new LogItem(LogItem.LogLevel.Debug, "LightingPin " + _lightingPin));
                 Log(new LogItem(LogItem.LogLevel.Debug, "HeatingPin " + _heatingPin));
             }
+            catch
+            {
+
+            }
 
             Status = true;
             Lighting = false;
             Heating = false;
-
-            _portName = OneWire.GetPortName();
-            Log(new LogItem(LogItem.LogLevel.Debug, "Ermittle den Portnamen: " + _portName));
 
             Settings.NightMin = 10; // °C
             Settings.DayMin = 15; // °C
@@ -193,19 +180,14 @@ namespace TurtleBay.Plugin.Model
                         Log(new LogItem(LogItem.LogLevel.Debug, l.Replace(" ", "&nbsp;"), hash.GetHashCode().ToString("X")));
                     };
 
-                    //Temperature = OneWire.Instance.GetTemperature(logging);
                     Temperature = new Dictionary<string, double>();
 
                     foreach (var v in Directory.EnumerateDirectories("/sys/bus/w1/devices"))
                     {
-                        Log(new LogItem(LogItem.LogLevel.Debug, "Verarbeite " + v));
-
                         var regex = new Regex("[0-9]{2}-[0-9A-Fa-f]{12}");
                         if (regex.Match(Path.GetFileName(v)).Success)
                         {
                             var id = Path.GetFileName(v);
-                            Log(new LogItem(LogItem.LogLevel.Debug, string.Format("Temperatursensor '{0}' gefunden ", id)));
-
                             var file = File.ReadAllText(Path.Combine(v, "w1_slave"));
 
                             var tempRegex = new Regex("(t)=([0-9]{3,5})");
@@ -214,12 +196,10 @@ namespace TurtleBay.Plugin.Model
                             if (match.Success)
                             {
                                 var raw = match?.Groups[2]?.Value?.Trim();
-                                Log(new LogItem(LogItem.LogLevel.Debug, string.Format("Temperatursensor {0}: Raw '{1}'", id, raw)));
-
                                 var temp = Convert.ToDouble(raw) / 1000;
                                 Temperature.Add(id, temp);
                                 
-                                Log(new LogItem(LogItem.LogLevel.Debug, string.Format("Temperatursensor {0}: {1} °C", id, temp)));
+                                Log(new LogItem(LogItem.LogLevel.Debug, string.Format("Temperatursensor '{0}': {1} °C", id, temp)));
                             }
                         }
                     }
@@ -351,7 +331,6 @@ namespace TurtleBay.Plugin.Model
         /// <summary>
         /// Liefert oder setzt ob die Status-LED angeschaltet ist
         /// </summary>
-        [XmlIgnore]
         public virtual bool Status
         {
             get
@@ -465,12 +444,6 @@ namespace TurtleBay.Plugin.Model
         /// </summary>
         [XmlIgnore]
         public List<LogItem> Logging { get; set; } = new List<LogItem>();
-
-        /// <summary>
-        /// Liefert die den ProtNAmen der seriellen Verbindung
-        /// </summary>
-        [XmlIgnore]
-        public virtual string PortName => _portName;
 
         /// <summary>
         /// Liefert die aktuelle Zeit
@@ -655,10 +628,10 @@ namespace TurtleBay.Plugin.Model
             switch (logItem.Level)
             {
                 case LogItem.LogLevel.Info:
-                    Host.Context.Log.Info(logItem.Instance, logItem.Massage);
+                    //Host.Context.Log.Info(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Debug:
-                    Host.Context.Log.Debug(logItem.Instance, logItem.Massage);
+                    //Host.Context.Log.Debug(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Warning:
                     Host.Context.Log.Warning(logItem.Instance, logItem.Massage);
