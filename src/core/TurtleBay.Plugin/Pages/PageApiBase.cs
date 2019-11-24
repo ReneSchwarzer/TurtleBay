@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using TurtleBay.Plugin.Model;
 using WebExpress.Pages;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace TurtleBay.Plugin.Pages
 {
@@ -32,28 +34,24 @@ namespace TurtleBay.Plugin.Pages
         {
             base.Process();
 
-            var lines = new List<string>();
-            var subLines = new List<string>();
-
-            Action<string, string> a = (name, value) =>
-            {
-                subLines.Add(string.Format("  \"{0}\": \"{1}\"", name, value));
+            var api = new API()
+            { 
+                Temperature = ViewModel.Instance.PrimaryTemperature.ToString(),
+                Lighting = ViewModel.Instance.Lighting.ToString(),
+                Heating = ViewModel.Instance.Heating.ToString(),
+                LightingCounter = ViewModel.Instance.Statistic.LightingCounter.ToString(),
+                HeatingCounter = ViewModel.Instance.Statistic.HeatingCounter.ToString(),
+                Status = ViewModel.Instance.Status.ToString(),
+                ProgramCounter = ViewModel.Instance.ProgramCounter.ToString(),
+                Now = DateTime.Now.ToString()
             };
 
-            a("Temperature", ViewModel.Instance.Temperature.ToString());
-            a("Lighting", ViewModel.Instance.Lighting.ToString());
-            a("Heating", ViewModel.Instance.Heating.ToString());
-            a("LightingCounter", ViewModel.Instance.Statistic.LightingCounter.ToString());
-            a("HeatingCounter", ViewModel.Instance.Statistic.HeatingCounter.ToString());
-            a("Status", ViewModel.Instance.Status.ToString());
-            a("ProgramCounter", ViewModel.Instance.ProgramCounter.ToString());
-            a("Now", DateTime.Now.ToString());
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
 
-            lines.Add("{");
-            lines.Add(string.Join("," + Environment.NewLine + "  ", subLines));
-            lines.Add("}");
-
-            Content = string.Join(Environment.NewLine, lines);
+            Content = JsonSerializer.Serialize(api, options);
         }
     }
 }
