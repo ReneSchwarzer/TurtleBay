@@ -184,7 +184,7 @@ namespace TurtleBay.Plugin.Model
                         Log(new LogItem(LogItem.LogLevel.Debug, l.Replace(" ", "&nbsp;"), hash.GetHashCode().ToString("X")));
                     };
 
-                    Temperature = new Dictionary<string, double>();
+                    var temperature = new Dictionary<string, double>();
 
                     foreach (var v in Directory.EnumerateDirectories("/sys/bus/w1/devices"))
                     {
@@ -201,12 +201,14 @@ namespace TurtleBay.Plugin.Model
                             {
                                 var raw = match?.Groups[2]?.Value?.Trim();
                                 var temp = Convert.ToDouble(raw) / 1000;
-                                Temperature.Add(id, temp);
+                                temperature.Add(id, temp);
                                 
                                 Log(new LogItem(LogItem.LogLevel.Debug, string.Format("Temperatursensor '{0}': {1} °C", id, temp)));
                             }
                         }
                     }
+
+                    Temperature = temperature;
                 }
             }
             catch (Exception ex)
