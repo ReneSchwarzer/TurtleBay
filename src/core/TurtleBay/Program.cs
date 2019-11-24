@@ -94,7 +94,7 @@ namespace TurtleBay
 
             // Beginne mit Logging
             HttpServer.Context.Log.LogModus = Log.Modus.Override;
-            HttpServer.Context.Log.Begin(Environment.CurrentDirectory, "TurtleBay.log");
+            HttpServer.Context.Log.Begin(config.Log.Path, config.Log.Filename);
 
             // Log Programmstart
             HttpServer.Context.Log.Seperator('/');
