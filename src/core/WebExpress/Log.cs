@@ -164,8 +164,7 @@ namespace WebExpress
         /// <param name="path">Der Pfad indem die Datei erstellt wird</param>
         public void Begin(string path, string name)
         {
-            Filename = (path.EndsWith(Path.DirectorySeparatorChar.ToString()) ? path : path + Path.DirectorySeparatorChar) + name;
-
+            Filename = Path.Combine(path, name);
             m_path = path;
 
             // Verzeichnis Überprüfen
