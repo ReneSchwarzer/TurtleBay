@@ -1,0 +1,12 @@
+[Unit]
+Description=TurtleBay Server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/turtlebay/
+ExecStart=/opt/turtlebay/run.sh
+
+[Install]
+WantedBy=multi-user.target
