@@ -47,8 +47,8 @@ namespace TurtleBay.Plugin.Pages
                 var row = new ControlTableRow(this) { };
                 row.Cells.Add(new ControlText(this) { Text = string.Format("{0} Uhr", v.Time.ToShortTimeString()) });
                 row.Cells.Add(new ControlText(this) { Text = string.Format("{0}°C", v.Temperature) });
-                row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.LightingCount) });
-                row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.HeatingCount) });
+                row.Cells.Add(new ControlText(this) { Text = string.Format("{0} Minuten", v.LightingCount) });
+                row.Cells.Add(new ControlText(this) { Text = string.Format("{0} Minuten", v.HeatingCount) });
 
                 table.Rows.Add(row);
             }

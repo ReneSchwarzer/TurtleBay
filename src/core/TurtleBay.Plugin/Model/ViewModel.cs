@@ -244,12 +244,15 @@ namespace TurtleBay.Plugin.Model
                     {
                         Time = now,
                         Temperature = double.IsNaN(temp) ? 0 : Convert.ToInt32(temp),
-                        HeatingCount = (int)Math.Round(Statistic.HeatingCounter.TotalMinutes),
-                        LightingCount = (int)Math.Round(Statistic.LightingCounter.TotalMinutes)
+                        HeatingCount = 0,
+                        LightingCount = 0
                     });
-
-                    Statistic.HeatingCounter = new TimeSpan();
-                    Statistic.LightingCounter = new TimeSpan();
+                }
+                else
+                {
+                    var last = Statistic.Chart24h.LastOrDefault();
+                    last.HeatingCount += Heating ? (int)(now - _lastUpdate).TotalMinutes : 0;
+                    last.LightingCount += Lighting ? (int)(now - _lastUpdate).TotalMinutes : 0;
                 }
 
                 // Counting
@@ -588,7 +591,7 @@ namespace TurtleBay.Plugin.Model
         {
             Log(new LogItem(LogItem.LogLevel.Info, "Statistik wird geladen"));
 
-            // Konfiguration laden
+            // Statistik laden
             var serializer = new XmlSerializer(typeof(Statistic));
 
             try
