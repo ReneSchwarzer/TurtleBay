@@ -1,4 +1,7 @@
 #!/bin/bash
+# Erstellt und verteilt den TurtleBay-Service, ohne ihn zu starten.
+# Das Starten und Stoppen erfolgt automatisch (Starten beim booten) 
+# oder manuell über die Skripte start.sh und stop.sh.
 
 export PATH=$PATH:/usr/share/dotnet-sdk/
 export DOTNET_ROOT=/usr/share/dotnet-sdk/ 
@@ -6,7 +9,7 @@ export DOTNET_ROOT=/usr/share/dotnet-sdk/
 dotnet build
 dotnet publish
 
-if [ sudo systemctl -q is-enabled turtlebay.service ] 
+if (sudo systemctl -q is-enabled turtlebay.service)
 then
 	sudo systemctl disable turtlebay.service 
 fi
