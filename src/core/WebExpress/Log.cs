@@ -148,11 +148,6 @@ namespace WebExpress
         private readonly Queue<LogItem> m_queue = new Queue<LogItem>();
 
         /// <summary>
-        /// Log-Kopie
-        /// </summary>
-        private StringBuilder m_logCopy = null;
-
-        /// <summary>
         /// Konstruktor
         /// </summary>
         public Log()
@@ -172,7 +167,6 @@ namespace WebExpress
             Filename = (path.EndsWith(Path.DirectorySeparatorChar.ToString()) ? path : path + Path.DirectorySeparatorChar) + name;
 
             m_path = path;
-            m_logCopy = new StringBuilder();
 
             // Verzeichnis Überprüfen
             if (!Directory.Exists(m_path))
@@ -244,11 +238,6 @@ namespace WebExpress
                 lock (m_queue)
                 {
                     m_queue.Enqueue(item);
-
-                    if (m_logCopy != null)
-                    {
-                        m_logCopy.AppendLine(item.ToString());
-                    }
                 }
             }
         }
@@ -279,13 +268,7 @@ namespace WebExpress
                 lock (m_queue)
                 {
                     m_queue.Enqueue(item);
-
-                    if (m_logCopy != null)
-                    {
-                        m_logCopy.AppendLine(item.ToString());
-                    }
                 }
-
             }
         }
 
@@ -463,11 +446,6 @@ namespace WebExpress
             ErrorCount = 0;
             WarningCount = 0;
             ExceptionCount = 0;
-
-            if (LogLines != null)
-            {
-                LogLines.Clear();
-            }
         }
 
         /// <summary>
@@ -547,11 +525,6 @@ namespace WebExpress
         /// Liefert den Dateinamen des Log
         /// </summary>
         public string Filename { get; set; }
-
-        /// <summary>
-        /// Liefert die Log-Einträge
-        /// </summary>
-        public StringBuilder LogLines => m_logCopy;
 
         /// <summary>
         /// Liefert oder setzt die Anzahl der Ausnahmen (Exceptions)

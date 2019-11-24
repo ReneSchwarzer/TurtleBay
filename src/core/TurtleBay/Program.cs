@@ -105,7 +105,7 @@ namespace TurtleBay
             HttpServer.Context.Log.Info(MethodBase.GetCurrentMethod(), "Arbeitsverzeichnis: " + config.AssetBase);
             HttpServer.Context.Log.Info(MethodBase.GetCurrentMethod(), "Konfigurationsverzeichnis: " + Path.GetDirectoryName(configFile));
             HttpServer.Context.Log.Info(MethodBase.GetCurrentMethod(), "Konfiguration: " + Path.GetFileName(configFile));
-            HttpServer.Context.Log.Info(MethodBase.GetCurrentMethod(), "Logverzeichnis: " + Environment.CurrentDirectory);
+            HttpServer.Context.Log.Info(MethodBase.GetCurrentMethod(), "Logverzeichnis: " + Path.GetDirectoryName(HttpServer.Context.Log.Filename));
             HttpServer.Context.Log.Info(MethodBase.GetCurrentMethod(), "Log: " + Path.GetFileName(HttpServer.Context.Log.Filename));
             HttpServer.Context.Log.Info(MethodBase.GetCurrentMethod(), "Port: " + port);
             HttpServer.Context.Log.Seperator('=');
