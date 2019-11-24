@@ -257,8 +257,11 @@ namespace TurtleBay.Plugin.Model
                 else
                 {
                     var last = Statistic.Chart24h.LastOrDefault();
-                    last.HeatingCount += Heating ? (int)(now - _lastUpdate).TotalMinutes : 0;
-                    last.LightingCount += Lighting ? (int)(now - _lastUpdate).TotalMinutes : 0;
+                    if (last != null)
+                    {
+                        last.HeatingCount += Heating ? (int)(now - _lastUpdate).TotalMinutes : 0;
+                        last.LightingCount += Lighting ? (int)(now - _lastUpdate).TotalMinutes : 0;
+                    }
                 }
 
                 // Counting
