@@ -132,9 +132,9 @@ namespace TurtleBay.Plugin.Model
                 GPIO.OpenPin(_lightingPin, PinMode.Output);
                 GPIO.OpenPin(_heatingPin, PinMode.Output);
 
-                GPIO.Write(_statusPin, PinValue.Low);
-                GPIO.Write(_lightingPin, PinValue.Low);
-                GPIO.Write(_heatingPin, PinValue.Low);
+                GPIO.Write(_statusPin, PinValue.High);
+                GPIO.Write(_lightingPin, PinValue.High);
+                GPIO.Write(_heatingPin, PinValue.High);
 
                 Log(new LogItem(LogItem.LogLevel.Info, "GpioController gestartet"));
                 Log(new LogItem(LogItem.LogLevel.Debug, "StatusPin " + _statusPin));
