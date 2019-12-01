@@ -241,6 +241,13 @@ namespace TurtleBay.Plugin.Model
                         Reboot();
                     }
 
+                    var last = Statistic.Chart24h.LastOrDefault();
+                    if (last != null)
+                    {
+                        last.HeatingCount += Heating ? (int)(now - _lastUpdate).TotalMilliseconds : 0;
+                        last.LightingCount += Lighting ? (int)(now - _lastUpdate).TotalMilliseconds : 0;
+                    }
+
                     if (Statistic.Chart24h.Count > 24)
                     {
                         Statistic.Chart24h.RemoveAt(0);
@@ -253,22 +260,22 @@ namespace TurtleBay.Plugin.Model
                         HeatingCount = 0,
                         LightingCount = 0
                     });
+
+                    SaveStatistic();
                 }
                 else
                 {
                     var last = Statistic.Chart24h.LastOrDefault();
                     if (last != null)
                     {
-                        last.HeatingCount += Heating ? (int)(now - _lastUpdate).TotalMinutes : 0;
-                        last.LightingCount += Lighting ? (int)(now - _lastUpdate).TotalMinutes : 0;
+                        last.HeatingCount += Heating ? (int)(now - _lastUpdate).TotalMilliseconds : 0;
+                        last.LightingCount += Lighting ? (int)(now - _lastUpdate).TotalMilliseconds : 0;
                     }
                 }
 
                 // Counting
                 Statistic.HeatingCounter += Heating ? now - _lastUpdate : new TimeSpan();
                 Statistic.LightingCounter += Lighting ? now - _lastUpdate : new TimeSpan();
-
-                SaveStatistic();
 
                 Status = !Status;
             }
@@ -481,6 +488,8 @@ namespace TurtleBay.Plugin.Model
         public void Reboot()
         {
             Log(new LogItem(LogItem.LogLevel.Info, "Neustart des Raspberry Pi erfolgt..."));
+
+            SaveStatistic();
 
             try
             {
