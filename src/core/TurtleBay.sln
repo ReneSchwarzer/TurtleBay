@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurtleBay", "TurtleBay\TurtleBay.csproj", "{994CC020-212F-4366-B041-879F40AF0AE2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebExpress", "WebExpress\WebExpress.csproj", "{4E4A7D86-21AF-4217-8101-A45BFC74AA4F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebExpress.UI", "WebExpress.UI\WebExpress.UI.csproj", "{FCC258D6-AF23-4E87-BFFB-4E3CFF7124A4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurtleBay.Plugin", "TurtleBay.Plugin\TurtleBay.Plugin.csproj", "{B87B836B-870E-48C6-9FC5-955828F941B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebExpress", "..\..\..\WebExpress\core\WebExpress\WebExpress.csproj", "{B3E64463-424C-4736-BB30-DD1E57FCC713}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebExpress.UI", "..\..\..\WebExpress\core\WebExpress.UI\WebExpress.UI.csproj", "{C3830184-2B7F-4FD5-8920-B00B6C1811BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +21,18 @@ Global
 		{994CC020-212F-4366-B041-879F40AF0AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{994CC020-212F-4366-B041-879F40AF0AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{994CC020-212F-4366-B041-879F40AF0AE2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E4A7D86-21AF-4217-8101-A45BFC74AA4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E4A7D86-21AF-4217-8101-A45BFC74AA4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E4A7D86-21AF-4217-8101-A45BFC74AA4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E4A7D86-21AF-4217-8101-A45BFC74AA4F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FCC258D6-AF23-4E87-BFFB-4E3CFF7124A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCC258D6-AF23-4E87-BFFB-4E3CFF7124A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCC258D6-AF23-4E87-BFFB-4E3CFF7124A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCC258D6-AF23-4E87-BFFB-4E3CFF7124A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B87B836B-870E-48C6-9FC5-955828F941B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B87B836B-870E-48C6-9FC5-955828F941B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B87B836B-870E-48C6-9FC5-955828F941B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B87B836B-870E-48C6-9FC5-955828F941B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3E64463-424C-4736-BB30-DD1E57FCC713}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3E64463-424C-4736-BB30-DD1E57FCC713}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3E64463-424C-4736-BB30-DD1E57FCC713}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3E64463-424C-4736-BB30-DD1E57FCC713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3830184-2B7F-4FD5-8920-B00B6C1811BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3830184-2B7F-4FD5-8920-B00B6C1811BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3830184-2B7F-4FD5-8920-B00B6C1811BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3830184-2B7F-4FD5-8920-B00B6C1811BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
     <ProjectReference Include="..\TurtleBay.Plugin\TurtleBay.Plugin.csproj" />
-    <ProjectReference Include="..\WebExpress\WebExpress.csproj" />
   </ItemGroup>
 
   <ItemGroup>
