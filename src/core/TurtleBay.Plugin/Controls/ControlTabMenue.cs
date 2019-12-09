@@ -51,7 +51,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Einstellungen",
                 Url = Page.GetUrl(0, "settings"),
-                Class = Page.Url == "/settings" ? "active" : string.Empty,
+                Class = Page.Url.StartsWith("/settings") ? "active" : string.Empty,
                 Icon = "fas fa-cog"
             });
 

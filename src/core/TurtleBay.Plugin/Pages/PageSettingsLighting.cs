@@ -5,13 +5,13 @@ using WebExpress.UI.Controls;
 
 namespace TurtleBay.Plugin.Pages
 {
-    public sealed class PageSettings : PageBase
+    public sealed class PageSettingsLighting : PageBase
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageSettings()
-            : base("Einstellungen")
+        public PageSettingsLighting()
+            : base("Scheinwerfer")
         {
         }
 
@@ -35,7 +35,7 @@ namespace TurtleBay.Plugin.Pages
 
             });
 
-            Main.Content.Add(new ControlFormDayNight(this)
+            Main.Content.Add(new ControlFormLighting(this)
             {
 
             });
