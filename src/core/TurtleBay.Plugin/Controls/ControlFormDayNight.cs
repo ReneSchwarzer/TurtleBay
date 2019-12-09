@@ -48,6 +48,21 @@ namespace TurtleBay.Plugin.Controls
                 Label = "Tagesende:"
             };
 
+            if (ViewModel.Instance.Solarcalendar.Count > 0)
+            {
+                DayFromCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                {
+                    Text = string.Format("Sonnenaufgang"),
+                    Value = string.Format("-1")
+                });
+
+                DayTillCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                {
+                    Text = string.Format("Sonnenuntergang"),
+                    Value = string.Format("-1")
+                });
+            }
+
             // Werte festlegen
             for (var i = 0; i < 24; i++)
             {
@@ -62,7 +77,6 @@ namespace TurtleBay.Plugin.Controls
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
                 });
-
             }
 
             Add(DayFromCtrl);
@@ -88,7 +102,7 @@ namespace TurtleBay.Plugin.Controls
                     var dayfrom = Convert.ToInt32(e.Value);
                     var daytill = Convert.ToInt32(DayTillCtrl.Value);
 
-                    if (dayfrom < 0 || dayfrom > 24)
+                    if (dayfrom < -1 || dayfrom > 24)
                     {
                         e.Results.Add(new ValidationResult()
                         {
@@ -97,7 +111,7 @@ namespace TurtleBay.Plugin.Controls
                         });
                     }
 
-                    if (dayfrom > daytill)
+                    if (dayfrom > daytill && daytill != -1)
                     {
                         e.Results.Add(new ValidationResult()
                         {
@@ -123,7 +137,7 @@ namespace TurtleBay.Plugin.Controls
                     var dayfrom = Convert.ToInt32(DayFromCtrl.Value);
                     var daytill = Convert.ToInt32(e.Value);
 
-                    if (daytill < 0 || daytill > 24)
+                    if (daytill < -1 || daytill > 24)
                     {
                         e.Results.Add(new ValidationResult()
                         {
@@ -132,7 +146,7 @@ namespace TurtleBay.Plugin.Controls
                         });
                     }
 
-                    if (dayfrom > daytill)
+                    if (dayfrom > daytill && daytill != -1)
                     {
                         e.Results.Add(new ValidationResult()
                         {

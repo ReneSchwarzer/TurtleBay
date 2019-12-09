@@ -69,6 +69,57 @@ namespace TurtleBay.Plugin.Controls
                 Label = "Zweite Endzeit des Scheinwerfers:"
             };
 
+            if (ViewModel.Instance.Solarcalendar.Count > 0)
+            {
+                FromCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                {
+                    Text = string.Format("Tagesanfang"),
+                    Value = string.Format("-1")
+                });
+
+                FromCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                {
+                    Text = string.Format("Tagesende"),
+                    Value = string.Format("-2")
+                });
+
+                TillCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                {
+                    Text = string.Format("Tagesanfang"),
+                    Value = string.Format("-1")
+                });
+
+                TillCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                {
+                    Text = string.Format("Tagesende"),
+                    Value = string.Format("-2")
+                });
+
+                From2Ctrl.Items.Add(new ControlFormularItemComboBoxItem()
+                {
+                    Text = string.Format("Tagesanfang"),
+                    Value = string.Format("-1")
+                });
+
+                From2Ctrl.Items.Add(new ControlFormularItemComboBoxItem()
+                {
+                    Text = string.Format("Tagesende"),
+                    Value = string.Format("-2")
+                });
+
+                Till2Ctrl.Items.Add(new ControlFormularItemComboBoxItem()
+                {
+                    Text = string.Format("Tagesanfang"),
+                    Value = string.Format("-1")
+                });
+
+                Till2Ctrl.Items.Add(new ControlFormularItemComboBoxItem()
+                {
+                    Text = string.Format("Tagesende"),
+                    Value = string.Format("-2")
+                });
+            }
+
             // Werte festlegen
             for (var i = 0; i < 24; i++)
             {
@@ -127,7 +178,7 @@ namespace TurtleBay.Plugin.Controls
                     var from = Convert.ToInt32(e.Value);
                     var till = Convert.ToInt32(TillCtrl.Value);
 
-                    if (from < 0 || from > 24)
+                    if (from < -2 || from > 24)
                     {
                         e.Results.Add(new ValidationResult()
                         {
@@ -136,7 +187,7 @@ namespace TurtleBay.Plugin.Controls
                         });
                     }
 
-                    if (from > till)
+                    if (from > till && till >= 0)
                     {
                         e.Results.Add(new ValidationResult()
                         {
@@ -162,7 +213,7 @@ namespace TurtleBay.Plugin.Controls
                     var from = Convert.ToInt32(FromCtrl.Value);
                     var till = Convert.ToInt32(e.Value);
 
-                    if (till < 0 || till > 24)
+                    if (till < -2 || till > 24)
                     {
                         e.Results.Add(new ValidationResult()
                         {
@@ -171,7 +222,7 @@ namespace TurtleBay.Plugin.Controls
                         });
                     }
 
-                    if (from > till)
+                    if (from > till && till >= 0)
                     {
                         e.Results.Add(new ValidationResult()
                         {
@@ -197,7 +248,7 @@ namespace TurtleBay.Plugin.Controls
                     var from = Convert.ToInt32(e.Value);
                     var till = Convert.ToInt32(Till2Ctrl.Value);
 
-                    if (from < 0 || from > 24)
+                    if (from < -2 || from > 24)
                     {
                         e.Results.Add(new ValidationResult()
                         {

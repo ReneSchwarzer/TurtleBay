@@ -97,6 +97,11 @@ namespace TurtleBay.Plugin.Model
         public IHost Host { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt den Solarkalender
+        /// </summary>
+        public Dictionary<int, SolarcalendarItem> Solarcalendar { get; private set; } = new Dictionary<int, SolarcalendarItem>();
+
+        /// <summary>
         /// Lifert die einzige Instanz der Modell-Klasse
         /// </summary>
         public static ViewModel Instance
@@ -162,6 +167,7 @@ namespace TurtleBay.Plugin.Model
 
             ResetSettings();
             ResetStatistic();
+            ResetSolarcalendar();
 
             _lastHour = DateTime.Now.Hour;
             _lastUpdate = DateTime.Now;
@@ -202,7 +208,7 @@ namespace TurtleBay.Plugin.Model
                                 var raw = match?.Groups[2]?.Value?.Trim();
                                 var temp = Convert.ToDouble(raw) / 1000;
                                 temperature.Add(id, temp);
-                                
+
                                 Log(new LogItem(LogItem.LogLevel.Debug, string.Format("Temperatursensor '{0}': {1} °C", id, temp)));
                             }
                         }
@@ -303,12 +309,64 @@ namespace TurtleBay.Plugin.Model
             get
             {
                 var now = DateTime.Now;
-                var f = new DateTime(now.Year, now.Month, now.Day, Settings.From, 0, 0);
-                var t = new DateTime(now.Year, now.Month, now.Day, Settings.Till, 0, 0);
+                DateTime f;
+                DateTime t;
+
+                // Erste Zeit
+                if (Settings.From == -1)
+                {
+                    f = CurrentDayFrom;
+                }
+                else if (Settings.From == -2)
+                {
+                    f = CurrentDayTill;
+                }
+                else
+                {
+                    f = new DateTime(now.Year, now.Month, now.Day, Settings.From, 0, 0);
+                }
+
+                if (Settings.Till == -1)
+                {
+                    t = CurrentDayFrom;
+                }
+                else if (Settings.Till == -2)
+                {
+                    t = CurrentDayTill;
+                }
+                else
+                {
+                    t = new DateTime(now.Year, now.Month, now.Day, Settings.Till, 0, 0);
+                }
+
                 var lightTime = f <= now && now <= t;
 
-                f = new DateTime(now.Year, now.Month, now.Day, Settings.From2, 0, 0);
-                t = new DateTime(now.Year, now.Month, now.Day, Settings.Till2, 0, 0);
+                // Zweite Zeit
+                if (Settings.From2 == -1)
+                {
+                    f = CurrentDayFrom;
+                }
+                else if (Settings.From2 == -2)
+                {
+                    f = CurrentDayTill;
+                }
+                else
+                {
+                    f = new DateTime(now.Year, now.Month, now.Day, Settings.From2, 0, 0);
+                }
+
+                if (Settings.Till2 == -1)
+                {
+                    t = CurrentDayFrom;
+                }
+                else if (Settings.Till2 == -2)
+                {
+                    t = CurrentDayTill;
+                }
+                else
+                {
+                    t = new DateTime(now.Year, now.Month, now.Day, Settings.Till2, 0, 0);
+                }
 
                 return lightTime || f <= now && now <= t;
             }
@@ -323,8 +381,9 @@ namespace TurtleBay.Plugin.Model
             get
             {
                 var now = DateTime.Now;
-                var f = new DateTime(now.Year, now.Month, now.Day, Settings.DayFrom, 0, 0);
-                var t = new DateTime(now.Year, now.Month, now.Day, Settings.DayTill, 0, 0);
+
+                var f = CurrentDayFrom;
+                var t = CurrentDayTill;
                 var day = f <= now && now <= t;
 
                 return day ? Settings.DayMin : Settings.NightMin;
@@ -352,10 +411,7 @@ namespace TurtleBay.Plugin.Model
         /// </summary>
         public virtual bool Status
         {
-            get
-            {
-                return _status;
-            }
+            get => _status;
             set
             {
                 try
@@ -388,10 +444,7 @@ namespace TurtleBay.Plugin.Model
         [XmlIgnore]
         public virtual bool Lighting
         {
-            get
-            {
-                return _lighting;
-            }
+            get => _lighting;
             set
             {
                 try
@@ -426,10 +479,7 @@ namespace TurtleBay.Plugin.Model
         [XmlIgnore]
         public virtual bool Heating
         {
-            get
-            {
-                return _heating;
-            }
+            get => _heating;
             set
             {
                 try
@@ -505,11 +555,11 @@ namespace TurtleBay.Plugin.Model
                     }
                 };
 
-                Task.Run(() => 
-                { 
+                Task.Run(() =>
+                {
                     Thread.Sleep(10000);
                     process.Start();
-                    string result = process.StandardOutput.ReadToEnd();
+                    var result = process.StandardOutput.ReadToEnd();
                     process.WaitForExit();
 
                 });
@@ -639,6 +689,41 @@ namespace TurtleBay.Plugin.Model
         }
 
         /// <summary>
+        /// Wird aufgerufen, wenn der Solarkalender geladen werden soll
+        /// </summary>
+        public void ResetSolarcalendar()
+        {
+            Log(new LogItem(LogItem.LogLevel.Info, "Solarkalender wird geladen"));
+
+            // Konfiguration laden
+            var serializer = new XmlSerializer(typeof(Solarcalendar));
+
+            try
+            {
+                using (var reader = File.OpenText(Path.Combine(Host.Context.ConfigBaseFolder, "solarcalendar.xml")))
+                {
+                    var solarcalendar = serializer.Deserialize(reader) as Solarcalendar;
+
+                    Solarcalendar.Clear();
+                    foreach (var v in solarcalendar.Items)
+                    {
+                        Solarcalendar.Add(v.Day, new SolarcalendarItem()
+                        {
+                            Day = v.Day,
+                            Sunrise = v.Sunrise,
+                            Sunset = v.Sunset
+                        });
+                    }
+
+                }
+            }
+            catch
+            {
+                Log(new LogItem(LogItem.LogLevel.Warning, "Datei mit den Solarkalender wurde nicht gefunden!"));
+            }
+        }
+
+        /// <summary>
         /// Loggt ein Event
         /// </summary>
         /// <param name="logItem">Der Logeintrag</param>
@@ -673,9 +758,9 @@ namespace TurtleBay.Plugin.Model
         {
             get
             {
-                if 
+                if
                 (
-                    !string.IsNullOrWhiteSpace(Settings?.PrimaryID) && 
+                    !string.IsNullOrWhiteSpace(Settings?.PrimaryID) &&
                     Temperature.ContainsKey(Settings.PrimaryID)
                 )
                 {
@@ -687,6 +772,46 @@ namespace TurtleBay.Plugin.Model
                 }
 
                 return double.NaN;
+            }
+        }
+
+        /// <summary>
+        /// Ermittelt den Tagesbeginn
+        /// </summary>
+        private DateTime CurrentDayFrom
+        {
+            get
+            {
+                var now = DateTime.Now;
+
+                if (Settings.DayFrom == -1)
+                {
+                    var c = DateTime.Parse(Solarcalendar[now.DayOfYear].Sunrise);
+
+                    return new DateTime(now.Year, now.Month, now.Day, c.Hour, c.Minute, 0);
+                }
+
+                return new DateTime(now.Year, now.Month, now.Day, Settings.DayFrom, 0, 0);
+            }
+        }
+
+        /// <summary>
+        /// Ermittelt das Tagesende
+        /// </summary>
+        private DateTime CurrentDayTill
+        {
+            get
+            {
+                var now = DateTime.Now;
+
+                if (Settings.DayTill == -1)
+                {
+                    var c = DateTime.Parse(Solarcalendar[now.DayOfYear].Sunset);
+
+                    return new DateTime(now.Year, now.Month, now.Day, c.Hour, c.Minute, 0);
+                }
+
+                return new DateTime(now.Year, now.Month, now.Day, Settings.DayTill, 0, 0);
             }
         }
     }
