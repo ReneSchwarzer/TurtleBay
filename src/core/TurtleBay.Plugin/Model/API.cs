@@ -46,5 +46,14 @@ namespace TurtleBay.Plugin.Model
         /// </summary>
         public string Now { get; set; }
 
+        /// <summary>
+        /// Liefert oder setzt die minimale Temperatur
+        /// </summary>
+        public string Min { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die maximale Temperatur
+        /// </summary>
+        public string Max { get; set; }
     }
 }

@@ -34,16 +34,20 @@ namespace TurtleBay.Plugin.Pages
         {
             base.Process();
 
+            var converter = new TimeSpanConverter();
+
             var api = new API()
             { 
                 Temperature = ViewModel.Instance.PrimaryTemperature.ToString(),
                 Lighting = ViewModel.Instance.Lighting.ToString(),
                 Heating = ViewModel.Instance.Heating.ToString(),
-                LightingCounter = ViewModel.Instance.Statistic.LightingCounter.ToString(),
-                HeatingCounter = ViewModel.Instance.Statistic.HeatingCounter.ToString(),
+                LightingCounter = converter.Convert(ViewModel.Instance.Statistic.LightingCounter, typeof(string), null, null).ToString(),
+                HeatingCounter = converter.Convert(ViewModel.Instance.Statistic.HeatingCounter, typeof(string), null, null).ToString(),
                 Status = ViewModel.Instance.Status.ToString(),
-                ProgramCounter = ViewModel.Instance.ProgramCounter.ToString(),
-                Now = DateTime.Now.ToString()
+                ProgramCounter = converter.Convert(ViewModel.Instance.ProgramCounter, typeof(string), null, null).ToString(),
+                Now = ViewModel.Instance.Now,
+                Min = ViewModel.Instance.Min.ToString(),
+                Max = ViewModel.Instance.Settings.Max.ToString()
             };
 
             var options = new JsonSerializerOptions

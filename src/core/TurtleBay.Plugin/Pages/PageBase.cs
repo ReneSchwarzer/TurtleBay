@@ -52,7 +52,7 @@ namespace TurtleBay.Plugin.Pages
             Main.Content.Add(new ControlTabMenue(this));
             Main.Content.Add(new ControlLine(this));
 
-            Foot.Content.Add(new ControlText(this)
+            Foot.Content.Add(new ControlText(this, "now")
             {
                 Text = string.Format("{0}", ViewModel.Instance.Now),
                 Color = TypesTextColor.Muted,

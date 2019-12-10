@@ -13,6 +13,7 @@ namespace TurtleBay.Plugin.Pages
         public PageDashboard()
             : base("Überblick")
         {
+            HeaderScriptLinks.Add("/Assets/js/dashboard.js");
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace TurtleBay.Plugin.Pages
                 layout = TypesLayoutCard.Danger;
             }
 
-            grid.Add(0, new ControlCardCounter(this)
+            grid.Add(0, new ControlCardCounter(this, "temperature")
             {
                 Text = "Aktuelle Temperatur",
                 Value = string.Format("{0} °C", temp.ToString("0.0")),
@@ -59,7 +60,7 @@ namespace TurtleBay.Plugin.Pages
                 Layout = layout
             });
 
-            grid.Add(0, new ControlCardCounter(this)
+            grid.Add(0, new ControlCardCounter(this, "lighting")
             {
                 Text = "Scheinwerfer",
                 Value = ViewModel.Instance.Lighting ? "An" : "Aus",
@@ -68,7 +69,7 @@ namespace TurtleBay.Plugin.Pages
                 Layout = ViewModel.Instance.Lighting ? TypesLayoutCard.Success : TypesLayoutCard.Info
             });
 
-            grid.Add(0, new ControlCardCounter(this)
+            grid.Add(0, new ControlCardCounter(this, "heating")
             {
                 Text = "Heizung",
                 Value = ViewModel.Instance.Heating ? "An" : "Aus",
@@ -77,7 +78,7 @@ namespace TurtleBay.Plugin.Pages
                 Layout = ViewModel.Instance.Heating ? TypesLayoutCard.Success : TypesLayoutCard.Info
             });
 
-            grid.Add(1, new ControlCardCounter(this)
+            grid.Add(1, new ControlCardCounter(this, "lc")
             {
                 Text = "Gesammteinschaltdauer Scheinwerfer",
                 Value = converter.Convert(ViewModel.Instance.Statistic.LightingCounter, typeof(string), null, null).ToString(),
@@ -85,7 +86,7 @@ namespace TurtleBay.Plugin.Pages
                 Color = ViewModel.Instance.Lighting ? TypesTextColor.Success : TypesTextColor.Info
             });
 
-            grid.Add(1, new ControlCardCounter(this)
+            grid.Add(1, new ControlCardCounter(this, "hc")
             {
                 Text = "Gesammteinschaltdauer Heizung",
                 Value = converter.Convert(ViewModel.Instance.Statistic.HeatingCounter, typeof(string), null, null).ToString(),
@@ -93,7 +94,7 @@ namespace TurtleBay.Plugin.Pages
                 Color = ViewModel.Instance.Heating ? TypesTextColor.Success : TypesTextColor.Info
             });
 
-            grid.Add(2, new ControlCardCounter(this)
+            grid.Add(2, new ControlCardCounter(this, "pc")
             {
                 Text = "Programmlauf",
                 Value = converter.Convert(ViewModel.Instance.ProgramCounter, typeof(string), null, null).ToString(),
