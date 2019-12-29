@@ -94,7 +94,7 @@ namespace TurtleBay.Plugin.Pages
                 Main.Content.Add(new ControlText(this) { Text = string.Format("Aktuelle Temperatur des Sensors {0}: {1} °C", v.Key, v.Value) });
             }
 
-            Main.Content.Add(new ControlCard(this, Form)
+            Main.Content.Add(new ControlPanelCard(this, Form)
             {
                 Header = "Einstellungen",
                 Layout = TypesLayoutCard.Light,

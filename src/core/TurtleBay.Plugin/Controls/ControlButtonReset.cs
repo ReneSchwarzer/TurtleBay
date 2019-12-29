@@ -22,7 +22,7 @@ namespace TurtleBay.Plugin.Controls
         {
             Text = "Zähler zurücksetzen";
             Class = "m-1";
-            Icon = "fas fa-undo";
+            Icon = Icon.Undo;
             Layout = TypesLayoutButton.Warning;
 
             Modal = new ControlModal
@@ -37,7 +37,7 @@ namespace TurtleBay.Plugin.Controls
                 new ControlButton(Page)
                 {
                     Text = "Zurücksetzen",
-                    Icon = "fas fa-undo",
+                    Icon = Icon.Undo,
                     Class = "m-1",
                     Layout = TypesLayoutButton.Warning,
                     OnClick = "window.location.href = '/reset'"

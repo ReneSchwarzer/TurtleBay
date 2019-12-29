@@ -37,10 +37,10 @@ namespace TurtleBay.Plugin.Pages
             });
 
             var table = new ControlTable(this);
-            table.AddColumn("Zeit", "fas fa-clock", TypesLayoutTableRow.Info);
-            table.AddColumn("Temperatur", "fas fa-thermometer-quarter", TypesLayoutTableRow.Danger);
-            table.AddColumn("Scheinwerfer", "fas fa-lightbulb", TypesLayoutTableRow.Warning);
-            table.AddColumn("Heizung", "fas fa-fire", TypesLayoutTableRow.Warning);
+            table.AddColumn("Zeit", Icon.Clock, TypesLayoutTableRow.Info);
+            table.AddColumn("Temperatur", Icon.ThermometerQuarter, TypesLayoutTableRow.Danger);
+            table.AddColumn("Scheinwerfer", Icon.Lightbulb, TypesLayoutTableRow.Warning);
+            table.AddColumn("Heizung", Icon.Fire, TypesLayoutTableRow.Warning);
 
             foreach (var v in ViewModel.Instance.Statistic.Chart24h)
             {

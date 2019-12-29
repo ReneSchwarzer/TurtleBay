@@ -22,7 +22,7 @@ namespace TurtleBay.Plugin.Controls
         {
             Text = "Reboot";
             Class = "m-1";
-            Icon = "fas fa-power-off";
+            Icon = Icon.PowerOff;
             Layout = TypesLayoutButton.Danger;
 
             Modal = new ControlModal
@@ -37,7 +37,7 @@ namespace TurtleBay.Plugin.Controls
                 new ControlButton(Page)
                 {
                     Text = "Neustart",
-                    Icon = "fas fa-power-off",
+                    Icon = Icon.PowerOff,
                     Class = "m-1",
                     Layout = TypesLayoutButton.Danger,
                     OnClick = "window.location.href = '/reboot'"

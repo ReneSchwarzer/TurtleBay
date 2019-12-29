@@ -28,7 +28,7 @@ namespace TurtleBay.Plugin.Controls
                 Text = "Tag",
                 Url = Page.GetUrl(0, "settings"),
                 Class = Page.Url == "/settings" ? "active" : string.Empty,
-                Icon = "fas fa-sun"
+                Icon = Icon.Sun
             });
 
             Items.Add(new ControlLink(Page)
@@ -36,7 +36,7 @@ namespace TurtleBay.Plugin.Controls
                 Text = "Heizung",
                 Url = Page.GetUrl("settings", "heating"),
                 Class = Page.Url == "/settings/heating" ? "active" : string.Empty,
-                Icon = "fas fa-fire"
+                Icon = Icon.Fire
             });
 
             Items.Add(new ControlLink(Page)
@@ -44,7 +44,7 @@ namespace TurtleBay.Plugin.Controls
                 Text = "Scheinwerfer",
                 Url = Page.GetUrl("settings", "lighting"),
                 Class = Page.Url == "/settings/lighting" ? "active" : string.Empty,
-                Icon = "fas fa-lightbulb"
+                Icon = Icon.Lightbulb
             });
         }
     }

@@ -39,28 +39,28 @@ namespace TurtleBay.Plugin.Pages
             });
 
             var table = new ControlTable(this);
-            table.AddColumn("Level", "fas fa-hashtag", TypesLayoutTableRow.Info);
-            table.AddColumn("Instanz", "fas fa-code", TypesLayoutTableRow.Warning);
-            table.AddColumn("Nachricht", "fas fa-comment-alt", TypesLayoutTableRow.Danger);
-            table.AddColumn("Zeit", "fas fa-clock", TypesLayoutTableRow.Warning);
+            table.AddColumn("Level", Icon.Hashtag, TypesLayoutTableRow.Info);
+            table.AddColumn("Instanz", Icon.Code, TypesLayoutTableRow.Warning);
+            table.AddColumn("Nachricht", Icon.CommentAlt, TypesLayoutTableRow.Danger);
+            table.AddColumn("Zeit", Icon.Clock, TypesLayoutTableRow.Warning);
 
-            Func<LogItem.LogLevel, string> func = (level) =>
+            Func<LogItem.LogLevel, Icon> func = (level) =>
             {
                 switch (level)
                 {
                     case LogItem.LogLevel.Info:
-                        return "fas fa-info";
+                        return Icon.Info;
                     case LogItem.LogLevel.Debug:
-                        return "fas fa-bug";
+                        return Icon.Bug;
                     case LogItem.LogLevel.Warning:
-                        return "fas fa-exclamation-triangle";
+                        return Icon.ExclamationTriangle;
                     case LogItem.LogLevel.Error:
-                        return "fas fa-times";
+                        return Icon.Times;
                     case LogItem.LogLevel.Exception:
-                        return "fas fa-bomb";
+                        return Icon.Bomb;
                 }
 
-                return "";
+                return Icon.None;
             };
 
             var log = ViewModel.Instance.Logging;
@@ -73,7 +73,7 @@ namespace TurtleBay.Plugin.Pages
             foreach (var v in log.OrderByDescending(x => x.Time))
             {
                 var row = new ControlTableRow(this) { };
-                row.Cells.Add(new ControlText(this) { Class = func(v.Level) });
+                row.Cells.Add(new ControlText(this) { Class = func(v.Level).ToClass() });
                 row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.Instance) });
                 row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.Massage) });
                 row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.Time.ToString("dd.MM.yyyy HH.mm.ss.f")) });
@@ -85,7 +85,7 @@ namespace TurtleBay.Plugin.Pages
             Main.Content.Add(new ControlPanelCenter(this, new ControlButtonLink(this)
             {
                 Text = ViewModel.Instance.Settings.DebugMode ? "Debug-Ausgaben ausblenden" : "Debug-Ausgaben einblenden",
-                Icon = "fas fa-bug",
+                Icon = Icon.Bug,
                 Color = TypesTextColor.Warning,
                 Url = "/debug",
                 Class = "m-3"

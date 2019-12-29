@@ -55,7 +55,7 @@ namespace TurtleBay.Plugin.Pages
             {
                 Text = "Aktuelle Temperatur",
                 Value = string.Format("{0} °C", temp.ToString("0.0")),
-                Icon = "fas fa-thermometer-quarter",
+                Icon = Icon.ThermometerQuarter,
                 Color = TypesTextColor.White,
                 Layout = layout
             });
@@ -64,7 +64,7 @@ namespace TurtleBay.Plugin.Pages
             {
                 Text = "Scheinwerfer",
                 Value = ViewModel.Instance.Lighting ? "An" : "Aus",
-                Icon = "fas fa-lightbulb",
+                Icon = Icon.Lightbulb,
                 Color = TypesTextColor.White,
                 Layout = ViewModel.Instance.Lighting ? TypesLayoutCard.Success : TypesLayoutCard.Info
             });
@@ -73,7 +73,7 @@ namespace TurtleBay.Plugin.Pages
             {
                 Text = "Heizung",
                 Value = ViewModel.Instance.Heating ? "An" : "Aus",
-                Icon = "fas fa-fire",
+                Icon = Icon.Fire,
                 Color = TypesTextColor.White,
                 Layout = ViewModel.Instance.Heating ? TypesLayoutCard.Success : TypesLayoutCard.Info
             });
@@ -82,7 +82,7 @@ namespace TurtleBay.Plugin.Pages
             {
                 Text = "Gesammteinschaltdauer Scheinwerfer",
                 Value = converter.Convert(ViewModel.Instance.Statistic.LightingCounter, typeof(string), null, null).ToString(),
-                Icon = "fas fa-lightbulb",
+                Icon = Icon.Lightbulb,
                 Color = ViewModel.Instance.Lighting ? TypesTextColor.Success : TypesTextColor.Info
             });
 
@@ -90,7 +90,7 @@ namespace TurtleBay.Plugin.Pages
             {
                 Text = "Gesammteinschaltdauer Heizung",
                 Value = converter.Convert(ViewModel.Instance.Statistic.HeatingCounter, typeof(string), null, null).ToString(),
-                Icon = "fas fa-fire",
+                Icon = Icon.Fire,
                 Color = ViewModel.Instance.Heating ? TypesTextColor.Success : TypesTextColor.Info
             });
 
@@ -98,7 +98,7 @@ namespace TurtleBay.Plugin.Pages
             {
                 Text = "Programmlauf",
                 Value = converter.Convert(ViewModel.Instance.ProgramCounter, typeof(string), null, null).ToString(),
-                Icon = "fas fa-stopwatch",
+                Icon = Icon.Stopwatch,
                 Color = TypesTextColor.Info
             });
 
