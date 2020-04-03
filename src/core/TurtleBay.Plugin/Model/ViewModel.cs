@@ -36,7 +36,7 @@ namespace TurtleBay.Plugin.Model
         /// </summary>
         private DateTime _lastUpdate;
 
-        // <summary>
+        /// <summary>
         /// Liefert oder setzt die Zeit des letzen auslesen der Temperatur
         /// </summary>
         private DateTime _lastMetering;
