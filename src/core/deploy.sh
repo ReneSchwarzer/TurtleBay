@@ -19,7 +19,7 @@ sudo chmod +x /opt/turtlebay
 #sudo rm -Rf /opt/turtlebay/*
 
 
-cp -Rf TurtleBay/bin/Debug/netcoreapp3.1/publish/* /opt/turtlebay
+cp -Rf TurtleBay.App/bin/Debug/netcoreapp3.1/publish/* /opt/turtlebay
 cp turtlebay.sh /opt/turtlebay
 sudo chmod +x /opt/turtlebay/turtlebay.sh
 
