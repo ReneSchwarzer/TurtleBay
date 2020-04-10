@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using WebExpress;
+using WebExpress.Plugins;
 
 namespace TurtleBay.Plugin.Model
 {
@@ -92,9 +93,9 @@ namespace TurtleBay.Plugin.Model
         private static ViewModel _this = null;
 
         /// <summary>
-        /// Liefert oder setzt den Verweis auf dem Host
+        /// Liefert oder setzt den Kontext
         /// </summary>
-        public IHost Host { get; set; }
+        public IPluginContext Context { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den Solarkalender
@@ -530,7 +531,15 @@ namespace TurtleBay.Plugin.Model
         /// Liefert die Programmversion
         /// </summary>
         [XmlIgnore]
-        public string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public string Version
+        {
+            get
+            {
+                var assembly = typeof(ViewModel).Assembly;
+
+                return assembly.GetName().Version.ToString();
+            }
+        }
 
         /// <summary>
         /// Neustart des Raspberry PI
@@ -589,7 +598,7 @@ namespace TurtleBay.Plugin.Model
 
                 File.WriteAllText
                 (
-                    Path.Combine(Host.Context.ConfigBaseFolder, "settings.xml"),
+                    Path.Combine(Context.ConfigBaseFolder, "settings.xml"),
                     utf.GetString(memoryStream.ToArray())
                 );
             }
@@ -607,7 +616,7 @@ namespace TurtleBay.Plugin.Model
 
             try
             {
-                using (var reader = File.OpenText(Path.Combine(Host.Context.ConfigBaseFolder, "settings.xml")))
+                using (var reader = File.OpenText(Path.Combine(Context.ConfigBaseFolder, "settings.xml")))
                 {
                     Settings = serializer.Deserialize(reader) as Settings;
                 }
@@ -646,7 +655,7 @@ namespace TurtleBay.Plugin.Model
 
                 File.WriteAllText
                 (
-                    Path.Combine(Host.Context.ConfigBaseFolder, "statistic.xml"),
+                    Path.Combine(Context.ConfigBaseFolder, "statistic.xml"),
                     utf.GetString(memoryStream.ToArray())
                 );
             }
@@ -664,7 +673,7 @@ namespace TurtleBay.Plugin.Model
 
             try
             {
-                using (var reader = File.OpenText(Path.Combine(Host.Context.ConfigBaseFolder, "statistic.xml")))
+                using (var reader = File.OpenText(Path.Combine(Context.ConfigBaseFolder, "statistic.xml")))
                 {
                     Statistic = serializer.Deserialize(reader) as Statistic;
                 }
@@ -700,7 +709,7 @@ namespace TurtleBay.Plugin.Model
 
             try
             {
-                using (var reader = File.OpenText(Path.Combine(Host.Context.ConfigBaseFolder, "solarcalendar.xml")))
+                using (var reader = File.OpenText(Path.Combine(Context.ConfigBaseFolder, "solarcalendar.xml")))
                 {
                     var solarcalendar = serializer.Deserialize(reader) as Solarcalendar;
 
@@ -734,19 +743,19 @@ namespace TurtleBay.Plugin.Model
             switch (logItem.Level)
             {
                 case LogItem.LogLevel.Info:
-                    //Host.Context.Log.Info(logItem.Instance, logItem.Massage);
+                    //Context.Log.Info(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Debug:
-                    //Host.Context.Log.Debug(logItem.Instance, logItem.Massage);
+                    //Context.Log.Debug(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Warning:
-                    Host.Context.Log.Warning(logItem.Instance, logItem.Massage);
+                    Context.Log.Warning(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Error:
-                    Host.Context.Log.Error(logItem.Instance, logItem.Massage);
+                    Context.Log.Error(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Exception:
-                    Host.Context.Log.Exception(logItem.Instance, logItem.Massage);
+                    Context.Log.Exception(logItem.Instance, logItem.Massage);
                     break;
             }
         }

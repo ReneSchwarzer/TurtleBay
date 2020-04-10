@@ -2,13 +2,13 @@
 
 namespace TurtleBay.Plugin.Pages
 {
-    public sealed class PageDebug : PageBase
+    public sealed class PageReset : PageBase
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageDebug()
-            : base("Debug")
+        public PageReset()
+            : base("Reset")
         {
         }
 
@@ -27,10 +27,9 @@ namespace TurtleBay.Plugin.Pages
         {
             base.Process();
 
-            ViewModel.Instance.Settings.DebugMode = !ViewModel.Instance.Settings.DebugMode;
-            ViewModel.Instance.SaveSettings();
+            ViewModel.Instance.ResetCounter();
 
-            Redirecting("/log");
+            Redirecting(GetPath(0));
         }
 
         /// <summary>

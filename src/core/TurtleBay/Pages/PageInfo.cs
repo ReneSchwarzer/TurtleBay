@@ -1,5 +1,6 @@
 ﻿using TurtleBay.Plugin.Controls;
 using TurtleBay.Plugin.Model;
+using WebExpress.Pages;
 using WebExpress.UI.Controls;
 
 namespace TurtleBay.Plugin.Pages
@@ -36,7 +37,7 @@ namespace TurtleBay.Plugin.Pages
                     this,
                     new ControlImage(this)
                     {
-                        Source = "/Assets/img/Turtle.png",
+                        Source = GetPath(0, "/Assets/img/Turtle.png"),
                         Width = 200
                     },
                     new ControlText(this)
@@ -57,7 +58,7 @@ namespace TurtleBay.Plugin.Pages
                     new ControlLink(this)
                     {
                         Text = string.Format("rene_schwarzer@hotmail.de"),
-                        Url = "mailto:rene_schwarzer@hotmail.de",
+                        Url = new Path(null, "mailto:rene_schwarzer@hotmail.de"),
                         Color = TypesTextColor.Dark
                     },
                     new ControlLine(this),

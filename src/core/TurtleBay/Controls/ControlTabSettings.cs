@@ -26,7 +26,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Tag",
-                Url = Page.GetUrl(0, "settings"),
+                Url = Page.GetPath(0, "settings"),
                 Class = Page.Url == "/settings" ? "active" : string.Empty,
                 Icon = Icon.Sun
             });
@@ -34,7 +34,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Heizung",
-                Url = Page.GetUrl("settings", "heating"),
+                Url = Page.GetPath("settings", "heating"),
                 Class = Page.Url == "/settings/heating" ? "active" : string.Empty,
                 Icon = Icon.Fire
             });
@@ -42,7 +42,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Scheinwerfer",
-                Url = Page.GetUrl("settings", "lighting"),
+                Url = Page.GetPath("settings", "lighting"),
                 Class = Page.Url == "/settings/lighting" ? "active" : string.Empty,
                 Icon = Icon.Lightbulb
             });

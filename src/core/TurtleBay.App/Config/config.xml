@@ -8,6 +8,8 @@
     <connectionlimit>300</connectionlimit>
     <assets>./</assets>
 
+    <urlbasepath></urlbasepath>
+
     <stagedirectory>./</stagedirectory>
     
 </config>

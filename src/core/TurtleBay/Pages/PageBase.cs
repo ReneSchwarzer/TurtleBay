@@ -34,7 +34,7 @@ namespace TurtleBay.Plugin.Pages
 
             Head.Content.Add(new ControlImage(this)
             {
-                Source = "/Assets/img/Logo.png",
+                Source = GetPath(0, "Assets/img/Logo.png"),
                 Height = 50,
                 HorizontalAlignment = TypesHorizontalAlignment.Left
             });

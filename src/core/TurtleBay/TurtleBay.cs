@@ -24,13 +24,13 @@ namespace TurtleBay.Plugin
         /// <param name="configFileName">Der Dateiname der Konfiguration oder null</param>
         public override void Init(string configFileName = null)
         {
-            ViewModel.Instance.Host = Host;
+            ViewModel.Instance.Context = Context;
             ViewModel.Instance.Init();
-            Host.Context.Log.Info(MethodBase.GetCurrentMethod(), "TurtleBay initialisierung");
+            Context.Log.Info(MethodBase.GetCurrentMethod(), "TurtleBay initialisierung");
 
-            Register(new WorkerFile(new Path("", "Assets/.*"), Host.Context.AssetBaseFolder));
+            Register(new WorkerFile(new Path(Context, "", "Assets/.*"), Context.AssetBaseFolder));
 
-            var root = new VariationPath("dashboard", new PathItem("Zentrale"));
+            var root = new VariationPath(Context, "dashboard", new PathItem("Zentrale"));
             var history = new VariationPath(root, "history", new PathItem("Verlauf", "history"));
             var ds = new VariationPath(root, "ds", new PathItem("DS18B201", "ds"));
             var settings = new VariationPath(root, "settings", new PathItem("Einstellungen", "settings"));

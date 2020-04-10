@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurtleBay", "TurtleBay\TurtleBay.csproj", "{994CC020-212F-4366-B041-879F40AF0AE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurtleBay.App", "TurtleBay.App\TurtleBay.App.csproj", "{994CC020-212F-4366-B041-879F40AF0AE2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurtleBay.Plugin", "TurtleBay.Plugin\TurtleBay.Plugin.csproj", "{B87B836B-870E-48C6-9FC5-955828F941B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TurtleBay", "TurtleBay\TurtleBay.csproj", "{B87B836B-870E-48C6-9FC5-955828F941B0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebExpress", "..\..\..\WebExpress\core\WebExpress\WebExpress.csproj", "{B3E64463-424C-4736-BB30-DD1E57FCC713}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebExpress.UI", "..\..\..\WebExpress\core\WebExpress.UI\WebExpress.UI.csproj", "{C3830184-2B7F-4FD5-8920-B00B6C1811BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebExpress.App", "..\..\..\WebExpress\core\WebExpress.App\WebExpress.App.csproj", "{807518D7-4123-41A9-B2C7-E30EFB1A3570}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C3830184-2B7F-4FD5-8920-B00B6C1811BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3830184-2B7F-4FD5-8920-B00B6C1811BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3830184-2B7F-4FD5-8920-B00B6C1811BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{807518D7-4123-41A9-B2C7-E30EFB1A3570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{807518D7-4123-41A9-B2C7-E30EFB1A3570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{807518D7-4123-41A9-B2C7-E30EFB1A3570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{807518D7-4123-41A9-B2C7-E30EFB1A3570}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

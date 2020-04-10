@@ -26,7 +26,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Zentrale",
-                Url = Page.GetUrl(0),
+                Url = Page.GetPath(0),
                 Class = Page.Url == "/" ? "active" : string.Empty,
                 Icon = Icon.TachometerAlt
             });
@@ -34,7 +34,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Verlauf",
-                Url = Page.GetUrl(0, "history"),
+                Url = Page.GetPath(0, "history"),
                 Class = Page.Url == "/history" ? "active" : string.Empty,
                 Icon = Icon.ChartBar
             });
@@ -42,7 +42,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "DS18B201",
-                Url = Page.GetUrl(0, "ds"),
+                Url = Page.GetPath(0, "ds"),
                 Class = Page.Url == "/ds" ? "active" : string.Empty,
                 Icon = Icon.Microchip
             });
@@ -50,7 +50,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Einstellungen",
-                Url = Page.GetUrl(0, "settings"),
+                Url = Page.GetPath(0, "settings"),
                 Class = Page.Url.StartsWith("/settings") ? "active" : string.Empty,
                 Icon = Icon.Cog
             });
@@ -58,7 +58,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Logging",
-                Url = Page.GetUrl(0, "log"),
+                Url = Page.GetPath(0, "log"),
                 Class = Page.Url == "/log" ? "active" : string.Empty,
                 Icon = Icon.Book
             });
@@ -66,7 +66,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Info",
-                Url = Page.GetUrl(0, "info"),
+                Url = Page.GetPath(0, "info"),
                 Class = Page.Url == "/info" ? "active" : string.Empty,
                 Icon = Icon.InfoCircle
             });
