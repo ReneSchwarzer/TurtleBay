@@ -17,7 +17,7 @@ namespace TurtleBayNet
         /// <param name="context">Der Benutzer</param>
         /// <param name="configFileName">Der Dateiname der Konfiguration oder null</param>
         /// <returns>Die Instanz des Prozesszustandes</returns>
-        public override IPlugin Create(IPluginContext context, string configFileName)
+        public override IPlugin Create(HttpServerContext context, string configFileName)
         {
             var plugin = Create<TurtleBay.Plugin.TurtleBay>(context, configFileName);
             return plugin;
