@@ -14,7 +14,7 @@ namespace TurtleBay.Plugin
         /// Konstruktor
         /// </summary>
         public TurtleBay()
-        : base("TurtleBay")
+        : base("TurtleBay", "/Asserts/img/Turtle.svg")
         {
         }
 
@@ -42,6 +42,7 @@ namespace TurtleBay.Plugin
             var reboot = new VariationPath(root, "reboot", new PathItem("Reboot", "reboot"));
             var api = new VariationPath(root, "api", new PathItem("API", "api"));
             var debug = new VariationPath(root, "debug", new PathItem("Debug", "debug"));
+            var status = new VariationPath(root, "status", new PathItem("Status", "status"));
 
             root.GetUrls("Zentrale").ForEach(x => Register(new WorkerPage<PageDashboard>(x) { }));
             history.GetUrls("Verlauf").ForEach(x => Register(new WorkerPage<PageHistory>(x) { }));
@@ -55,6 +56,7 @@ namespace TurtleBay.Plugin
             reboot.GetUrls("Reboot").ForEach(x => Register(new WorkerPage<PageReboot>(x) { }));
             api.GetUrls("API").ForEach(x => Register(new WorkerPage<PageApiBase>(x) { }));
             debug.GetUrls("Debug").ForEach(x => Register(new WorkerPage<PageDebug>(x) { }));
+            status.GetUrls("Status").ForEach(x => Register(new WorkerPage<PageStatus>(x) { }));
 
             Task.Run(() => { Run(); });
         }
