@@ -1,15 +1,16 @@
-﻿using WebExpress.Pages;
+﻿using TurtleBay.Plugin.Pages;
+using WebExpress.Pages;
 using WebExpress.UI.Controls;
 
 namespace TurtleBay.Plugin.Controls
 {
-    public class ControlTabMenue : ControlTab
+    public class ControlTabMenu : ControlTab
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
-        public ControlTabMenue(IPage page)
+        public ControlTabMenu(IPage page)
             : base(page)
         {
             Init();
@@ -27,7 +28,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Zentrale",
                 Url = Page.GetPath(0),
-                Class = Page.Url == "/" ? "active" : string.Empty,
+                Class = Page is PageDashboard ? "active" : string.Empty,
                 Icon = Icon.TachometerAlt
             });
 
@@ -35,7 +36,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Verlauf",
                 Url = Page.GetPath(0, "history"),
-                Class = Page.Url == "/history" ? "active" : string.Empty,
+                Class = Page is PageHistory ? "active" : string.Empty,
                 Icon = Icon.ChartBar
             });
 
@@ -43,7 +44,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "DS18B201",
                 Url = Page.GetPath(0, "ds"),
-                Class = Page.Url == "/ds" ? "active" : string.Empty,
+                Class = Page is PageDS18B201 ? "active" : string.Empty,
                 Icon = Icon.Microchip
             });
 
@@ -51,7 +52,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Einstellungen",
                 Url = Page.GetPath(0, "settings"),
-                Class = Page.Url.StartsWith("/settings") ? "active" : string.Empty,
+                Class = Page is PageSettings || Page is PageSettingsHeating || Page is PageSettingsLighting ? "active" : string.Empty,
                 Icon = Icon.Cog
             });
 
@@ -59,7 +60,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Logging",
                 Url = Page.GetPath(0, "log"),
-                Class = Page.Url == "/log" ? "active" : string.Empty,
+                Class = Page is PageLog ? "active" : string.Empty,
                 Icon = Icon.Book
             });
 
@@ -67,7 +68,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Info",
                 Url = Page.GetPath(0, "info"),
-                Class = Page.Url == "/info" ? "active" : string.Empty,
+                Class = Page is PageInfo ? "active" : string.Empty,
                 Icon = Icon.InfoCircle
             });
         }

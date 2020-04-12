@@ -6,8 +6,8 @@
     <ApplicationIcon>TurtleBay.ico</ApplicationIcon>
     <StartupObject>TurtleBay.Program</StartupObject>
     <RuntimeIdentifiers>win10-x64;win-arm;linux-arm;ubuntu.14.04-arm;ubuntu.16.04-arm</RuntimeIdentifiers>
-    <Version>1.2.0.0</Version>
-    <AssemblyVersion>1.2.0.0</AssemblyVersion>
+    <Version>1.2.1.0</Version>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
     <Copyright></Copyright>
     <RepositoryUrl>https://github.com/ReneSchwarzer/TurtleBay.git</RepositoryUrl>
     <Authors>Rene_Schwarzer@hotmail.de</Authors>
