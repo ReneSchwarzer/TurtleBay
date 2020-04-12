@@ -49,7 +49,7 @@ namespace TurtleBay.Plugin.Pages
                 Style = "font-size:190%; height: 50px;"
             }));
 
-            Main.Content.Add(new ControlTabMenue(this));
+            Main.Content.Add(new ControlTabMenu(this));
             Main.Content.Add(new ControlLine(this));
 
             Foot.Content.Add(new ControlText(this, "now")

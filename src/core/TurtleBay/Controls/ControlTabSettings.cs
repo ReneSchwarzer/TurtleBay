@@ -1,4 +1,5 @@
-﻿using WebExpress.Pages;
+﻿using TurtleBay.Plugin.Pages;
+using WebExpress.Pages;
 using WebExpress.UI.Controls;
 
 namespace TurtleBay.Plugin.Controls
@@ -27,7 +28,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Tag",
                 Url = Page.GetPath(0, "settings"),
-                Class = Page.Url == "/settings" ? "active" : string.Empty,
+                Class = Page is PageSettings ? "active" : string.Empty,
                 Icon = Icon.Sun
             });
 
@@ -35,7 +36,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Heizung",
                 Url = Page.GetPath("settings", "heating"),
-                Class = Page.Url == "/settings/heating" ? "active" : string.Empty,
+                Class = Page is PageSettingsHeating ? "active" : string.Empty,
                 Icon = Icon.Fire
             });
 
@@ -43,7 +44,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Scheinwerfer",
                 Url = Page.GetPath("settings", "lighting"),
-                Class = Page.Url == "/settings/lighting" ? "active" : string.Empty,
+                Class = Page is PageSettingsLighting ? "active" : string.Empty,
                 Icon = Icon.Lightbulb
             });
         }

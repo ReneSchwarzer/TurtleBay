@@ -55,14 +55,5 @@ namespace TurtleBay.Plugin.Pages
 
             Main.Content.Add(table);
         }
-
-        /// <summary>
-        /// In String konvertieren
-        /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
-        {
-            return base.ToString();
-        }
     }
 }
