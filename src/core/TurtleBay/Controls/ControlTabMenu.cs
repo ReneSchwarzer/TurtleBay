@@ -26,10 +26,10 @@ namespace TurtleBay.Plugin.Controls
 
             Items.Add(new ControlLink(Page)
             {
-                Text = "Zentrale",
+                Text = "Home",
                 Url = Page.GetPath(0),
                 Class = Page is PageDashboard ? "active" : string.Empty,
-                Icon = Icon.TachometerAlt
+                Icon = Icon.Home
             });
 
             Items.Add(new ControlLink(Page)
