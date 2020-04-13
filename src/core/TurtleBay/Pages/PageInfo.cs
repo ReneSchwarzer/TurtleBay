@@ -47,7 +47,7 @@ namespace TurtleBay.Plugin.Pages
                     },
                     new ControlText(this)
                     {
-                        Text = string.Format("{0}", ViewModel.Instance.Version),
+                        Text = string.Format("{0}", Context.Version),
                         Color = TypesTextColor.Dark
                     },
                     new ControlText(this)
@@ -58,7 +58,7 @@ namespace TurtleBay.Plugin.Pages
                     new ControlLink(this)
                     {
                         Text = string.Format("rene_schwarzer@hotmail.de"),
-                        Url = new Path(null, "mailto:rene_schwarzer@hotmail.de"),
+                        Url = new PathExtern("mailto:rene_schwarzer@hotmail.de"),
                         Color = TypesTextColor.Dark
                     },
                     new ControlLine(this),

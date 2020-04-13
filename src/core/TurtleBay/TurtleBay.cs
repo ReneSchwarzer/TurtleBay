@@ -30,21 +30,21 @@ namespace TurtleBay.Plugin
 
             Register(new WorkerFile(new Path(Context, "", "Assets/.*"), Context.AssetBaseFolder));
 
-            var root = new VariationPath(Context, "dashboard", new PathItem("Zentrale"));
+            var root = new VariationPath(Context, "dashboard", new PathItem("Home"));
             var history = new VariationPath(root, "history", new PathItem("Verlauf", "history"));
             var ds = new VariationPath(root, "ds", new PathItem("DS18B201", "ds"));
             var settings = new VariationPath(root, "settings", new PathItem("Einstellungen", "settings"));
             var heating = new VariationPath(settings, "heating", new PathItem("Heizung", "heating"));
             var lighting = new VariationPath(settings, "lighting", new PathItem("Scheinwerfer", "lighting"));
             var log = new VariationPath(root, "log", new PathItem("Logging", "log"));
-            var info = new VariationPath(root, "info", new PathItem("info", "info"));
+            var info = new VariationPath(root, "info", new PathItem("Info", "info"));
             var reset = new VariationPath(root, "reset", new PathItem("Reset", "reset"));
             var reboot = new VariationPath(root, "reboot", new PathItem("Reboot", "reboot"));
             var api = new VariationPath(root, "api", new PathItem("API", "api"));
             var debug = new VariationPath(root, "debug", new PathItem("Debug", "debug"));
             var status = new VariationPath(root, "status", new PathItem("Status", "status"));
 
-            root.GetUrls("Zentrale").ForEach(x => Register(new WorkerPage<PageDashboard>(x) { }));
+            root.GetUrls("Home").ForEach(x => Register(new WorkerPage<PageDashboard>(x) { }));
             history.GetUrls("Verlauf").ForEach(x => Register(new WorkerPage<PageHistory>(x) { }));
             ds.GetUrls("DS18B201").ForEach(x => Register(new WorkerPage<PageDS18B201>(x) { }));
             settings.GetUrls("Einstellungen").ForEach(x => Register(new WorkerPage<PageSettings>(x) { }));
