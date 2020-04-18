@@ -87,7 +87,7 @@ namespace TurtleBay.Plugin.Pages
                 Text = ViewModel.Instance.Settings.DebugMode ? "Debug-Ausgaben ausblenden" : "Debug-Ausgaben einblenden",
                 Icon = Icon.Bug,
                 Color = TypesTextColor.Warning,
-                Url = GetPath(0, "debug"),
+                Uri = Uri.Root.Append("debug"),
                 Class = "m-3"
             })); ;
         }

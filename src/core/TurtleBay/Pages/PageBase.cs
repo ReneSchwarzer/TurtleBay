@@ -35,15 +35,15 @@ namespace TurtleBay.Plugin.Pages
             Head.Style = "position: sticky; top: 0; z-index: 99;";
             Head.Content.Add(HamburgerMenu);
             HamburgerMenu.HorizontalAlignment = TypesHorizontalAlignment.Left;
-            HamburgerMenu.Image = GetPath(0, "Assets/img/Logo.png");
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Home", Icon = Icon.Home, Url = GetPath(0) });
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Verlauf", Icon = Icon.ChartBar, Url = GetPath(0, "history") });
-            HamburgerMenu.Add(new ControlLink(this) { Text = "DS18B201", Icon = Icon.Microchip, Url = GetPath(0, "ds") });
+            HamburgerMenu.Image = Uri.Root.Append("Assets/img/Logo.png");
+            HamburgerMenu.Add(new ControlLink(this) { Text = "Home", Icon = Icon.Home, Uri = Uri.Root });
+            HamburgerMenu.Add(new ControlLink(this) { Text = "Verlauf", Icon = Icon.ChartBar, Uri = Uri.Root.Append("history") });
+            HamburgerMenu.Add(new ControlLink(this) { Text = "DS18B201", Icon = Icon.Microchip, Uri = Uri.Root.Append("ds") });
             HamburgerMenu.AddSeperator();
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Logging", Icon = Icon.Book, Url = GetPath(0, "log") });
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Einstellungen", Icon = Icon.Cog, Url = GetPath(0, "settings") });
+            HamburgerMenu.Add(new ControlLink(this) { Text = "Logging", Icon = Icon.Book, Uri = Uri.Root.Append("log") });
+            HamburgerMenu.Add(new ControlLink(this) { Text = "Einstellungen", Icon = Icon.Cog, Uri = Uri.Root.Append("settings") });
             HamburgerMenu.AddSeperator();
-            HamburgerMenu.Add(new ControlLink(this) { Text = "Hilfe", Icon = Icon.InfoCircle, Url = GetPath(0, "info") });
+            HamburgerMenu.Add(new ControlLink(this) { Text = "Hilfe", Icon = Icon.InfoCircle, Uri = Uri.Root.Append("help") });
 
             // SideBar
             ToolBar = new ControlToolBar(this)

@@ -27,7 +27,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Home",
-                Url = Page.GetPath(0),
+                Uri = Page.Uri.Root,
                 Class = Page is PageDashboard ? "active" : string.Empty,
                 Icon = Icon.Home
             });
@@ -35,7 +35,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Verlauf",
-                Url = Page.GetPath(0, "history"),
+                Uri = Page.Uri.Root.Append("history"),
                 Class = Page is PageHistory ? "active" : string.Empty,
                 Icon = Icon.ChartBar
             });
@@ -43,7 +43,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "DS18B201",
-                Url = Page.GetPath(0, "ds"),
+                Uri = Page.Uri.Root.Append("ds"),
                 Class = Page is PageDS18B201 ? "active" : string.Empty,
                 Icon = Icon.Microchip
             });
@@ -51,7 +51,7 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Einstellungen",
-                Url = Page.GetPath(0, "settings"),
+                Uri = Page.Uri.Root.Append("settings"),
                 Class = Page is PageSettings || Page is PageSettingsHeating || Page is PageSettingsLighting ? "active" : string.Empty,
                 Icon = Icon.Cog
             });
@@ -59,16 +59,16 @@ namespace TurtleBay.Plugin.Controls
             Items.Add(new ControlLink(Page)
             {
                 Text = "Logging",
-                Url = Page.GetPath(0, "log"),
+                Uri = Page.Uri.Root.Append("log"),
                 Class = Page is PageLog ? "active" : string.Empty,
                 Icon = Icon.Book
             });
 
             Items.Add(new ControlLink(Page)
             {
-                Text = "Info",
-                Url = Page.GetPath(0, "info"),
-                Class = Page is PageInfo ? "active" : string.Empty,
+                Text = "Hilfe",
+                Uri = Page.Uri.Root.Append("help"),
+                Class = Page is PageHelp ? "active" : string.Empty,
                 Icon = Icon.InfoCircle
             });
         }

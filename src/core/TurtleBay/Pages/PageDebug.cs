@@ -30,7 +30,7 @@ namespace TurtleBay.Plugin.Pages
             ViewModel.Instance.Settings.DebugMode = !ViewModel.Instance.Settings.DebugMode;
             ViewModel.Instance.SaveSettings();
 
-            Redirecting(GetPath(0, "/log"));
+            Redirecting(Uri.Root.Append("log"));
         }
 
         /// <summary>
