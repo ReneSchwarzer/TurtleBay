@@ -1,16 +1,17 @@
 ﻿using TurtleBay.Plugin.Controls;
 using TurtleBay.Plugin.Model;
+using WebExpress.Html;
 using WebExpress.Pages;
 using WebExpress.UI.Controls;
 
 namespace TurtleBay.Plugin.Pages
 {
-    public sealed class PageInfo : PageBase
+    public sealed class PageHelp : PageBase
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public PageInfo()
+        public PageHelp()
             : base("")
         {
         }
@@ -37,7 +38,7 @@ namespace TurtleBay.Plugin.Pages
                     this,
                     new ControlImage(this)
                     {
-                        Source = GetPath(0, "/Assets/img/Turtle.png"),
+                        Source = Uri.Root.Append("Assets/img/Turtle.png"),
                         Width = 200
                     },
                     new ControlText(this)
@@ -58,7 +59,11 @@ namespace TurtleBay.Plugin.Pages
                     new ControlLink(this)
                     {
                         Text = string.Format("rene_schwarzer@hotmail.de"),
-                        Url = new PathExtern("mailto:rene_schwarzer@hotmail.de"),
+                        Uri = new UriAbsolute()
+                        {
+                            Scheme = UriScheme.Mailto,
+                            Authority = new UriAuthority("rene_schwarzer@hotmail.de")
+                        },
                         Color = TypesTextColor.Dark
                     },
                     new ControlLine(this),
@@ -66,6 +71,31 @@ namespace TurtleBay.Plugin.Pages
                 )
             );
 
+            Main.Content.Add(new ControlLine(this));
+
+            Main.Content.Add(new ControlText(this)
+            {
+                Text = "Datenschutzrichtlinie",
+                Format = TypesTextFormat.H4
+            });
+
+            Main.Content.Add(new ControlText(this)
+            {
+                Text = "Die während der Nutzung eingegebenen Daten werden lokal auf Ihrem Gerät gespeichert. Sie behalten jederzeit die Datenhoheit. Die Daten werden zu keiner Zeit an Dritte übermittelt. Persönliche Informationen und Standortinformationen werden nicht erhoben.",
+                Format = TypesTextFormat.Paragraph
+            });
+
+            Main.Content.Add(new ControlText(this)
+            {
+                Text = "Haftungsausschluss",
+                Format = TypesTextFormat.H4
+            });
+
+            Main.Content.Add(new ControlText(this)
+            {
+                Text = "Die Haftung für Schäden durch Sachmängel wird ausgeschlossen. Die Haftung auf Schadensersatz wegen Körperverletzung sowie bei grober Fahrlässigkeit oder Vorsatz bleibt unberührt.",
+                Format = TypesTextFormat.Paragraph
+            });
 
         }
 

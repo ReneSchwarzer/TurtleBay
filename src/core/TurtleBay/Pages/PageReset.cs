@@ -29,7 +29,7 @@ namespace TurtleBay.Plugin.Pages
 
             ViewModel.Instance.ResetCounter();
 
-            Redirecting(GetPath(0));
+            Redirecting(Uri.Root);
         }
 
         /// <summary>

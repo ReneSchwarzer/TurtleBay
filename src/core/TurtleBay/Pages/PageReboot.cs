@@ -35,7 +35,7 @@ namespace TurtleBay.Plugin.Pages
                     this,
                     new ControlImage(this)
                     {
-                        Source = GetPath(0, "Assets/img/Reboot.png"),
+                        Source = Uri.Root.Append("Assets/img/Reboot.png"),
                         Width = 200
                     },
                     new ControlText(this)
