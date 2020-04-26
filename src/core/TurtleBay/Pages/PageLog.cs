@@ -34,8 +34,8 @@ namespace TurtleBay.Plugin.Pages
             {
                 Text = "Ereignisse",
                 Format = TypesTextFormat.Center,
-                Color = TypesTextColor.Primary,
-                Class = "m-3"
+                Color = new PropertyColorText(TypesTextColor.Primary),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.One)
             });
 
             var table = new ControlTable(this);
@@ -73,7 +73,7 @@ namespace TurtleBay.Plugin.Pages
             foreach (var v in log.OrderByDescending(x => x.Time))
             {
                 var row = new ControlTableRow(this) { };
-                row.Cells.Add(new ControlText(this) { Class = func(v.Level).ToClass() });
+                row.Cells.Add(new ControlIcon(this) { Icon = func(v.Level) });
                 row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.Instance) });
                 row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.Massage) });
                 row.Cells.Add(new ControlText(this) { Text = string.Format("{0}", v.Time.ToString("dd.MM.yyyy HH.mm.ss.f")) });
@@ -86,10 +86,10 @@ namespace TurtleBay.Plugin.Pages
             {
                 Text = ViewModel.Instance.Settings.DebugMode ? "Debug-Ausgaben ausblenden" : "Debug-Ausgaben einblenden",
                 Icon = Icon.Bug,
-                Color = TypesTextColor.Warning,
+                Color = new PropertyColorText(TypesTextColor.Warning),
                 Uri = Uri.Root.Append("debug"),
-                Class = "m-3"
-            })); ;
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
+        })); ;
         }
 
         /// <summary>

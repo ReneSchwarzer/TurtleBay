@@ -28,7 +28,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Home",
                 Uri = Page.Uri.Root,
-                Class = Page is PageDashboard ? "active" : string.Empty,
+                Active = Page is PageDashboard ? TypesActive.Active : TypesActive.None,
                 Icon = Icon.Home
             });
 
@@ -36,7 +36,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Verlauf",
                 Uri = Page.Uri.Root.Append("history"),
-                Class = Page is PageHistory ? "active" : string.Empty,
+                Active = Page is PageHistory ? TypesActive.Active : TypesActive.None,
                 Icon = Icon.ChartBar
             });
 
@@ -44,7 +44,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "DS18B201",
                 Uri = Page.Uri.Root.Append("ds"),
-                Class = Page is PageDS18B201 ? "active" : string.Empty,
+                Active = Page is PageDS18B201 ? TypesActive.Active : TypesActive.None,
                 Icon = Icon.Microchip
             });
 
@@ -52,7 +52,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Einstellungen",
                 Uri = Page.Uri.Root.Append("settings"),
-                Class = Page is PageSettings || Page is PageSettingsHeating || Page is PageSettingsLighting ? "active" : string.Empty,
+                Active = Page is PageSettings || Page is PageSettingsHeating || Page is PageSettingsLighting ? TypesActive.Active : TypesActive.None,
                 Icon = Icon.Cog
             });
 
@@ -60,7 +60,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Logging",
                 Uri = Page.Uri.Root.Append("log"),
-                Class = Page is PageLog ? "active" : string.Empty,
+                Active = Page is PageLog ? TypesActive.Active : TypesActive.None,
                 Icon = Icon.Book
             });
 
@@ -68,7 +68,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Hilfe",
                 Uri = Page.Uri.Root.Append("help"),
-                Class = Page is PageHelp ? "active" : string.Empty,
+                Active = Page is PageHelp ? TypesActive.Active : TypesActive.None,
                 Icon = Icon.InfoCircle
             });
         }

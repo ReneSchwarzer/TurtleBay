@@ -44,17 +44,17 @@ namespace TurtleBay.Plugin.Pages
                     new ControlText(this)
                     {
                         Text = string.Format("Version"),
-                        Color = TypesTextColor.Primary
+                        Color = new PropertyColorText(TypesTextColor.Primary)
                     },
                     new ControlText(this)
                     {
                         Text = string.Format("{0}", Context.Version),
-                        Color = TypesTextColor.Dark
+                        Color = new PropertyColorText(TypesTextColor.Dark)
                     },
                     new ControlText(this)
                     {
                         Text = string.Format("Kontakt"),
-                        Color = TypesTextColor.Primary
+                        Color = new PropertyColorText(TypesTextColor.Primary)
                     },
                     new ControlLink(this)
                     {

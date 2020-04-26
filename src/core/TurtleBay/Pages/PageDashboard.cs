@@ -35,20 +35,20 @@ namespace TurtleBay.Plugin.Pages
 
             var grid = new ControlGrid(this) { Fluid = true };
 
-            var layout = TypesLayoutCard.Success;
+            var layout = TypesBackgroundColor.Success;
             var temp = ViewModel.Instance.PrimaryTemperature;
 
             if (double.IsNaN(temp))
             {
-                layout = TypesLayoutCard.Danger;
+                layout = TypesBackgroundColor.Danger;
             }
             else if(temp < ViewModel.Instance.Min)
             {
-                layout = TypesLayoutCard.Warning;
+                layout = TypesBackgroundColor.Warning;
             }
             else if (temp > ViewModel.Instance.Settings.Max)
             {
-                layout = TypesLayoutCard.Danger;
+                layout = TypesBackgroundColor.Danger;
             }
 
             grid.Add(0, new ControlCardCounter(this, "temperature")
@@ -56,8 +56,10 @@ namespace TurtleBay.Plugin.Pages
                 Text = "Aktuelle Temperatur",
                 Value = string.Format("{0} °C", temp.ToString("0.0")),
                 Icon = Icon.ThermometerQuarter,
-                Color = TypesTextColor.White,
-                Layout = layout
+                Color = new PropertyColorText(TypesTextColor.White),
+                BackgroundColor = new PropertyColorBackground(layout),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two)
+
             });
 
             grid.Add(0, new ControlCardCounter(this, "lighting")
@@ -65,8 +67,9 @@ namespace TurtleBay.Plugin.Pages
                 Text = "Scheinwerfer",
                 Value = ViewModel.Instance.Lighting ? "An" : "Aus",
                 Icon = Icon.Lightbulb,
-                Color = TypesTextColor.White,
-                Layout = ViewModel.Instance.Lighting ? TypesLayoutCard.Success : TypesLayoutCard.Info
+                Color = new PropertyColorText(TypesTextColor.White),
+                BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Heating ? TypesBackgroundColor.Success : TypesBackgroundColor.Info),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two)
             });
 
             grid.Add(0, new ControlCardCounter(this, "heating")
@@ -74,8 +77,9 @@ namespace TurtleBay.Plugin.Pages
                 Text = "Heizung",
                 Value = ViewModel.Instance.Heating ? "An" : "Aus",
                 Icon = Icon.Fire,
-                Color = TypesTextColor.White,
-                Layout = ViewModel.Instance.Heating ? TypesLayoutCard.Success : TypesLayoutCard.Info
+                Color = new PropertyColorText(TypesTextColor.White),
+                BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Heating ? TypesBackgroundColor.Success : TypesBackgroundColor.Info),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two)
             });
 
             grid.Add(1, new ControlCardCounter(this, "lc")
@@ -83,7 +87,8 @@ namespace TurtleBay.Plugin.Pages
                 Text = "Gesammteinschaltdauer Scheinwerfer",
                 Value = converter.Convert(ViewModel.Instance.Statistic.LightingCounter, typeof(string), null, null).ToString(),
                 Icon = Icon.Lightbulb,
-                Color = ViewModel.Instance.Lighting ? TypesTextColor.Success : TypesTextColor.Info
+                Color = new PropertyColorText(ViewModel.Instance.Lighting ? TypesTextColor.Success : TypesTextColor.Info),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two)
             });
 
             grid.Add(1, new ControlCardCounter(this, "hc")
@@ -91,7 +96,8 @@ namespace TurtleBay.Plugin.Pages
                 Text = "Gesammteinschaltdauer Heizung",
                 Value = converter.Convert(ViewModel.Instance.Statistic.HeatingCounter, typeof(string), null, null).ToString(),
                 Icon = Icon.Fire,
-                Color = ViewModel.Instance.Heating ? TypesTextColor.Success : TypesTextColor.Info
+                Color = new PropertyColorText(ViewModel.Instance.Heating ? TypesTextColor.Success : TypesTextColor.Info),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two)
             });
 
             grid.Add(2, new ControlCardCounter(this, "pc")
@@ -99,7 +105,8 @@ namespace TurtleBay.Plugin.Pages
                 Text = "Programmlauf",
                 Value = converter.Convert(ViewModel.Instance.ProgramCounter, typeof(string), null, null).ToString(),
                 Icon = Icon.Stopwatch,
-                Color = TypesTextColor.Info
+                Color = new PropertyColorText(TypesTextColor.Info),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.None, PropertySpacing.Space.Two)
             });
 
             grid.Add(3, new ControlPanel(this));

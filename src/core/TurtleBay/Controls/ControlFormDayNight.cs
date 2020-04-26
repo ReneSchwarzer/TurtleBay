@@ -34,7 +34,7 @@ namespace TurtleBay.Plugin.Controls
         {
             Name = "daynight";
             EnableCancelButton = false;
-            Class = "m-3";
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
             DayFromCtrl = new ControlFormularItemComboBox(this)
             {

@@ -43,7 +43,7 @@ namespace TurtleBay.Plugin.Controls
         {
             Name = "lighting";
             EnableCancelButton = false;
-            Class = "m-3";
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
             FromCtrl = new ControlFormularItemComboBox(this)
             {

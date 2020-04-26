@@ -38,7 +38,7 @@ namespace TurtleBay.Plugin.Pages
         /// <returns>Das Objekt als String</returns>
         public override string ToString()
         {
-            var layout = TypesLayoutCard.Success;
+            var layout = TypesBackgroundColor.Success;
             var temp = ViewModel.Instance.PrimaryTemperature;
 
             return new ControlCardCounter(this, "temperature")
@@ -46,8 +46,8 @@ namespace TurtleBay.Plugin.Pages
                 Text = "Aktuelle Temperatur",
                 Value = string.Format("{0} °C", temp.ToString("0.0")),
                 Icon = Icon.ThermometerQuarter,
-                Color = TypesTextColor.White,
-                Layout = layout
+                Color = new PropertyColorText(TypesTextColor.White),
+                BackgroundColor = new PropertyColorBackground(layout)
             }.ToHtml().ToString();
         }
     }

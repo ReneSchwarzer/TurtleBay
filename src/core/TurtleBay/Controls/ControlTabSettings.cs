@@ -28,7 +28,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Tag",
                 Uri = Page.Uri.Root.Append("settings"),
-                Class = Page is PageSettings ? "active" : string.Empty,
+                Active = Page is PageSettings ? TypesActive.Active : TypesActive.None,
                 Icon = Icon.Sun
             });
 
@@ -36,7 +36,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Heizung",
                 Uri = Page.Uri.Take("Einstellungen").Append("heating"),
-                Class = Page is PageSettingsHeating ? "active" : string.Empty,
+                Active = Page is PageSettingsHeating ? TypesActive.Active : TypesActive.None,
                 Icon = Icon.Fire
             });
 
@@ -44,7 +44,7 @@ namespace TurtleBay.Plugin.Controls
             {
                 Text = "Scheinwerfer",
                 Uri = Page.Uri.Take("Einstellungen").Append("lighting"),
-                Class = Page is PageSettingsLighting ? "active" : string.Empty,
+                Active = Page is PageSettingsLighting ? TypesActive.Active : TypesActive.None,
                 Icon = Icon.Lightbulb
             });
         }

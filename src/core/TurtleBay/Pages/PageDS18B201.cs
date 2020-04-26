@@ -35,7 +35,7 @@ namespace TurtleBay.Plugin.Pages
             {
                 Name = "Settings",
                 EnableCancelButton = false,
-                Class = "m-3"
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             };
 
             PrimaryIDCtrl = new ControlFormularItemComboBox(Form)
@@ -97,8 +97,8 @@ namespace TurtleBay.Plugin.Pages
             Main.Content.Add(new ControlPanelCard(this, Form)
             {
                 Header = "Einstellungen",
-                Layout = TypesLayoutCard.Light,
-                Class = "m-3"
+                BackgroundColor = new PropertyColorBackground(TypesBackgroundColor.Light),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             });
         }
 

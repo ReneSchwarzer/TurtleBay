@@ -21,7 +21,7 @@ namespace TurtleBay.Plugin.Controls
         private void Init()
         {
             Text = "Zähler zurücksetzen";
-            Class = "m-1";
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.One);
             Icon = Icon.Undo;
             Layout = TypesLayoutButton.Warning;
 
@@ -38,7 +38,7 @@ namespace TurtleBay.Plugin.Controls
                 {
                     Text = "Zurücksetzen",
                     Icon = Icon.Undo,
-                    Class = "m-1",
+                    Margin = new PropertySpacingMargin(PropertySpacing.Space.One),
                     Layout = TypesLayoutButton.Warning,
                     OnClick = "window.location.href = '/reset'"
                 }

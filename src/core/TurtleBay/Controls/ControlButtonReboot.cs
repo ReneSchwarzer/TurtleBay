@@ -21,7 +21,7 @@ namespace TurtleBay.Plugin.Controls
         private void Init()
         {
             Text = "Reboot";
-            Class = "m-1";
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.One);
             Icon = Icon.PowerOff;
             Layout = TypesLayoutButton.Danger;
 
@@ -38,7 +38,7 @@ namespace TurtleBay.Plugin.Controls
                 {
                     Text = "Neustart",
                     Icon = Icon.PowerOff,
-                    Class = "m-1",
+                    Margin = new PropertySpacingMargin(PropertySpacing.Space.One),
                     Layout = TypesLayoutButton.Danger,
                     OnClick = "window.location.href = '/reboot'"
                 }

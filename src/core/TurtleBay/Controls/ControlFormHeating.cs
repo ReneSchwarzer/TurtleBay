@@ -38,7 +38,7 @@ namespace TurtleBay.Plugin.Controls
         {
             Name = "heating";
             EnableCancelButton = false;
-            Class = "m-3";
+            Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
             NightMinCtrl = new ControlFormularItemComboBox(this)
             {

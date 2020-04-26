@@ -32,8 +32,8 @@ namespace TurtleBay.Plugin.Pages
             {
                 Text = "Temperaturverlauf der letzten 24 Stunden",
                 Format = TypesTextFormat.Center,
-                Color = TypesTextColor.Primary,
-                Class = "m-3"
+                Color = new PropertyColorText(TypesTextColor.Primary),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             });
 
             var table = new ControlTable(this);
