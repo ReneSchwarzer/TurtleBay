@@ -22,8 +22,8 @@ namespace TurtleBay.Plugin.Controls
         {
             Text = "Reboot";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.One);
-            Icon = Icon.PowerOff;
-            Layout = TypesLayoutButton.Danger;
+            Icon = new PropertyIcon(TypeIcon.PowerOff);
+            Color = new PropertyColorButton(TypeColorButton.Danger);
 
             Modal = new ControlModal
             (
@@ -37,9 +37,9 @@ namespace TurtleBay.Plugin.Controls
                 new ControlButton(Page)
                 {
                     Text = "Neustart",
-                    Icon = Icon.PowerOff,
+                    Icon = new PropertyIcon(TypeIcon.PowerOff),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.One),
-                    Layout = TypesLayoutButton.Danger,
+                    Color = new PropertyColorButton(TypeColorButton.Danger),
                     OnClick = "window.location.href = '/reboot'"
                 }
             );

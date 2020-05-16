@@ -97,7 +97,7 @@ namespace TurtleBay.Plugin.Pages
             Main.Content.Add(new ControlPanelCard(this, Form)
             {
                 Header = "Einstellungen",
-                BackgroundColor = new PropertyColorBackground(TypesBackgroundColor.Light),
+                BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             });
         }

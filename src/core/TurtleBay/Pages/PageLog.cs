@@ -33,34 +33,34 @@ namespace TurtleBay.Plugin.Pages
             Main.Content.Add(new ControlText(this)
             {
                 Text = "Ereignisse",
-                Format = TypesTextFormat.Center,
-                Color = new PropertyColorText(TypesTextColor.Primary),
+                Format = TypeFormatText.Center,
+                TextColor = new PropertyColorText(TypeColorText.Primary),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.One)
             });
 
             var table = new ControlTable(this);
-            table.AddColumn("Level", Icon.Hashtag, TypesLayoutTableRow.Info);
-            table.AddColumn("Instanz", Icon.Code, TypesLayoutTableRow.Warning);
-            table.AddColumn("Nachricht", Icon.CommentAlt, TypesLayoutTableRow.Danger);
-            table.AddColumn("Zeit", Icon.Clock, TypesLayoutTableRow.Warning);
+            table.AddColumn("Level", new PropertyIcon(TypeIcon.Hashtag), TypesLayoutTableRow.Info);
+            table.AddColumn("Instanz", new PropertyIcon(TypeIcon.Code), TypesLayoutTableRow.Warning);
+            table.AddColumn("Nachricht", new PropertyIcon(TypeIcon.CommentAlt), TypesLayoutTableRow.Danger);
+            table.AddColumn("Zeit", new PropertyIcon(TypeIcon.Clock), TypesLayoutTableRow.Warning);
 
-            Func<LogItem.LogLevel, Icon> func = (level) =>
+            Func<LogItem.LogLevel, PropertyIcon> func = (level) =>
             {
                 switch (level)
                 {
                     case LogItem.LogLevel.Info:
-                        return Icon.Info;
+                        return new PropertyIcon(TypeIcon.Info);
                     case LogItem.LogLevel.Debug:
-                        return Icon.Bug;
+                        return new PropertyIcon(TypeIcon.Bug);
                     case LogItem.LogLevel.Warning:
-                        return Icon.ExclamationTriangle;
+                        return new PropertyIcon(TypeIcon.ExclamationTriangle);
                     case LogItem.LogLevel.Error:
-                        return Icon.Times;
+                        return new PropertyIcon(TypeIcon.Times);
                     case LogItem.LogLevel.Exception:
-                        return Icon.Bomb;
+                        return new PropertyIcon(TypeIcon.Bomb);
                 }
 
-                return Icon.None;
+                return new PropertyIcon(TypeIcon.None);
             };
 
             var log = ViewModel.Instance.Logging;
@@ -85,8 +85,8 @@ namespace TurtleBay.Plugin.Pages
             Main.Content.Add(new ControlPanelCenter(this, new ControlButtonLink(this)
             {
                 Text = ViewModel.Instance.Settings.DebugMode ? "Debug-Ausgaben ausblenden" : "Debug-Ausgaben einblenden",
-                Icon = Icon.Bug,
-                Color = new PropertyColorText(TypesTextColor.Warning),
+                Icon = new PropertyIcon(TypeIcon.Bug),
+                TextColor = new PropertyColorText(TypeColorText.Warning),
                 Uri = Uri.Root.Append("debug"),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
         })); ;

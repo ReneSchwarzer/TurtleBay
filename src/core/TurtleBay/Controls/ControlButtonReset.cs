@@ -22,8 +22,8 @@ namespace TurtleBay.Plugin.Controls
         {
             Text = "Zähler zurücksetzen";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.One);
-            Icon = Icon.Undo;
-            Layout = TypesLayoutButton.Warning;
+            Icon = new PropertyIcon(TypeIcon.Undo);
+            Color = new PropertyColorButton(TypeColorButton.Warning);
 
             Modal = new ControlModal
             (
@@ -37,9 +37,9 @@ namespace TurtleBay.Plugin.Controls
                 new ControlButton(Page)
                 {
                     Text = "Zurücksetzen",
-                    Icon = Icon.Undo,
+                    Icon = new PropertyIcon(TypeIcon.Undo),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.One),
-                    Layout = TypesLayoutButton.Warning,
+                    Color = new PropertyColorButton(TypeColorButton.Warning),
                     OnClick = "window.location.href = '/reset'"
                 }
             );

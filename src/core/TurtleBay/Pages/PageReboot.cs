@@ -41,13 +41,13 @@ namespace TurtleBay.Plugin.Pages
                     new ControlText(this)
                     {
                         Text = "Der Rechner wird neu gestartet! Bitte warten Sie einen Augenblick.",
-                        Color = new PropertyColorText(TypesTextColor.Danger)
+                        TextColor = new PropertyColorText(TypeColorText.Danger)
                     }
                     ,
                     new ControlText(this)
                     {
                         Text = "...",
-                        Color = new PropertyColorText(TypesTextColor.Primary)
+                        TextColor = new PropertyColorText(TypeColorText.Primary)
                     }
                 )
             );

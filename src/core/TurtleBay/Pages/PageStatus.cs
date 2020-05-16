@@ -38,15 +38,15 @@ namespace TurtleBay.Plugin.Pages
         /// <returns>Das Objekt als String</returns>
         public override string ToString()
         {
-            var layout = TypesBackgroundColor.Success;
+            var layout = TypeColorBackground.Success;
             var temp = ViewModel.Instance.PrimaryTemperature;
 
             return new ControlCardCounter(this, "temperature")
             {
                 Text = "Aktuelle Temperatur",
                 Value = string.Format("{0} °C", temp.ToString("0.0")),
-                Icon = Icon.ThermometerQuarter,
-                Color = new PropertyColorText(TypesTextColor.White),
+                Icon = new PropertyIcon(TypeIcon.ThermometerQuarter),
+                TextColor = new PropertyColorText(TypeColorText.White),
                 BackgroundColor = new PropertyColorBackground(layout)
             }.ToHtml().ToString();
         }

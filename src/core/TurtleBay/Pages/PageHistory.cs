@@ -31,16 +31,16 @@ namespace TurtleBay.Plugin.Pages
             Main.Content.Add(new ControlText(this)
             {
                 Text = "Temperaturverlauf der letzten 24 Stunden",
-                Format = TypesTextFormat.Center,
-                Color = new PropertyColorText(TypesTextColor.Primary),
+                Format = TypeFormatText.Center,
+                TextColor = new PropertyColorText(TypeColorText.Primary),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             });
 
             var table = new ControlTable(this);
-            table.AddColumn("Zeit", Icon.Clock, TypesLayoutTableRow.Info);
-            table.AddColumn("Temperatur", Icon.ThermometerQuarter, TypesLayoutTableRow.Danger);
-            table.AddColumn("Scheinwerfer", Icon.Lightbulb, TypesLayoutTableRow.Warning);
-            table.AddColumn("Heizung", Icon.Fire, TypesLayoutTableRow.Warning);
+            table.AddColumn("Zeit", new PropertyIcon(TypeIcon.Clock), TypesLayoutTableRow.Info);
+            table.AddColumn("Temperatur", new PropertyIcon(TypeIcon.ThermometerQuarter), TypesLayoutTableRow.Danger);
+            table.AddColumn("Scheinwerfer", new PropertyIcon(TypeIcon.Lightbulb), TypesLayoutTableRow.Warning);
+            table.AddColumn("Heizung", new PropertyIcon(TypeIcon.Fire), TypesLayoutTableRow.Warning);
 
             foreach (var v in ViewModel.Instance.Statistic.Chart24h)
             {

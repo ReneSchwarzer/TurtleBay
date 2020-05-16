@@ -21,31 +21,31 @@ namespace TurtleBay.Plugin.Controls
         /// </summary>
         private void Init()
         {
-            Layout = TypesLayoutTab.Tab;
-            HorizontalAlignment = TypesTabHorizontalAlignment.Center;
+            Layout = TypeLayoutTab.Tab;
+            HorizontalAlignment = TypeHorizontalAlignmentTab.Center;
 
             Items.Add(new ControlLink(Page)
             {
                 Text = "Tag",
                 Uri = Page.Uri.Root.Append("settings"),
-                Active = Page is PageSettings ? TypesActive.Active : TypesActive.None,
-                Icon = Icon.Sun
+                Active = Page is PageSettings ? TypeActive.Active : TypeActive.None,
+                Icon = new PropertyIcon(TypeIcon.Sun)
             });
 
             Items.Add(new ControlLink(Page)
             {
                 Text = "Heizung",
                 Uri = Page.Uri.Take("Einstellungen").Append("heating"),
-                Active = Page is PageSettingsHeating ? TypesActive.Active : TypesActive.None,
-                Icon = Icon.Fire
+                Active = Page is PageSettingsHeating ? TypeActive.Active : TypeActive.None,
+                Icon = new PropertyIcon(TypeIcon.Fire)
             });
 
             Items.Add(new ControlLink(Page)
             {
                 Text = "Scheinwerfer",
                 Uri = Page.Uri.Take("Einstellungen").Append("lighting"),
-                Active = Page is PageSettingsLighting ? TypesActive.Active : TypesActive.None,
-                Icon = Icon.Lightbulb
+                Active = Page is PageSettingsLighting ? TypeActive.Active : TypeActive.None,
+                Icon = new PropertyIcon(TypeIcon.Lightbulb)
             });
         }
     }

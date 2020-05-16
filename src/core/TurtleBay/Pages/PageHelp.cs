@@ -44,17 +44,17 @@ namespace TurtleBay.Plugin.Pages
                     new ControlText(this)
                     {
                         Text = string.Format("Version"),
-                        Color = new PropertyColorText(TypesTextColor.Primary)
+                        TextColor = new PropertyColorText(TypeColorText.Primary)
                     },
                     new ControlText(this)
                     {
                         Text = string.Format("{0}", Context.Version),
-                        Color = new PropertyColorText(TypesTextColor.Dark)
+                        TextColor = new PropertyColorText(TypeColorText.Dark)
                     },
                     new ControlText(this)
                     {
                         Text = string.Format("Kontakt"),
-                        Color = new PropertyColorText(TypesTextColor.Primary)
+                        TextColor = new PropertyColorText(TypeColorText.Primary)
                     },
                     new ControlLink(this)
                     {
@@ -64,7 +64,7 @@ namespace TurtleBay.Plugin.Pages
                             Scheme = UriScheme.Mailto,
                             Authority = new UriAuthority("rene_schwarzer@hotmail.de")
                         },
-                        Color = TypesTextColor.Dark
+                        TextColor = new PropertyColorText(TypeColorText.Dark)
                     },
                     new ControlLine(this),
                     new ControlButtonReboot(this)
@@ -76,25 +76,25 @@ namespace TurtleBay.Plugin.Pages
             Main.Content.Add(new ControlText(this)
             {
                 Text = "Datenschutzrichtlinie",
-                Format = TypesTextFormat.H4
+                Format = TypeFormatText.H4
             });
 
             Main.Content.Add(new ControlText(this)
             {
                 Text = "Die während der Nutzung eingegebenen Daten werden lokal auf Ihrem Gerät gespeichert. Sie behalten jederzeit die Datenhoheit. Die Daten werden zu keiner Zeit an Dritte übermittelt. Persönliche Informationen und Standortinformationen werden nicht erhoben.",
-                Format = TypesTextFormat.Paragraph
+                Format = TypeFormatText.Paragraph
             });
 
             Main.Content.Add(new ControlText(this)
             {
                 Text = "Haftungsausschluss",
-                Format = TypesTextFormat.H4
+                Format = TypeFormatText.H4
             });
 
             Main.Content.Add(new ControlText(this)
             {
                 Text = "Die Haftung für Schäden durch Sachmängel wird ausgeschlossen. Die Haftung auf Schadensersatz wegen Körperverletzung sowie bei grober Fahrlässigkeit oder Vorsatz bleibt unberührt.",
-                Format = TypesTextFormat.Paragraph
+                Format = TypeFormatText.Paragraph
             });
 
         }
