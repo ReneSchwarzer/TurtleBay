@@ -32,19 +32,18 @@ namespace TurtleBay.Plugin.Pages
             (
                 new ControlPanelCenter
                 (
-                    this,
-                    new ControlImage(this)
+                    new ControlImage()
                     {
                         Source = Uri.Root.Append("Assets/img/Reboot.png"),
                         Width = 200
                     },
-                    new ControlText(this)
+                    new ControlText()
                     {
                         Text = "Der Rechner wird neu gestartet! Bitte warten Sie einen Augenblick.",
                         TextColor = new PropertyColorText(TypeColorText.Danger)
                     }
                     ,
-                    new ControlText(this)
+                    new ControlText()
                     {
                         Text = "...",
                         TextColor = new PropertyColorText(TypeColorText.Primary)
@@ -53,15 +52,6 @@ namespace TurtleBay.Plugin.Pages
             );
 
             ViewModel.Instance.Reboot();
-        }
-
-        /// <summary>
-        /// In String konvertieren
-        /// </summary>
-        /// <returns>Das Objekt als String</returns>
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 }

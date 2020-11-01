@@ -8,9 +8,7 @@ namespace TurtleBay.Plugin.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
-        public ControlButtonReboot(IPage page)
-            : base(page)
+        public ControlButtonReboot()
         {
             Init();
         }
@@ -27,14 +25,13 @@ namespace TurtleBay.Plugin.Controls
 
             Modal = new ControlModal
             (
-                Page,
                 "reboot",
                 "Neustart",
-                new ControlText(Page)
+                new ControlText()
                 {
                     Text = "Möchten Sie wirklich den Rechner neu starten?"
                 },
-                new ControlButton(Page)
+                new ControlButton()
                 {
                     Text = "Neustart",
                     Icon = new PropertyIcon(TypeIcon.PowerOff),

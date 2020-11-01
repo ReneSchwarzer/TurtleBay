@@ -5,24 +5,24 @@ using WebExpress.UI.Controls;
 
 namespace TurtleBay.Plugin.Controls
 {
-    public class ControlFormDayNight : ControlPanelFormular
+    public class ControlFormDayNight : ControlFormular
     {
         /// <summary>
         /// Liefert oder setzt das Tagesbeginn
         /// </summary>
-        private ControlFormularItemComboBox DayFromCtrl { get; set; }
+        private ControlFormularItemInputComboBox DayFromCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Tagesende
         /// </summary>
-        private ControlFormularItemComboBox DayTillCtrl { get; set; }
+        private ControlFormularItemInputComboBox DayTillCtrl { get; set; }
 
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlFormDayNight(IPage page)
-            : base(page, "daynight")
+        public ControlFormDayNight()
+            : base("daynight")
         {
             Init();
         }
@@ -36,13 +36,13 @@ namespace TurtleBay.Plugin.Controls
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
-            DayFromCtrl = new ControlFormularItemComboBox(this)
+            DayFromCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "DayFrom",
                 Label = "Tagesanfang:"
             };
 
-            DayTillCtrl = new ControlFormularItemComboBox(this)
+            DayTillCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "DayTill",
                 Label = "Tagesende:"
@@ -50,13 +50,13 @@ namespace TurtleBay.Plugin.Controls
 
             if (ViewModel.Instance.Solarcalendar.Count > 0)
             {
-                DayFromCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                DayFromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
                     Text = string.Format("Sonnenaufgang"),
                     Value = string.Format("-1")
                 });
 
-                DayTillCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                DayTillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
                     Text = string.Format("Sonnenuntergang"),
                     Value = string.Format("-1")
@@ -66,13 +66,13 @@ namespace TurtleBay.Plugin.Controls
             // Werte festlegen
             for (var i = 0; i < 24; i++)
             {
-                DayFromCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                DayFromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
                 });
 
-                DayTillCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                DayTillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)

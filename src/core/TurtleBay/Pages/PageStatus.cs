@@ -41,14 +41,14 @@ namespace TurtleBay.Plugin.Pages
             var layout = TypeColorBackground.Success;
             var temp = ViewModel.Instance.PrimaryTemperature;
 
-            return new ControlCardCounter(this, "temperature")
+            return new ControlCardCounter("temperature")
             {
                 Text = "Aktuelle Temperatur",
                 Value = string.Format("{0} °C", temp.ToString("0.0")),
                 Icon = new PropertyIcon(TypeIcon.ThermometerQuarter),
                 TextColor = new PropertyColorText(TypeColorText.White),
                 BackgroundColor = new PropertyColorBackground(layout)
-            }.ToHtml().ToString();
+            }.Render(new RenderContext(this)).ToString();
         }
     }
 }

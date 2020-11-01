@@ -35,7 +35,7 @@ namespace TurtleBay.Plugin.Pages
 
             });
 
-            Main.Content.Add(new ControlFormLighting(this)
+            Main.Content.Add(new ControlFormLighting()
             {
 
             });

@@ -11,64 +11,64 @@ namespace TurtleBay.Plugin.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         public ControlTabMenu(IPage page)
-            : base(page)
         {
-            Init();
+            Init(page);
         }
 
         /// <summary>
         /// Initialisierung
         /// </summary>
-        private void Init()
+        /// <param name="page">Die zugehörige Seite</param>
+        private void Init(IPage page)
         {
             Layout = TypeLayoutTab.Pill;
             HorizontalAlignment = TypeHorizontalAlignmentTab.Center;
 
-            Items.Add(new ControlLink(Page)
+            Items.Add(new ControlLink()
             {
                 Text = "Home",
-                Uri = Page.Uri.Root,
-                Active = Page is PageDashboard ? TypeActive.Active : TypeActive.None,
+                Uri = page.Uri.Root,
+                Active = page is PageDashboard ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Home)
             });
 
-            Items.Add(new ControlLink(Page)
+            Items.Add(new ControlLink()
             {
                 Text = "Verlauf",
-                Uri = Page.Uri.Root.Append("history"),
-                Active = Page is PageHistory ? TypeActive.Active : TypeActive.None,
+                Uri = page.Uri.Root.Append("history"),
+                Active = page is PageHistory ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.ChartBar)
             });
 
-            Items.Add(new ControlLink(Page)
+            Items.Add(new ControlLink()
             {
                 Text = "DS18B201",
-                Uri = Page.Uri.Root.Append("ds"),
-                Active = Page is PageDS18B201 ? TypeActive.Active : TypeActive.None,
+                Uri = page.Uri.Root.Append("ds"),
+                Active = page is PageDS18B201 ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Microchip)
             });
 
-            Items.Add(new ControlLink(Page)
+            Items.Add(new ControlLink()
             {
                 Text = "Einstellungen",
-                Uri = Page.Uri.Root.Append("settings"),
-                Active = Page is PageSettings || Page is PageSettingsHeating || Page is PageSettingsLighting ? TypeActive.Active : TypeActive.None,
+                Uri = page.Uri.Root.Append("settings"),
+                Active = page is PageSettings || page is PageSettingsHeating || page is PageSettingsLighting ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Cog)
             });
 
-            Items.Add(new ControlLink(Page)
+            Items.Add(new ControlLink()
             {
                 Text = "Logging",
-                Uri = Page.Uri.Root.Append("log"),
-                Active = Page is PageLog ? TypeActive.Active : TypeActive.None,
+                Uri = page.Uri.Root.Append("log"),
+                Active = page is PageLog ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Book)
             });
 
-            Items.Add(new ControlLink(Page)
+            Items.Add(new ControlLink()
             {
                 Text = "Hilfe",
-                Uri = Page.Uri.Root.Append("help"),
-                Active = Page is PageHelp ? TypeActive.Active : TypeActive.None,
+                Uri = page.Uri.Root.Append("help"),
+                Active = page is PageHelp ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.InfoCircle)
             });
         }

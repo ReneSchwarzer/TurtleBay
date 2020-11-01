@@ -11,40 +11,40 @@ namespace TurtleBay.Plugin.Controls
         /// </summary>
         /// <param name="page">Die zugehörige Seite</param>
         public ControlTabSettings(IPage page)
-            : base(page)
         {
-            Init();
+            Init(page);
         }
 
         /// <summary>
         /// Initialisierung
         /// </summary>
-        private void Init()
+        /// <param name="page">Die zugehörige Seite</param>
+        private void Init(IPage page)
         {
             Layout = TypeLayoutTab.Tab;
             HorizontalAlignment = TypeHorizontalAlignmentTab.Center;
 
-            Items.Add(new ControlLink(Page)
+            Items.Add(new ControlLink()
             {
                 Text = "Tag",
-                Uri = Page.Uri.Root.Append("settings"),
-                Active = Page is PageSettings ? TypeActive.Active : TypeActive.None,
+                Uri = page.Uri.Root.Append("settings"),
+                Active = page is PageSettings ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Sun)
             });
 
-            Items.Add(new ControlLink(Page)
+            Items.Add(new ControlLink()
             {
                 Text = "Heizung",
-                Uri = Page.Uri.Take("Einstellungen").Append("heating"),
-                Active = Page is PageSettingsHeating ? TypeActive.Active : TypeActive.None,
+                Uri = page.Uri.Take("Einstellungen").Append("heating"),
+                Active = page is PageSettingsHeating ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Fire)
             });
 
-            Items.Add(new ControlLink(Page)
+            Items.Add(new ControlLink()
             {
                 Text = "Scheinwerfer",
-                Uri = Page.Uri.Take("Einstellungen").Append("lighting"),
-                Active = Page is PageSettingsLighting ? TypeActive.Active : TypeActive.None,
+                Uri = page.Uri.Take("Einstellungen").Append("lighting"),
+                Active = page is PageSettingsLighting ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Lightbulb)
             });
         }

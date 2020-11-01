@@ -9,12 +9,12 @@ namespace TurtleBay.Plugin.Pages
         /// <summary>
         /// Liefert oder setzt die Form
         /// </summary>
-        private ControlPanelFormular Form { get; set; }
+        private ControlFormular Form { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den primären Sensor
         /// </summary>
-        private ControlFormularItemComboBox PrimaryIDCtrl { get; set; }
+        private ControlFormularItemInputComboBox PrimaryIDCtrl { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -31,14 +31,14 @@ namespace TurtleBay.Plugin.Pages
         {
             base.Init();
 
-            Form = new ControlPanelFormular(this)
+            Form = new ControlFormular()
             {
                 Name = "Settings",
                 EnableCancelButton = false,
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             };
 
-            PrimaryIDCtrl = new ControlFormularItemComboBox(Form)
+            PrimaryIDCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "primary",
                 Label = "Primärer Sensor:"
@@ -47,7 +47,7 @@ namespace TurtleBay.Plugin.Pages
             // Werte festlegen
             foreach (var v in ViewModel.Instance.Temperature.Keys)
             {
-                PrimaryIDCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                PrimaryIDCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
                     Text = string.Format("{0}", v),
                     Value = string.Format("{0}", v)
@@ -91,10 +91,10 @@ namespace TurtleBay.Plugin.Pages
 
             foreach (var v in ViewModel.Instance.Temperature)
             {
-                Main.Content.Add(new ControlText(this) { Text = string.Format("Aktuelle Temperatur des Sensors {0}: {1} °C", v.Key, v.Value) });
+                Main.Content.Add(new ControlText() { Text = string.Format("Aktuelle Temperatur des Sensors {0}: {1} °C", v.Key, v.Value) });
             }
 
-            Main.Content.Add(new ControlPanelCard(this, Form)
+            Main.Content.Add(new ControlPanelCard(Form)
             {
                 Header = "Einstellungen",
                 BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light),

@@ -5,28 +5,28 @@ using WebExpress.UI.Controls;
 
 namespace TurtleBay.Plugin.Controls
 {
-    public class ControlFormHeating : ControlPanelFormular
+    public class ControlFormHeating : ControlFormular
     {
         /// <summary>
         /// Liefert oder setzt die minimale Nachttemperatur
         /// </summary>
-        private ControlFormularItemComboBox NightMinCtrl { get; set; }
+        private ControlFormularItemInputComboBox NightMinCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die minimale Tagestemperatur
         /// </summary>
-        private ControlFormularItemComboBox DayMinCtrl { get; set; }
+        private ControlFormularItemInputComboBox DayMinCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Maximaltemperatur
         /// </summary>
-        private ControlFormularItemComboBox MaxCtrl { get; set; }
+        private ControlFormularItemInputComboBox MaxCtrl { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlFormHeating(IPage page)
-            : base(page, "heating")
+        public ControlFormHeating()
+            : base("heating")
         {
             Init();
         }
@@ -40,19 +40,19 @@ namespace TurtleBay.Plugin.Controls
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
-            NightMinCtrl = new ControlFormularItemComboBox(this)
+            NightMinCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "NightMin",
                 Label = "Nachttemperatur Minimum:"
             };
 
-            DayMinCtrl = new ControlFormularItemComboBox(this)
+            DayMinCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "DayMin",
                 Label = "Tagestemperatur Minimum:"
             };
 
-            MaxCtrl = new ControlFormularItemComboBox(this)
+            MaxCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "Max",
                 Label = "Temperatur Maximum:"
@@ -62,19 +62,19 @@ namespace TurtleBay.Plugin.Controls
             // Werte festlegen
             for (var i = 0; i < 40; i++)
             {
-                NightMinCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                NightMinCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} °C", i),
                     Value = string.Format("{0}", i)
                 });
 
-                DayMinCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                DayMinCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} °C", i),
                     Value = string.Format("{0}", i)
                 });
 
-                MaxCtrl.Items.Add(new ControlFormularItemComboBoxItem()
+                MaxCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} °C", i),
                     Value = string.Format("{0}", i)

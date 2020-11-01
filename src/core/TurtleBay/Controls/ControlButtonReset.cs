@@ -8,9 +8,7 @@ namespace TurtleBay.Plugin.Controls
         /// <summary>
         /// Konstruktor
         /// </summary>
-        /// <param name="page">Die zugehörige Seite</param>
-        public ControlButtonReset(IPage page)
-            : base(page)
+        public ControlButtonReset()
         {
             Init();
         }
@@ -27,14 +25,13 @@ namespace TurtleBay.Plugin.Controls
 
             Modal = new ControlModal
             (
-                Page,
                 "reset",
                 "Zurücksetzen",
-                new ControlText(Page)
+                new ControlText()
                 {
                     Text = "Möchten Sie die Dauerwerte wirklich zurücksetzen?"
                 },
-                new ControlButton(Page)
+                new ControlButton()
                 {
                     Text = "Zurücksetzen",
                     Icon = new PropertyIcon(TypeIcon.Undo),

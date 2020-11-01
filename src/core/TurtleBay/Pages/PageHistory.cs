@@ -28,7 +28,7 @@ namespace TurtleBay.Plugin.Pages
         {
             base.Process();
 
-            Main.Content.Add(new ControlText(this)
+            Main.Content.Add(new ControlText()
             {
                 Text = "Temperaturverlauf der letzten 24 Stunden",
                 Format = TypeFormatText.Center,
@@ -36,7 +36,7 @@ namespace TurtleBay.Plugin.Pages
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             });
 
-            var table = new ControlTable(this);
+            var table = new ControlTable();
             table.AddColumn("Zeit", new PropertyIcon(TypeIcon.Clock), TypesLayoutTableRow.Info);
             table.AddColumn("Temperatur", new PropertyIcon(TypeIcon.ThermometerQuarter), TypesLayoutTableRow.Danger);
             table.AddColumn("Scheinwerfer", new PropertyIcon(TypeIcon.Lightbulb), TypesLayoutTableRow.Warning);
@@ -44,11 +44,11 @@ namespace TurtleBay.Plugin.Pages
 
             foreach (var v in ViewModel.Instance.Statistic.Chart24h)
             {
-                var row = new ControlTableRow(this) { };
-                row.Cells.Add(new ControlText(this) { Text = string.Format("{0} Uhr", v.Time.ToShortTimeString()) });
-                row.Cells.Add(new ControlText(this) { Text = string.Format("{0}°C", v.Temperature) });
-                row.Cells.Add(new ControlText(this) { Text = string.Format("{0} Minuten", v.LightingCount / 60000) });
-                row.Cells.Add(new ControlText(this) { Text = string.Format("{0} Minuten", v.HeatingCount / 60000) });
+                var row = new ControlTableRow() { };
+                row.Cells.Add(new ControlText() { Text = string.Format("{0} Uhr", v.Time.ToShortTimeString()) });
+                row.Cells.Add(new ControlText() { Text = string.Format("{0}°C", v.Temperature) });
+                row.Cells.Add(new ControlText() { Text = string.Format("{0} Minuten", v.LightingCount / 60000) });
+                row.Cells.Add(new ControlText() { Text = string.Format("{0} Minuten", v.HeatingCount / 60000) });
 
                 table.Rows.Add(row);
             }
