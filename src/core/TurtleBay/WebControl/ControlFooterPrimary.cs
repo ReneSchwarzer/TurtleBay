@@ -26,7 +26,7 @@ namespace TurtleBay.WebControl
         /// </summary>
         private void Init()
         {
-            Text = string.Format("{0}", ViewModel.Instance.Now);
+            Text = string.Format("{0}", ViewModel.Now);
             TextColor = new PropertyColorText(TypeColorText.Muted);
             Format = TypeFormatText.Center;
             Size = new PropertySizeText(TypeSizeText.Small);

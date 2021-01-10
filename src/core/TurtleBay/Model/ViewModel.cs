@@ -15,8 +15,6 @@ namespace TurtleBay.Model
 {
     public class ViewModel
     {
-        public const string SettingFolder = "config";
-
         /// <summary>
         /// Der GPIO-Controller
         /// </summary>
@@ -185,12 +183,6 @@ namespace TurtleBay.Model
                 {
                     _lastMetering = DateTime.Now;
                     var hash = Guid.NewGuid();
-
-                    Action<string> logging = (l) =>
-                    {
-                        Log(new LogItem(LogItem.LogLevel.Debug, l.Replace(" ", "&nbsp;"), hash.GetHashCode().ToString("X")));
-                    };
-
                     var temperature = new Dictionary<string, double>();
 
                     foreach (var v in Directory.EnumerateDirectories("/sys/bus/w1/devices"))
@@ -519,7 +511,7 @@ namespace TurtleBay.Model
         /// Liefert die aktuelle Zeit
         /// </summary>
         [XmlIgnore]
-        public string Now => DateTime.Now.ToString("dd.MM.yyyy<br>HH:mm:ss");
+        public static string Now => DateTime.Now.ToString("dd.MM.yyyy<br>HH:mm:ss");
 
         /// <summary>
         /// Liefert die vergagene Zeit seit dem Programmstart
@@ -531,7 +523,7 @@ namespace TurtleBay.Model
         /// Liefert die Programmversion
         /// </summary>
         [XmlIgnore]
-        public string Version
+        public static string Version
         {
             get
             {
@@ -597,7 +589,7 @@ namespace TurtleBay.Model
 
             File.WriteAllText
             (
-                Path.Combine(SettingFolder, "turtlebay.settings.xml"),
+                Path.Combine(Context.Host.ConfigPath, "turtlebay.settings.xml"),
                 utf.GetString(memoryStream.ToArray())
             );
         }
@@ -614,7 +606,7 @@ namespace TurtleBay.Model
 
             try
             {
-                using var reader = File.OpenText(Path.Combine(SettingFolder, "turtlebay.settings.xml"));
+                using var reader = File.OpenText(Path.Combine(Context.Host.ConfigPath, "turtlebay.settings.xml"));
                 Settings = serializer.Deserialize(reader) as Settings;
             }
             catch
@@ -650,7 +642,7 @@ namespace TurtleBay.Model
 
             File.WriteAllText
             (
-                Path.Combine(SettingFolder, "statistic.xml"),
+                Path.Combine(Context.Host.ConfigPath, "statistic.xml"),
                 utf.GetString(memoryStream.ToArray())
             );
         }
@@ -667,7 +659,7 @@ namespace TurtleBay.Model
 
             try
             {
-                using var reader = File.OpenText(Path.Combine(SettingFolder, "statistic.xml"));
+                using var reader = File.OpenText(Path.Combine(Context.Host.ConfigPath, "statistic.xml"));
                 Statistic = serializer.Deserialize(reader) as Statistic;
             }
             catch
@@ -701,7 +693,7 @@ namespace TurtleBay.Model
 
             try
             {
-                using var reader = File.OpenText(Path.Combine(SettingFolder, "solarcalendar.xml"));
+                using var reader = File.OpenText(Path.Combine(Context.Host.ConfigPath, "solarcalendar.xml"));
                 var solarcalendar = serializer.Deserialize(reader) as Solarcalendar;
 
                 Solarcalendar.Clear();

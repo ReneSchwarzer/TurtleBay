@@ -45,7 +45,7 @@ namespace TurtleBay.WebResource
                 HeatingCounter = converter.Convert(ViewModel.Instance.Statistic.HeatingCounter, typeof(string), null, null).ToString(),
                 Status = ViewModel.Instance.Status.ToString(),
                 ProgramCounter = converter.Convert(ViewModel.Instance.ProgramCounter, typeof(string), null, null).ToString(),
-                Now = ViewModel.Instance.Now,
+                Now = ViewModel.Now,
                 Min = ViewModel.Instance.Min.ToString(),
                 Max = ViewModel.Instance.Settings.Max.ToString()
             };

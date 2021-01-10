@@ -27,7 +27,23 @@ turtlebay.history.lighting=Scheinwerfer
 turtlebay.history.heating=Heizung
 turtlebay.log.label=Logging
 turtlebay.settings.label=Einstellungen
+turtlebay.setting.daynight.from.label=Tagesanfang:
+turtlebay.setting.daynight.till.label=Tagesende:
+turtlebay.setting.daynight.sunrise.label=Sonnenaufgang
+turtlebay.setting.daynight.sunset.label=Sonnenuntergang
+turtlebay.setting.daynight.validation.invalid=Ungültiger Wert
 turtlebay.setting.heating.label=Heizung
+turtlebay.setting.heating.nightmin.label=Nachttemperatur Minimum:
+turtlebay.setting.heating.daymin.label=Tagestemperatur Minimum:
+turtlebay.setting.heating.max.label=Temperatur Maximum:
+turtlebay.setting.heating.validation.night.low=Die Nachttemperatur sollte nicht im Frostbereich liegen!
+turtlebay.setting.heating.validation.night.high=Die Nachttemperatur ist zu hoch eingestellt!
+turtlebay.setting.heating.validation.night.max=Die Nachttemperatur liegt über die Maximaltemperatur!
+turtlebay.setting.heating.validation.day.low=Die Tagestemperatur sollte nicht im Frostbereich liegen!
+turtlebay.setting.heating.validation.day.high=Die Tagestemperatur ist zu hoch eingestellt!
+turtlebay.setting.heating.validation.day.max=Die Tagestemperatur liegt über die Maximaltemperatur!
+turtlebay.setting.heating.validation.max.low=Das Maximum darf nicht im Frostbereich liegen!
+turtlebay.setting.heating.validation.max.high=Das Maximum ist zu hoch eingestellt!
 turtlebay.setting.lighting.label=Scheinwerfer
 turtlebay.setting.day.label=Tag
 turtlebay.help.label=Hilfe
@@ -49,6 +65,3 @@ turtlebay.ds18b201.label=DS18B201
 turtlebay.ds18b201.primary.label=Primärer Sensor:
 turtlebay.ds18b201.current=Aktuelle Temperatur des Sensors {0}: {1} °C
 turtlebay.ds18b201.validation.invalid=Ungültiger Wert
-
-
-

@@ -1,5 +1,7 @@
 ﻿using System;
 using TurtleBay.Model;
+using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 
 namespace TurtleBay.WebControl
@@ -23,13 +25,14 @@ namespace TurtleBay.WebControl
         public ControlFormDayNight()
             : base("daynight")
         {
-            Init();
         }
 
         /// <summary>
-        /// Initialisierung
+        /// In HTML konvertieren
         /// </summary>
-        public void Init()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
         {
             Name = "daynight";
             EnableCancelButton = false;
@@ -38,26 +41,26 @@ namespace TurtleBay.WebControl
             DayFromCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "DayFrom",
-                Label = "Tagesanfang:"
+                Label = context.I18N("turtlebay.setting.daynight.from.label")
             };
 
             DayTillCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "DayTill",
-                Label = "Tagesende:"
+                Label = context.I18N("turtlebay.setting.daynight.till.label")
             };
 
             if (ViewModel.Instance.Solarcalendar.Count > 0)
             {
                 DayFromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
-                    Text = string.Format("Sonnenaufgang"),
+                    Text = context.I18N("turtlebay.setting.daynight.sunrise.label"),
                     Value = string.Format("-1")
                 });
 
                 DayTillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
-                    Text = string.Format("Sonnenuntergang"),
+                    Text = context.I18N("turtlebay.setting.daynight.sunset.label"),
                     Value = string.Format("-1")
                 });
             }
@@ -105,7 +108,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Ungültiger Wert",
+                            Text = context.I18N("turtlebay.setting.daynight.validation.invalid"),
                             Type = TypesInputValidity.Error
                         });
                     }
@@ -140,7 +143,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Ungültiger Wert",
+                            Text = context.I18N("turtlebay.setting.daynight.validation.invalid"),
                             Type = TypesInputValidity.Error
                         });
                     }
@@ -163,6 +166,8 @@ namespace TurtleBay.WebControl
                     });
                 }
             };
+
+            return base.Render(context);
         }
     }
 }

@@ -12,14 +12,6 @@ namespace TurtleBay.WebControl
         /// </summary>
         public ControlTabSettings()
         {
-            Init();
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        private void Init()
-        {
         }
 
         /// <summary>

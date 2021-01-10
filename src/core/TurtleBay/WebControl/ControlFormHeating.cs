@@ -1,5 +1,7 @@
 ﻿using System;
 using TurtleBay.Model;
+using WebExpress.Html;
+using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 
 namespace TurtleBay.WebControl
@@ -27,13 +29,14 @@ namespace TurtleBay.WebControl
         public ControlFormHeating()
             : base("heating")
         {
-            Init();
         }
 
         /// <summary>
-        /// Initialisierung
+        /// In HTML konvertieren
         /// </summary>
-        public void Init()
+        /// <param name="context">Der Kontext, indem das Steuerelement dargestellt wird</param>
+        /// <returns>Das Control als HTML</returns>
+        public override IHtmlNode Render(RenderContext context)
         {
             Name = "heating";
             EnableCancelButton = false;
@@ -42,19 +45,19 @@ namespace TurtleBay.WebControl
             NightMinCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "NightMin",
-                Label = "Nachttemperatur Minimum:"
+                Label = context.I18N("turtlebay.setting.heating.nightmin.label")
             };
 
             DayMinCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "DayMin",
-                Label = "Tagestemperatur Minimum:"
+                Label = context.I18N("turtlebay.setting.heating.daymin.label")
             };
 
             MaxCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "Max",
-                Label = "Temperatur Maximum:"
+                Label = context.I18N("turtlebay.setting.heating.max.label")
             };
 
             // Werte festlegen
@@ -63,20 +66,20 @@ namespace TurtleBay.WebControl
             {
                 NightMinCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
-                    Text = string.Format("{0} °C", i),
-                    Value = string.Format("{0}", i)
+                    Text = string.Format(context.Culture, "{0} °C", i),
+                    Value = string.Format(context.Culture, "{0}", i)
                 });
 
                 DayMinCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
-                    Text = string.Format("{0} °C", i),
-                    Value = string.Format("{0}", i)
+                    Text = string.Format(context.Culture, "{0} °C", i),
+                    Value = string.Format(context.Culture, "{0}", i)
                 });
 
                 MaxCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
-                    Text = string.Format("{0} °C", i),
-                    Value = string.Format("{0}", i)
+                    Text = string.Format(context.Culture, "{0} °C", i),
+                    Value = string.Format(context.Culture, "{0}", i)
                 });
             }
 
@@ -110,7 +113,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Die Nachttemperatur sollte nicht im Frostbereich liegen",
+                            Text = context.I18N("turtlebay.setting.heating.validation.night.low"),
                             Type = TypesInputValidity.Warning
                         });
                     }
@@ -118,7 +121,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Die Nachttemperatur ist zu hoch eingestellt",
+                            Text = context.I18N("turtlebay.setting.heating.validation.night.high"),
                             Type = TypesInputValidity.Warning
                         });
                     }
@@ -127,7 +130,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Die Nachttemperatur liegt über die Maximaltemperatur",
+                            Text = context.I18N("turtlebay.setting.heating.validation.night.max"),
                             Type = TypesInputValidity.Error
                         });
                     }
@@ -153,7 +156,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Die Tagestemperatur sollte nicht im Frostbereich liegen",
+                            Text = context.I18N("turtlebay.setting.heating.validation.day.low"),
                             Type = TypesInputValidity.Warning
                         });
                     }
@@ -161,7 +164,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Die Tagestemperatur ist zu hoch eingestellt",
+                            Text = context.I18N("turtlebay.setting.heating.validation.day.high"),
                             Type = TypesInputValidity.Warning
                         });
                     }
@@ -170,7 +173,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Die Tagestemperatur liegt über die Maximaltemperatur",
+                            Text = context.I18N("turtlebay.setting.heating.validation.day.max"),
                             Type = TypesInputValidity.Error
                         });
                     }
@@ -195,7 +198,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Das Maximum darf nicht im Frostbereich liegen",
+                            Text = context.I18N("turtlebay.setting.heating.validation.max.low"),
                             Type = TypesInputValidity.Error
                         });
                     }
@@ -203,7 +206,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Das Maximum ist zu hoch eingestellt",
+                            Text = context.I18N("turtlebay.setting.heating.validation.max.high"),
                             Type = TypesInputValidity.Warning
                         });
                     }
@@ -217,6 +220,8 @@ namespace TurtleBay.WebControl
                     });
                 }
             };
+
+            return base.Render(context);
         }
     }
 }
