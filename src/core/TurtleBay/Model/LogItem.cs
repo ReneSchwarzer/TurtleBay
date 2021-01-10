@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace TurtleBay.Plugin.Model
+namespace TurtleBay.Model
 {
     public class LogItem
     {
@@ -64,11 +64,11 @@ namespace TurtleBay.Plugin.Model
 
             Time = DateTime.Now;
 
-            var stackTrace = new StackTrace();
-            var stackFrames = stackTrace.GetFrames();
+            //var stackTrace = new StackTrace();
+            //var stackFrames = stackTrace.GetFrames();
 
-            var callingFrame = stackFrames[1];
-            var method = callingFrame.GetMethod();
+            //var callingFrame = stackFrames[1];
+            //var method = callingFrame.GetMethod();
 
             Instance = instance;
         }

@@ -4,19 +4,19 @@ using System.Device.Gpio;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using WebExpress;
-using WebExpress.Plugins;
+using WebExpress.Plugin;
 
-namespace TurtleBay.Plugin.Model
+namespace TurtleBay.Model
 {
     public class ViewModel
     {
+        public const string SettingFolder = "config";
+
         /// <summary>
         /// Der GPIO-Controller
         /// </summary>
@@ -181,7 +181,7 @@ namespace TurtleBay.Plugin.Model
         {
             try
             {
-                if (_lastMetering == null || (DateTime.Now - _lastMetering).TotalSeconds > 60)
+                if ((DateTime.Now - _lastMetering).TotalSeconds > 60)
                 {
                     _lastMetering = DateTime.Now;
                     var hash = Guid.NewGuid();
@@ -590,18 +590,16 @@ namespace TurtleBay.Plugin.Model
             // Konfiguration speichern
             var serializer = new XmlSerializer(typeof(Settings));
 
-            using (var memoryStream = new System.IO.MemoryStream())
-            {
-                serializer.Serialize(memoryStream, Settings);
+            using var memoryStream = new MemoryStream();
+            serializer.Serialize(memoryStream, Settings);
 
-                var utf = new UTF8Encoding();
+            var utf = new UTF8Encoding();
 
-                File.WriteAllText
-                (
-                    Path.Combine(Context.ConfigBaseFolder, "settings.xml"),
-                    utf.GetString(memoryStream.ToArray())
-                );
-            }
+            File.WriteAllText
+            (
+                Path.Combine(SettingFolder, "turtlebay.settings.xml"),
+                utf.GetString(memoryStream.ToArray())
+            );
         }
 
         /// <summary>
@@ -616,10 +614,8 @@ namespace TurtleBay.Plugin.Model
 
             try
             {
-                using (var reader = File.OpenText(Path.Combine(Context.ConfigBaseFolder, "settings.xml")))
-                {
-                    Settings = serializer.Deserialize(reader) as Settings;
-                }
+                using var reader = File.OpenText(Path.Combine(SettingFolder, "turtlebay.settings.xml"));
+                Settings = serializer.Deserialize(reader) as Settings;
             }
             catch
             {
@@ -647,18 +643,16 @@ namespace TurtleBay.Plugin.Model
             // Konfiguration speichern
             var serializer = new XmlSerializer(typeof(Statistic));
 
-            using (var memoryStream = new MemoryStream())
-            {
-                serializer.Serialize(memoryStream, Statistic);
+            using var memoryStream = new MemoryStream();
+            serializer.Serialize(memoryStream, Statistic);
 
-                var utf = new UTF8Encoding();
+            var utf = new UTF8Encoding();
 
-                File.WriteAllText
-                (
-                    Path.Combine(Context.ConfigBaseFolder, "statistic.xml"),
-                    utf.GetString(memoryStream.ToArray())
-                );
-            }
+            File.WriteAllText
+            (
+                Path.Combine(SettingFolder, "statistic.xml"),
+                utf.GetString(memoryStream.ToArray())
+            );
         }
 
         /// <summary>
@@ -673,10 +667,8 @@ namespace TurtleBay.Plugin.Model
 
             try
             {
-                using (var reader = File.OpenText(Path.Combine(Context.ConfigBaseFolder, "statistic.xml")))
-                {
-                    Statistic = serializer.Deserialize(reader) as Statistic;
-                }
+                using var reader = File.OpenText(Path.Combine(SettingFolder, "statistic.xml"));
+                Statistic = serializer.Deserialize(reader) as Statistic;
             }
             catch
             {
@@ -709,21 +701,18 @@ namespace TurtleBay.Plugin.Model
 
             try
             {
-                using (var reader = File.OpenText(Path.Combine(Context.ConfigBaseFolder, "solarcalendar.xml")))
+                using var reader = File.OpenText(Path.Combine(SettingFolder, "solarcalendar.xml"));
+                var solarcalendar = serializer.Deserialize(reader) as Solarcalendar;
+
+                Solarcalendar.Clear();
+                foreach (var v in solarcalendar.Items)
                 {
-                    var solarcalendar = serializer.Deserialize(reader) as Solarcalendar;
-
-                    Solarcalendar.Clear();
-                    foreach (var v in solarcalendar.Items)
+                    Solarcalendar.Add(v.Day, new SolarcalendarItem()
                     {
-                        Solarcalendar.Add(v.Day, new SolarcalendarItem()
-                        {
-                            Day = v.Day,
-                            Sunrise = v.Sunrise,
-                            Sunset = v.Sunset
-                        });
-                    }
-
+                        Day = v.Day,
+                        Sunrise = v.Sunrise,
+                        Sunset = v.Sunset
+                    });
                 }
             }
             catch
@@ -755,7 +744,7 @@ namespace TurtleBay.Plugin.Model
                     Context.Log.Error(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Exception:
-                    Context.Log.Exception(logItem.Instance, logItem.Massage);
+                    Context.Log.Error(logItem.Instance, logItem.Massage);
                     break;
             }
         }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TurtleBay.Plugin.Model
+namespace TurtleBay.Model
 {
     public class API
     {

@@ -1,0 +1,52 @@
+﻿# Englisch
+plugin.name=Plugin Turtle Bay
+plugin.description=
+
+app.name=Turtle Bay
+app.description=
+
+module.name=Modul Turtle Bay
+module.description=
+
+turtlebay.dashboard.label=Dashboard
+turtlebay.dashboard.temperature.current.label=Current temperature
+turtlebay.dashboard.lighting.label=Spotlight
+turtlebay.dashboard.lighting.on=On
+turtlebay.dashboard.lighting.off=Off
+turtlebay.dashboard.lighting.total=Total switch-on time of the spotlight
+turtlebay.dashboard.heating.label=Heating
+turtlebay.dashboard.heating.on=On
+turtlebay.dashboard.heating.off=Off
+turtlebay.dashboard.heating.total=Total switching time of the heating
+turtlebay.dashboard.run=Program run
+turtlebay.history.label=History
+turtlebay.history.description=Temperature history of the last 24 hours
+turtlebay.history.time=Time
+turtlebay.history.temperature=Temperature
+turtlebay.history.lighting=Spotlight
+turtlebay.history.heating=Heating
+turtlebay.log.label=Logging
+turtlebay.settings.label=Settings
+turtlebay.setting.heating.label=Heating
+turtlebay.setting.lighting.label=Spotlight
+turtlebay.setting.day.label=Day
+turtlebay.help.label=Help
+turtlebay.help.version.label=Version
+turtlebay.help.contact.label=Contact
+turtlebay.help.privacypolicy.label=Privacy policy
+turtlebay.help.privacypolicy.description=The data entered during use is stored locally on your device. You retain the sovereignty of the data at all times. The data will not be transmitted to third parties at any time. Personal information and location information are not collected.
+turtlebay.help.disclaimer.label=Disclaimer
+turtlebay.help.disclaimer.description=Liability for damage caused by material defects is excluded. Liability for damages for personal injury as well as in the event of gross negligence or intent remains unaffected.
+turtlebay.reboot.label=Reboot
+turtlebay.reboot.description=
+turtlebay.reboot.help=Are you sure you want to restart your computer?
+turtlebay.reset.label=Reset
+turtlebay.reset.description=Reset counter
+turtlebay.reset.help=Are you sure you want to reset the duration values?
+turtlebay.status.label=Status
+turtlebay.debug.label=Debug
+turtlebay.ds18b201.label=DS18B201
+turtlebay.ds18b201.primary.label=Primary sensor:
+turtlebay.ds18b201.current=Current temperature of the sensor {0}: {1} °C
+turtlebay.ds18b201.validation.invalid=Invalid value
+

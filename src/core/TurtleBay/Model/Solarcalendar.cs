@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace TurtleBay.Plugin.Model
+namespace TurtleBay.Model
 {
     [XmlRoot(ElementName = "solarcalendar", IsNullable = false)]
     public class Solarcalendar

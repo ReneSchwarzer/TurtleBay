@@ -3,16 +3,38 @@
   <PropertyGroup>
     <Version>1.2.4.0</Version>
     <AssemblyVersion>1.2.4.0</AssemblyVersion>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
     <Authors>Rene_Schwarzer@hotmail.de</Authors>
     <RepositoryUrl>https://github.com/ReneSchwarzer/TurtleBay.git</RepositoryUrl>
-    <PackageLicenseExpression>GNU General Public License v3.0</PackageLicenseExpression>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningLevel>0</WarningLevel>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\img\Favicon.png" />
+    <None Remove="Assets\img\logo.png" />
+    <None Remove="Assets\img\reboot.png" />
+    <None Remove="Assets\img\turtle.png" />
+    <None Remove="Assets\img\turtle.svg" />
+    <None Remove="Assets\js\dashboard.js" />
+    <None Remove="Internationalization\de" />
+    <None Remove="Internationalization\en" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\img\Favicon.png" />
+    <EmbeddedResource Include="Assets\img\logo.png" />
+    <EmbeddedResource Include="Assets\img\reboot.png" />
+    <EmbeddedResource Include="Assets\img\turtle.png" />
+    <EmbeddedResource Include="Assets\img\turtle.svg" />
+    <EmbeddedResource Include="Assets\js\dashboard.js" />
+    <EmbeddedResource Include="Internationalization\de" />
+    <EmbeddedResource Include="Internationalization\en" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Iot.Device.Bindings" Version="1.0.0" />
@@ -21,6 +43,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.UI\WebExpress.UI.csproj" />
+    <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress.WebApp\WebExpress.WebApp.csproj" />
     <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
   </ItemGroup>
 

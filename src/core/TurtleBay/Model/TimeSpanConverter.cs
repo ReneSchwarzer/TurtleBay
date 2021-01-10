@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace TurtleBay.Plugin.Model
+namespace TurtleBay.Model
 {
-    public class TimeSpanConverter //: IValueConverter
+    public class TimeSpanConverter 
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

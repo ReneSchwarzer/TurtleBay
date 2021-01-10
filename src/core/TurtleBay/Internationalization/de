@@ -1,0 +1,54 @@
+﻿# Deutsch
+plugin.name=Plugin Turtle Bay
+plugin.description=
+
+app.name=Turtle Bay
+app.description=
+
+module.name=Modul Turtle Bay
+module.description=
+
+turtlebay.dashboard.label=Dashboard
+turtlebay.dashboard.temperature.current.label=Aktuelle Temperatur
+turtlebay.dashboard.lighting.label=Scheinwerfer
+turtlebay.dashboard.lighting.on=An
+turtlebay.dashboard.lighting.off=Aus
+turtlebay.dashboard.lighting.total=Gesamteinschaltdauer der Scheinwerfer
+turtlebay.dashboard.heating.label=Heizung
+turtlebay.dashboard.heating.on=An
+turtlebay.dashboard.heating.off=Aus
+turtlebay.dashboard.heating.total=Gesamteinschaltdauer der Heizung
+turtlebay.dashboard.run=Programmlauf
+turtlebay.history.label=Verlauf
+turtlebay.history.description=Temperaturverlauf der letzten 24 Stunden
+turtlebay.history.time=Zeit
+turtlebay.history.temperature=Temperatur
+turtlebay.history.lighting=Scheinwerfer
+turtlebay.history.heating=Heizung
+turtlebay.log.label=Logging
+turtlebay.settings.label=Einstellungen
+turtlebay.setting.heating.label=Heizung
+turtlebay.setting.lighting.label=Scheinwerfer
+turtlebay.setting.day.label=Tag
+turtlebay.help.label=Hilfe
+turtlebay.help.version.label=Version
+turtlebay.help.contact.label=Kontakt
+turtlebay.help.privacypolicy.label=Datenschutzrichtlinie
+turtlebay.help.privacypolicy.description=Die während der Nutzung eingegebenen Daten werden lokal auf Ihrem Gerät gespeichert. Sie behalten jederzeit die Datenhoheit. Die Daten werden zu keiner Zeit an Dritte übermittelt. Persönliche Informationen und Standortinformationen werden nicht erhoben.
+turtlebay.help.disclaimer.label=Haftungsausschluss
+turtlebay.help.disclaimer.description=Die Haftung für Schäden durch Sachmängel wird ausgeschlossen. Die Haftung auf Schadensersatz wegen Körperverletzung sowie bei grober Fahrlässigkeit oder Vorsatz bleibt unberührt.
+turtlebay.reboot.label=Neustart
+turtlebay.reboot.description=
+turtlebay.reboot.help=Möchten Sie wirklich den Rechner neu starten?
+turtlebay.reset.label=Zurücksetzen
+turtlebay.reset.description=Zähler zurücksetzen
+turtlebay.reset.help=Möchten Sie die Dauerwerte wirklich zurücksetzen?
+turtlebay.status.label=Status
+turtlebay.debug.label=Debug
+turtlebay.ds18b201.label=DS18B201
+turtlebay.ds18b201.primary.label=Primärer Sensor:
+turtlebay.ds18b201.current=Aktuelle Temperatur des Sensors {0}: {1} °C
+turtlebay.ds18b201.validation.invalid=Ungültiger Wert
+
+
+

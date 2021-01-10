@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace TurtleBay.Plugin.Model
+namespace TurtleBay.Model
 {
     [XmlRoot(ElementName = "statistic", IsNullable = false)]
     public class Statistic
