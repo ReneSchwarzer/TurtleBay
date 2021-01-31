@@ -11,12 +11,12 @@ namespace TurtleBay.WebControl
 {
     [Section(Section.AppSettingsSecondary)]
     [Application("TurtleBay")]
-    public sealed class ControlSettingsSettings : ControlDropdownItemLink, IComponent
+    public sealed class ControlAppSettingsSettings : ControlDropdownItemLink, IComponent
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlSettingsSettings()
+        public ControlAppSettingsSettings()
             : base()
         {
             Init();
