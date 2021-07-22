@@ -4,33 +4,38 @@ using WebExpress.UI.WebControl;
 
 namespace TurtleBay.WebControl
 {
-    public class ControlFormLighting : ControlFormular
+    public class ControlFormSocket1 : ControlFormular
     {
         /// <summary>
-        /// Liefert oder setzt die Startzeit 1 der UVB-Lampe
+        /// Liefert oder setzt den Namen der Steckdose
+        /// </summary>
+        private ControlFormularItemInputTextBox NameCtrl { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt die Startzeit 1 der Steckdose
         /// </summary>
         private ControlFormularItemInputComboBox FromCtrl { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Startzeit 2 der UVB-Lampe
+        /// Liefert oder setzt die Startzeit 2 der Steckdose
         /// </summary>
         private ControlFormularItemInputComboBox From2Ctrl { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Endzeit 1 der UVB-Lampe
+        /// Liefert oder setzt die Endzeit 1 der Steckdose
         /// </summary>
         private ControlFormularItemInputComboBox TillCtrl { get; set; }
 
         /// <summary>
-        /// Liefert oder setzt die Endzeit 2 der UVB-Lampe
+        /// Liefert oder setzt die Endzeit 2 der Steckdose
         /// </summary>
         private ControlFormularItemInputComboBox Till2Ctrl { get; set; }
 
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlFormLighting()
-            : base("lighting")
+        public ControlFormSocket1()
+            : base("socket1")
         {
             Init();
         }
@@ -40,32 +45,38 @@ namespace TurtleBay.WebControl
         /// </summary>
         public void Init()
         {
-            Name = "lighting";
+            Name = "socket1";
             EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
+
+            NameCtrl = new ControlFormularItemInputTextBox()
+            {
+                Name = "Name",
+                Label = "Der Name der Steckdose:"
+            };
 
             FromCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "From",
-                Label = "Erste Startzeit des Scheinwerfers:"
+                Label = "Erste Startzeit der Steckdose:"
             };
 
             TillCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "Till",
-                Label = "Erste Endzeit des Scheinwerfers:"
+                Label = "Erste Endzeit der Steckdose:"
             };
 
             From2Ctrl = new ControlFormularItemInputComboBox()
             {
                 Name = "From2",
-                Label = "Zweite Startzeit des Scheinwerfers:"
+                Label = "Zweite Startzeit der Steckdose:"
             };
 
             Till2Ctrl = new ControlFormularItemInputComboBox()
             {
                 Name = "Till2",
-                Label = "Zweite Endzeit des Scheinwerfers:"
+                Label = "Zweite Endzeit der Steckdose:"
             };
 
             if (ViewModel.Instance.Solarcalendar.Count > 0)
@@ -148,6 +159,7 @@ namespace TurtleBay.WebControl
 
             }
 
+            Add(NameCtrl);
             Add(FromCtrl);
             Add(TillCtrl);
             Add(From2Ctrl);
@@ -155,18 +167,20 @@ namespace TurtleBay.WebControl
 
             FillFormular += (s, e) =>
             {
-                FromCtrl.Value = ViewModel.Instance.Settings.Lighting.From.ToString();
-                TillCtrl.Value = ViewModel.Instance.Settings.Lighting.Till.ToString();
-                From2Ctrl.Value = ViewModel.Instance.Settings.Lighting.From2.ToString();
-                Till2Ctrl.Value = ViewModel.Instance.Settings.Lighting.Till2.ToString();
+                NameCtrl.Value = ViewModel.Instance.Settings.Socket1.Name.ToString();
+                FromCtrl.Value = ViewModel.Instance.Settings.Socket1.From.ToString();
+                TillCtrl.Value = ViewModel.Instance.Settings.Socket1.Till.ToString();
+                From2Ctrl.Value = ViewModel.Instance.Settings.Socket1.From2.ToString();
+                Till2Ctrl.Value = ViewModel.Instance.Settings.Socket1.Till2.ToString();
             };
 
             ProcessFormular += (s, e) =>
             {
-                ViewModel.Instance.Settings.Lighting.From = Convert.ToInt32(FromCtrl.Value);
-                ViewModel.Instance.Settings.Lighting.Till = Convert.ToInt32(TillCtrl.Value);
-                ViewModel.Instance.Settings.Lighting.From2 = Convert.ToInt32(From2Ctrl.Value);
-                ViewModel.Instance.Settings.Lighting.Till2 = Convert.ToInt32(Till2Ctrl.Value);
+                ViewModel.Instance.Settings.Socket1.Name = NameCtrl.Value;
+                ViewModel.Instance.Settings.Socket1.From = Convert.ToInt32(FromCtrl.Value);
+                ViewModel.Instance.Settings.Socket1.Till = Convert.ToInt32(TillCtrl.Value);
+                ViewModel.Instance.Settings.Socket1.From2 = Convert.ToInt32(From2Ctrl.Value);
+                ViewModel.Instance.Settings.Socket1.Till2 = Convert.ToInt32(Till2Ctrl.Value);
                 ViewModel.Instance.SaveSettings();
             };
 
@@ -190,7 +204,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Der erste Startzeitpunkt des Scheinwerfers darf nicht nach dem ersten Ende liegen",
+                            Text = "Der erste Startzeitpunkt der Steckdose darf nicht nach dem ersten Ende liegen",
                             Type = TypesInputValidity.Error
                         });
                     }
@@ -225,7 +239,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Das erste Ende darf nicht vor dem ersten Startzeitpunkt des Scheinwerfers liegen",
+                            Text = "Das erste Ende darf nicht vor dem ersten Startzeitpunkt der Steckdose liegen",
                             Type = TypesInputValidity.Error
                         });
                     }
@@ -260,7 +274,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Der zweite Startzeitpunkt des Scheinwerfers darf nicht nach dem zweiten Ende liegen",
+                            Text = "Der zweite Startzeitpunkt der Steckdose darf nicht nach dem zweiten Ende liegen",
                             Type = TypesInputValidity.Error
                         });
                     }
@@ -295,7 +309,7 @@ namespace TurtleBay.WebControl
                     {
                         e.Results.Add(new ValidationResult()
                         {
-                            Text = "Das zweite Ende darf nicht vor dem zweiten Startzeitpunkt des Scheinwerfers liegen",
+                            Text = "Das zweite Ende darf nicht vor dem zweiten Startzeitpunkt der Steckdose liegen",
                             Type = TypesInputValidity.Error
                         });
                     }

@@ -33,30 +33,6 @@ namespace TurtleBay.Model
         public int Max { get; set; }
 
         /// <summary>
-        /// Setzt oder liefert die Startzeit
-        /// </summary>
-        [XmlElement(ElementName = "from", DataType = "int")]
-        public int From { get; set; }
-
-        /// <summary>
-        /// Setzt oder liefert die Endzeit
-        /// </summary>
-        [XmlElement(ElementName = "till", DataType = "int")]
-        public int Till { get; set; }
-
-        /// <summary>
-        /// Setzt oder liefert die Startzeit
-        /// </summary>
-        [XmlElement(ElementName = "from2", DataType = "int")]
-        public int From2 { get; set; }
-
-        /// <summary>
-        /// Setzt oder liefert die Endzeit
-        /// </summary>
-        [XmlElement(ElementName = "till2", DataType = "int")]
-        public int Till2 { get; set; }
-
-        /// <summary>
         /// Setzt oder liefert die Startzeit des Tages
         /// </summary>
         [XmlElement(ElementName = "dayfrom", DataType = "int")]
@@ -74,5 +50,19 @@ namespace TurtleBay.Model
         [XmlElement("primary")]
         public string PrimaryID { get; set; }
 
+        /// <summary>
+        /// Liefert oder setzt die Einstellungen des Scheinwerfers
+        /// </summary>
+        public Lighting Lighting { get; set; } = new Lighting();
+
+        /// <summary>
+        /// Liefert oder setzt die Einstellungen des Scheinwerfers
+        /// </summary>
+        public Socket1 Socket1 { get; set; } = new Socket1();
+
+        /// <summary>
+        /// Liefert oder setzt die Einstellungen des Scheinwerfers
+        /// </summary>
+        public Socket2 Socket2 { get; set; } = new Socket2();
     }
 }

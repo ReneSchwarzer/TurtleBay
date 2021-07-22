@@ -4,7 +4,6 @@ using WebExpress.Attribute;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
 using WebExpress.WebApp.WebResource;
 
 namespace TurtleBay.WebResource
@@ -23,7 +22,7 @@ namespace TurtleBay.WebResource
         /// </summary>
         public PageDashboard()
         {
-           
+
         }
 
         /// <summary>
@@ -62,7 +61,15 @@ namespace TurtleBay.WebResource
                 layout = TypeColorBackground.Danger;
             }
 
-            var flexboxTop = new ControlPanelFlexbox() 
+            var flexboxTop = new ControlPanelFlexbox()
+            {
+                Layout = TypeLayoutFlexbox.Default,
+                Justify = TypeJustifiedFlexbox.Center,
+                Align = TypeAlignFlexbox.Stretch,
+                Wrap = TypeWrap.Wrap
+            };
+
+            var flexboxSwitch = new ControlPanelFlexbox()
             {
                 Layout = TypeLayoutFlexbox.Default,
                 Justify = TypeJustifiedFlexbox.Center,
@@ -120,6 +127,44 @@ namespace TurtleBay.WebResource
                 GridColumn = new PropertyGrid(TypeDevice.Auto, 2)
             });
 
+            flexboxSwitch.Content.Add(new ControlCardCounter("socket1")
+            {
+                Text = string.IsNullOrWhiteSpace(ViewModel.Instance.Settings.Socket1.Name) ? this.I18N("turtlebay.dashboard.socket1.label") : ViewModel.Instance.Settings.Socket1.Name,
+                Value = ViewModel.Instance.Socket1 ? this.I18N("turtlebay.dashboard.socket1.on") : this.I18N("turtlebay.dashboard.socket1.off"),
+                Icon = new PropertyIcon(TypeIcon.Plug),
+                TextColor = new PropertyColorText(TypeColorText.White),
+                BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Socket1 ? TypeColorBackground.Success : TypeColorBackground.Info),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
+                GridColumn = new PropertyGrid(TypeDevice.Auto, 2)
+            });
+
+            flexboxSwitch.Content.Add(new ControlButtonLink() 
+            { 
+                Text = ViewModel.Instance.Socket1 ? this.I18N("turtlebay.dashboard.socket1.off") : this.I18N("turtlebay.dashboard.socket1.on"),
+                Uri = Uri.Root.Append("socket1"),
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two)
+            });
+
+            flexboxSwitch.Content.Add(new ControlCardCounter("socket2")
+            {
+                Text = string.IsNullOrWhiteSpace(ViewModel.Instance.Settings.Socket2.Name) ? this.I18N("turtlebay.dashboard.socket2.label") : ViewModel.Instance.Settings.Socket2.Name,
+                Value = ViewModel.Instance.Socket2 ? this.I18N("turtlebay.dashboard.socket2.on") : this.I18N("turtlebay.dashboard.socket2.off"),
+                Icon = new PropertyIcon(TypeIcon.Plug),
+                TextColor = new PropertyColorText(TypeColorText.White),
+                BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Socket2 ? TypeColorBackground.Success : TypeColorBackground.Info),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
+                GridColumn = new PropertyGrid(TypeDevice.Auto, 2)
+            });
+
+            flexboxSwitch.Content.Add(new ControlButtonLink() 
+            { 
+                Text = ViewModel.Instance.Socket2 ? this.I18N("turtlebay.dashboard.socket2.off") : this.I18N("turtlebay.dashboard.socket2.on"),
+                Uri = Uri.Root.Append("socket2"),
+                BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary),
+                Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two)
+            });
+
             flexboxMiddle.Content.Add(new ControlCardCounter("lc")
             {
                 Text = this.I18N("turtlebay.dashboard.lighting.total"),
@@ -151,6 +196,7 @@ namespace TurtleBay.WebResource
             });
 
             Content.Preferences.Add(flexboxTop);
+            Content.Primary.Add(flexboxSwitch);
             Content.Primary.Add(flexboxMiddle);
             Content.Primary.Add(flexboxBottom);
 

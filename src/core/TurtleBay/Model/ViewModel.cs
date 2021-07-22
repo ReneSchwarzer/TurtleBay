@@ -61,6 +61,16 @@ namespace TurtleBay.Model
         private const int _heatingPin = 23;
 
         /// <summary>
+        /// Der GPIO-Pin, welcher die erste Steckdose steuert
+        /// </summary>
+        private const int _socket1Pin = 21;
+
+        /// <summary>
+        /// Der GPIO-Pin, welcher die zweite Steckdose steuert
+        /// </summary>
+        private const int _socket2Pin = 26;
+
+        /// <summary>
         /// Der Zustand des GPIO-Pins, welcher die StatusLED steuert
         /// </summary>
         private bool _status;
@@ -74,6 +84,26 @@ namespace TurtleBay.Model
         /// Der Zustand des GPIO-Pins, welcher die Heizlampe steuert
         /// </summary>
         private bool _heating;
+
+        /// <summary>
+        /// Der Zustand des GPIO-Pins, welcher die etrste Steckdose steuert
+        /// </summary>
+        private bool _socket1;
+
+        /// <summary>
+        /// Der Zustand des GPIO-Pins, welcher die zweite Steckdose steuert
+        /// </summary>
+        private bool _socket2;
+
+        /// <summary>
+        /// Manueller Status der ersten Steckdose
+        /// </summary>
+        private bool Socket1Switch { get; set; }
+
+        /// <summary>
+        /// Manueller Status der zweiten Steckdose
+        /// </summary>
+        private bool Socket2Switch { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Settings
@@ -135,15 +165,21 @@ namespace TurtleBay.Model
                 GPIO.OpenPin(_statusPin, PinMode.Output);
                 GPIO.OpenPin(_lightingPin, PinMode.Output);
                 GPIO.OpenPin(_heatingPin, PinMode.Output);
+                GPIO.OpenPin(_socket1Pin, PinMode.Output);
+                GPIO.OpenPin(_socket2Pin, PinMode.Output);
 
                 GPIO.Write(_statusPin, PinValue.High);
                 GPIO.Write(_lightingPin, PinValue.High);
                 GPIO.Write(_heatingPin, PinValue.High);
+                GPIO.Write(_socket1Pin, PinValue.High);
+                GPIO.Write(_socket2Pin, PinValue.High);
 
                 Log(new LogItem(LogItem.LogLevel.Info, "GpioController gestartet"));
                 Log(new LogItem(LogItem.LogLevel.Debug, "StatusPin " + _statusPin));
                 Log(new LogItem(LogItem.LogLevel.Debug, "LightingPin " + _lightingPin));
                 Log(new LogItem(LogItem.LogLevel.Debug, "HeatingPin " + _heatingPin));
+                Log(new LogItem(LogItem.LogLevel.Debug, "Socket1Pin " + _socket1Pin));
+                Log(new LogItem(LogItem.LogLevel.Debug, "Socket2Pin " + _socket2Pin));
             }
             catch
             {
@@ -157,10 +193,10 @@ namespace TurtleBay.Model
             Settings.NightMin = 10; // °C
             Settings.DayMin = 15; // °C
             Settings.Max = 19; // °C
-            Settings.From = 9; // Uhr
-            Settings.Till = 12; // Uhr
-            Settings.From2 = 15; // Uhr
-            Settings.Till2 = 17; // Uhr
+            Settings.Lighting.From = 9; // Uhr
+            Settings.Lighting.Till = 12; // Uhr
+            Settings.Lighting.From2 = 15; // Uhr
+            Settings.Lighting.Till2 = 17; // Uhr
             Settings.DayFrom = 7; // Uhr
             Settings.DayTill = 20; // Uhr
 
@@ -229,6 +265,8 @@ namespace TurtleBay.Model
 
                 Lighting = LightTime && temp < Settings.Max;
                 Heating = temp < Min;
+                Socket1 = Socket1Time || Socket1Switch;
+                Socket2 = Socket2Time || Socket2Switch;
 
                 // Charting
                 if (now.Hour != _lastHour)
@@ -306,59 +344,203 @@ namespace TurtleBay.Model
                 DateTime t;
 
                 // Erste Zeit
-                if (Settings.From == -1)
+                if (Settings.Lighting.From == -1)
                 {
                     f = CurrentDayFrom;
                 }
-                else if (Settings.From == -2)
+                else if (Settings.Lighting.From == -2)
                 {
                     f = CurrentDayTill;
                 }
                 else
                 {
-                    f = new DateTime(now.Year, now.Month, now.Day, Settings.From, 0, 0);
+                    f = new DateTime(now.Year, now.Month, now.Day, Settings.Lighting.From, 0, 0);
                 }
 
-                if (Settings.Till == -1)
+                if (Settings.Lighting.Till == -1)
                 {
                     t = CurrentDayFrom;
                 }
-                else if (Settings.Till == -2)
+                else if (Settings.Lighting.Till == -2)
                 {
                     t = CurrentDayTill;
                 }
                 else
                 {
-                    t = new DateTime(now.Year, now.Month, now.Day, Settings.Till, 0, 0);
+                    t = new DateTime(now.Year, now.Month, now.Day, Settings.Lighting.Till, 0, 0);
                 }
 
                 var lightTime = f <= now && now <= t;
 
                 // Zweite Zeit
-                if (Settings.From2 == -1)
+                if (Settings.Lighting.From2 == -1)
                 {
                     f = CurrentDayFrom;
                 }
-                else if (Settings.From2 == -2)
+                else if (Settings.Lighting.From2 == -2)
                 {
                     f = CurrentDayTill;
                 }
                 else
                 {
-                    f = new DateTime(now.Year, now.Month, now.Day, Settings.From2, 0, 0);
+                    f = new DateTime(now.Year, now.Month, now.Day, Settings.Lighting.From2, 0, 0);
                 }
 
-                if (Settings.Till2 == -1)
+                if (Settings.Lighting.Till2 == -1)
                 {
                     t = CurrentDayFrom;
                 }
-                else if (Settings.Till2 == -2)
+                else if (Settings.Lighting.Till2 == -2)
                 {
                     t = CurrentDayTill;
                 }
                 else
                 {
-                    t = new DateTime(now.Year, now.Month, now.Day, Settings.Till2, 0, 0);
+                    t = new DateTime(now.Year, now.Month, now.Day, Settings.Lighting.Till2, 0, 0);
+                }
+
+                return lightTime || f <= now && now <= t;
+            }
+        }
+
+        /// <summary>
+        /// Ermittelt ob es Zeit für die erste Steckdose ist  
+        /// </summary>
+        [XmlIgnore]
+        public bool Socket1Time
+        {
+            get
+            {
+                var now = DateTime.Now;
+                DateTime f;
+                DateTime t;
+
+                // Erste Zeit
+                if (Settings.Socket1.From == -1)
+                {
+                    f = CurrentDayFrom;
+                }
+                else if (Settings.Socket1.From == -2)
+                {
+                    f = CurrentDayTill;
+                }
+                else
+                {
+                    f = new DateTime(now.Year, now.Month, now.Day, Settings.Socket1.From, 0, 0);
+                }
+
+                if (Settings.Socket1.Till == -1)
+                {
+                    t = CurrentDayFrom;
+                }
+                else if (Settings.Socket1.Till == -2)
+                {
+                    t = CurrentDayTill;
+                }
+                else
+                {
+                    t = new DateTime(now.Year, now.Month, now.Day, Settings.Socket1.Till, 0, 0);
+                }
+
+                var lightTime = f <= now && now <= t;
+
+                // Zweite Zeit
+                if (Settings.Socket1.From2 == -1)
+                {
+                    f = CurrentDayFrom;
+                }
+                else if (Settings.Socket1.From2 == -2)
+                {
+                    f = CurrentDayTill;
+                }
+                else
+                {
+                    f = new DateTime(now.Year, now.Month, now.Day, Settings.Socket1.From2, 0, 0);
+                }
+
+                if (Settings.Socket1.Till2 == -1)
+                {
+                    t = CurrentDayFrom;
+                }
+                else if (Settings.Socket1.Till2 == -2)
+                {
+                    t = CurrentDayTill;
+                }
+                else
+                {
+                    t = new DateTime(now.Year, now.Month, now.Day, Settings.Socket1.Till2, 0, 0);
+                }
+
+                return lightTime || f <= now && now <= t;
+            }
+        }
+
+        /// <summary>
+        /// Ermittelt ob es Zeit für die zweite Steckdose ist  
+        /// </summary>
+        [XmlIgnore]
+        public bool Socket2Time
+        {
+            get
+            {
+                var now = DateTime.Now;
+                DateTime f;
+                DateTime t;
+
+                // Erste Zeit
+                if (Settings.Socket2.From == -1)
+                {
+                    f = CurrentDayFrom;
+                }
+                else if (Settings.Socket2.From == -2)
+                {
+                    f = CurrentDayTill;
+                }
+                else
+                {
+                    f = new DateTime(now.Year, now.Month, now.Day, Settings.Socket2.From, 0, 0);
+                }
+
+                if (Settings.Socket2.Till == -1)
+                {
+                    t = CurrentDayFrom;
+                }
+                else if (Settings.Socket2.Till == -2)
+                {
+                    t = CurrentDayTill;
+                }
+                else
+                {
+                    t = new DateTime(now.Year, now.Month, now.Day, Settings.Socket2.Till, 0, 0);
+                }
+
+                var lightTime = f <= now && now <= t;
+
+                // Zweite Zeit
+                if (Settings.Socket2.From2 == -1)
+                {
+                    f = CurrentDayFrom;
+                }
+                else if (Settings.Socket2.From2 == -2)
+                {
+                    f = CurrentDayTill;
+                }
+                else
+                {
+                    f = new DateTime(now.Year, now.Month, now.Day, Settings.Socket2.From2, 0, 0);
+                }
+
+                if (Settings.Socket2.Till2 == -1)
+                {
+                    t = CurrentDayFrom;
+                }
+                else if (Settings.Socket2.Till2 == -2)
+                {
+                    t = CurrentDayTill;
+                }
+                else
+                {
+                    t = new DateTime(now.Year, now.Month, now.Day, Settings.Socket2.Till2, 0, 0);
                 }
 
                 return lightTime || f <= now && now <= t;
@@ -502,6 +684,76 @@ namespace TurtleBay.Model
         }
 
         /// <summary>
+        /// Liefert oder setzt ob die erste Steckdose angeschaltet ist
+        /// </summary>
+        [XmlIgnore]
+        public virtual bool Socket1
+        {
+            get => _socket1;
+            set
+            {
+                try
+                {
+                    if (value != Socket1)
+                    {
+                        if (value)
+                        {
+                            GPIO.Write(_socket1Pin, PinValue.Low);
+                        }
+                        else
+                        {
+                            GPIO.Write(_socket1Pin, PinValue.High);
+                        }
+
+                        _socket1 = value;
+
+                        Log(new LogItem(LogItem.LogLevel.Info, Socket1 ? "Steckdose 1 wurde eingeschaltet" : "Steckkdose 1 wurde ausgeschaltet"));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log(new LogItem(LogItem.LogLevel.Error, "Status der Steckdose 1 konnte nicht ermittelt werden"));
+                    Log(new LogItem(LogItem.LogLevel.Exception, ex.ToString()));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Liefert oder setzt ob die zweite Steckdose angeschaltet ist
+        /// </summary>
+        [XmlIgnore]
+        public virtual bool Socket2
+        {
+            get => _socket2;
+            set
+            {
+                try
+                {
+                    if (value != Socket2)
+                    {
+                        if (value)
+                        {
+                            GPIO.Write(_socket2Pin, PinValue.Low);
+                        }
+                        else
+                        {
+                            GPIO.Write(_socket2Pin, PinValue.High);
+                        }
+
+                        _socket2 = value;
+
+                        Log(new LogItem(LogItem.LogLevel.Info, Socket2 ? "Steckdose 2 wurde eingeschaltet" : "Steckdose 2 wurde ausgeschaltet"));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log(new LogItem(LogItem.LogLevel.Error, "Status der Steckdose 2 konnte nicht ermittelt werden"));
+                    Log(new LogItem(LogItem.LogLevel.Exception, ex.ToString()));
+                }
+            }
+        }
+
+        /// <summary>
         /// Liefert oder setzt den Staustext
         /// </summary>
         [XmlIgnore]
@@ -617,10 +869,10 @@ namespace TurtleBay.Model
             Log(new LogItem(LogItem.LogLevel.Debug, "NightMin = " + Settings.NightMin + " °C"));
             Log(new LogItem(LogItem.LogLevel.Debug, "DayMin = " + Settings.DayMin + " °C"));
             Log(new LogItem(LogItem.LogLevel.Debug, "Max = " + Settings.Max + " °C"));
-            Log(new LogItem(LogItem.LogLevel.Debug, "From = " + Settings.From + " Uhr"));
-            Log(new LogItem(LogItem.LogLevel.Debug, "Till = " + Settings.Till + " Uhr"));
-            Log(new LogItem(LogItem.LogLevel.Debug, "From2 = " + Settings.From2 + " Uhr"));
-            Log(new LogItem(LogItem.LogLevel.Debug, "Till2 = " + Settings.Till2 + " Uhr"));
+            Log(new LogItem(LogItem.LogLevel.Debug, "From = " + Settings.Lighting.From + " Uhr"));
+            Log(new LogItem(LogItem.LogLevel.Debug, "Till = " + Settings.Lighting.Till + " Uhr"));
+            Log(new LogItem(LogItem.LogLevel.Debug, "From2 = " + Settings.Lighting.From2 + " Uhr"));
+            Log(new LogItem(LogItem.LogLevel.Debug, "Till2 = " + Settings.Lighting.Till2 + " Uhr"));
             Log(new LogItem(LogItem.LogLevel.Debug, "DayFrom = " + Settings.DayFrom + " Uhr"));
             Log(new LogItem(LogItem.LogLevel.Debug, "DayTill = " + Settings.DayTill + " Uhr"));
         }
