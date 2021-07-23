@@ -40,7 +40,7 @@ namespace TurtleBay.WebResource
         {
             base.Process();
 
-            ViewModel.Instance.Socket2 = !ViewModel.Instance.Socket2;
+            ViewModel.Instance.Socket2Switch = !ViewModel.Instance.Socket2Switch;
 
             Redirecting(Uri.Root);
         }

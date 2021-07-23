@@ -98,12 +98,12 @@ namespace TurtleBay.Model
         /// <summary>
         /// Manueller Status der ersten Steckdose
         /// </summary>
-        private bool Socket1Switch { get; set; }
+        public bool Socket1Switch { get; set; }
 
         /// <summary>
         /// Manueller Status der zweiten Steckdose
         /// </summary>
-        private bool Socket2Switch { get; set; }
+        public bool Socket2Switch { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Settings
