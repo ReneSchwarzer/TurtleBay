@@ -133,7 +133,7 @@ namespace TurtleBay.WebResource
                 Value = ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch ? this.I18N("turtlebay.dashboard.socket1.on") : this.I18N("turtlebay.dashboard.socket1.off"),
                 Icon = new PropertyIcon(TypeIcon.Plug),
                 TextColor = new PropertyColorText(TypeColorText.White),
-                BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Socket1 ? TypeColorBackground.Success : TypeColorBackground.Info),
+                BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch ? TypeColorBackground.Success : TypeColorBackground.Info),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
                 GridColumn = new PropertyGrid(TypeDevice.Auto, 2)
             });
@@ -152,7 +152,7 @@ namespace TurtleBay.WebResource
                 Value = ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch ? this.I18N("turtlebay.dashboard.socket2.on") : this.I18N("turtlebay.dashboard.socket2.off"),
                 Icon = new PropertyIcon(TypeIcon.Plug),
                 TextColor = new PropertyColorText(TypeColorText.White),
-                BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Socket2 ? TypeColorBackground.Success : TypeColorBackground.Info),
+                BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch ? TypeColorBackground.Success : TypeColorBackground.Info),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Two),
                 GridColumn = new PropertyGrid(TypeDevice.Auto, 2)
             });
