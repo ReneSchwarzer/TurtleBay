@@ -130,7 +130,7 @@ namespace TurtleBay.WebResource
             flexboxSwitch.Content.Add(new ControlCardCounter("socket1")
             {
                 Text = string.IsNullOrWhiteSpace(ViewModel.Instance.Settings.Socket1.Name) ? this.I18N("turtlebay.dashboard.socket1.label") : ViewModel.Instance.Settings.Socket1.Name,
-                Value = ViewModel.Instance.Socket1 ? this.I18N("turtlebay.dashboard.socket1.on") : this.I18N("turtlebay.dashboard.socket1.off"),
+                Value = ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch ? this.I18N("turtlebay.dashboard.socket1.on") : this.I18N("turtlebay.dashboard.socket1.off"),
                 Icon = new PropertyIcon(TypeIcon.Plug),
                 TextColor = new PropertyColorText(TypeColorText.White),
                 BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Socket1 ? TypeColorBackground.Success : TypeColorBackground.Info),
@@ -140,7 +140,7 @@ namespace TurtleBay.WebResource
 
             flexboxSwitch.Content.Add(new ControlButtonLink() 
             { 
-                Text = ViewModel.Instance.Socket1 ? this.I18N("turtlebay.dashboard.socket1.off") : this.I18N("turtlebay.dashboard.socket1.on"),
+                Text = ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch ? this.I18N("turtlebay.dashboard.socket1.off") : this.I18N("turtlebay.dashboard.socket1.on"),
                 Uri = Uri.Root.Append("socket1"),
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two)
@@ -149,7 +149,7 @@ namespace TurtleBay.WebResource
             flexboxSwitch.Content.Add(new ControlCardCounter("socket2")
             {
                 Text = string.IsNullOrWhiteSpace(ViewModel.Instance.Settings.Socket2.Name) ? this.I18N("turtlebay.dashboard.socket2.label") : ViewModel.Instance.Settings.Socket2.Name,
-                Value = ViewModel.Instance.Socket2 ? this.I18N("turtlebay.dashboard.socket2.on") : this.I18N("turtlebay.dashboard.socket2.off"),
+                Value = ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch ? this.I18N("turtlebay.dashboard.socket2.on") : this.I18N("turtlebay.dashboard.socket2.off"),
                 Icon = new PropertyIcon(TypeIcon.Plug),
                 TextColor = new PropertyColorText(TypeColorText.White),
                 BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Socket2 ? TypeColorBackground.Success : TypeColorBackground.Info),
@@ -159,7 +159,7 @@ namespace TurtleBay.WebResource
 
             flexboxSwitch.Content.Add(new ControlButtonLink() 
             { 
-                Text = ViewModel.Instance.Socket2 ? this.I18N("turtlebay.dashboard.socket2.off") : this.I18N("turtlebay.dashboard.socket2.on"),
+                Text = ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch ? this.I18N("turtlebay.dashboard.socket2.off") : this.I18N("turtlebay.dashboard.socket2.on"),
                 Uri = Uri.Root.Append("socket2"),
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two)

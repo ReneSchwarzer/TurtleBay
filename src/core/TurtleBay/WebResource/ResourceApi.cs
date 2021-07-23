@@ -41,6 +41,8 @@ namespace TurtleBay.WebResource
                 Temperature = ViewModel.Instance.PrimaryTemperature.ToString(),
                 Lighting = ViewModel.Instance.Lighting.ToString(),
                 Heating = ViewModel.Instance.Heating.ToString(),
+                Socket1 = (ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch).ToString(),
+                Socket2 = (ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch).ToString(),
                 LightingCounter = converter.Convert(ViewModel.Instance.Statistic.LightingCounter, typeof(string), null, null).ToString(),
                 HeatingCounter = converter.Convert(ViewModel.Instance.Statistic.HeatingCounter, typeof(string), null, null).ToString(),
                 Status = ViewModel.Instance.Status.ToString(),

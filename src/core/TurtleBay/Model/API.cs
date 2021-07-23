@@ -22,6 +22,16 @@ namespace TurtleBay.Model
         public string Heating { get; set; }
 
         /// <summary>
+        /// Liefert oder setzt den Einschaltzustand der ersten Steckdose
+        /// </summary>
+        public string Socket1 { get; set; }
+
+        /// <summary>
+        /// Liefert oder setzt den Einschaltzustand der zweiten Steckdose
+        /// </summary>
+        public string Socket2 { get; set; }
+
+        /// <summary>
         /// Liefert oder setzt die Einschaltdauer des Scheinwerfers
         /// </summary>
         public string LightingCounter { get; set; }

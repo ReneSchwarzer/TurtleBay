@@ -335,7 +335,7 @@ namespace TurtleBay.Model
         /// Ermittelt ob es Zeit für den Scheinwerfer ist  
         /// </summary>
         [XmlIgnore]
-        public bool LightTime
+        private bool LightTime
         {
             get
             {
@@ -407,7 +407,7 @@ namespace TurtleBay.Model
         /// Ermittelt ob es Zeit für die erste Steckdose ist  
         /// </summary>
         [XmlIgnore]
-        public bool Socket1Time
+        private bool Socket1Time
         {
             get
             {
@@ -479,7 +479,7 @@ namespace TurtleBay.Model
         /// Ermittelt ob es Zeit für die zweite Steckdose ist  
         /// </summary>
         [XmlIgnore]
-        public bool Socket2Time
+        private bool Socket2Time
         {
             get
             {
