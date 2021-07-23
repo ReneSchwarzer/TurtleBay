@@ -63,12 +63,12 @@ namespace TurtleBay.Model
         /// <summary>
         /// Der GPIO-Pin, welcher die erste Steckdose steuert
         /// </summary>
-        private const int _socket1Pin = 21;
+        private const int _socket1Pin = 26;
 
         /// <summary>
         /// Der GPIO-Pin, welcher die zweite Steckdose steuert
         /// </summary>
-        private const int _socket2Pin = 26;
+        private const int _socket2Pin = 20;
 
         /// <summary>
         /// Der Zustand des GPIO-Pins, welcher die StatusLED steuert
