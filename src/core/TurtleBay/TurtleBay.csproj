@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Version>1.2.4.0</Version>
     <AssemblyVersion>1.2.4.0</AssemblyVersion>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RuntimeIdentifiers>win10-x64;win-arm;linux-arm</RuntimeIdentifiers>
     <Authors>Rene_Schwarzer@hotmail.de</Authors>
     <RepositoryUrl>https://github.com/ReneSchwarzer/TurtleBay.git</RepositoryUrl>

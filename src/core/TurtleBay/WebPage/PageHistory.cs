@@ -1,20 +1,20 @@
 ﻿using TurtleBay.Model;
-using WebExpress.Attribute;
-using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebAttribute;
+using WebExpress.WebResource;
 
-namespace TurtleBay.WebResource
+namespace TurtleBay.WebPage
 {
     [ID("History")]
-    [Title("turtlebay.history.label")]
-    [Segment("history", "turtlebay.history.label")]
+    [Title("turtlebay:turtlebay.history.label")]
+    [Segment("history", "turtlebay:turtlebay.history.label")]
     [Path("/")]
     [Module("TurtleBay")]
     [Context("general")]
     [Context("history")]
-    public sealed class PageHistory : PageTemplateWebApp, IPageHistory
+    public sealed class PageHistory : PageWebApp, IPageHistory
     {
         /// <summary>
         /// Konstruktor
@@ -26,33 +26,33 @@ namespace TurtleBay.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            base.Initialization();
-
-            Favicons.Add(new Favicon(Uri.Root.Append("/assets/img/Favicon.png").ToString(), TypeFavicon.PNG));
+            base.Initialization(context);
         }
 
         /// <summary>
         /// Verarbeitung
         /// </summary>
-        public override void Process()
+        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        public override void Process(RenderContextWebApp context)
         {
-            base.Process();
+            base.Process(context);
 
-            Content.Preferences.Add(new ControlText()
+            context.VisualTree.Content.Preferences.Add(new ControlText()
             {
-                Text = this.I18N("turtlebay.history.description"),
+                Text = "turtlebay:turtlebay.history.description",
                 Format = TypeFormatText.Center,
                 TextColor = new PropertyColorText(TypeColorText.Primary),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             });
 
             var table = new ControlTable();
-            table.AddColumn(this.I18N("turtlebay.history.time"), new PropertyIcon(TypeIcon.Clock), TypesLayoutTableRow.Info);
-            table.AddColumn(this.I18N("turtlebay.history.temperature"), new PropertyIcon(TypeIcon.ThermometerQuarter), TypesLayoutTableRow.Danger);
-            table.AddColumn(this.I18N("turtlebay.history.lighting"), new PropertyIcon(TypeIcon.Lightbulb), TypesLayoutTableRow.Warning);
-            table.AddColumn(this.I18N("turtlebay.history.heating"), new PropertyIcon(TypeIcon.Fire), TypesLayoutTableRow.Warning);
+            table.AddColumn("turtlebay:turtlebay.history.time", new PropertyIcon(TypeIcon.Clock), TypesLayoutTableRow.Info);
+            table.AddColumn("turtlebay:turtlebay.history.temperature", new PropertyIcon(TypeIcon.ThermometerQuarter), TypesLayoutTableRow.Danger);
+            table.AddColumn("turtlebay:turtlebay.history.lighting", new PropertyIcon(TypeIcon.Lightbulb), TypesLayoutTableRow.Warning);
+            table.AddColumn("turtlebay:turtlebay.history.heating", new PropertyIcon(TypeIcon.Fire), TypesLayoutTableRow.Warning);
 
             foreach (var v in ViewModel.Instance.Statistic.Chart24h)
             {
@@ -65,7 +65,7 @@ namespace TurtleBay.WebResource
                 table.Rows.Add(row);
             }
 
-            Content.Primary.Add(table);
+            context.VisualTree.Content.Primary.Add(table);
         }
     }
 }

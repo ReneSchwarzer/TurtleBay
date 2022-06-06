@@ -2,6 +2,7 @@
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebPage;
 
 namespace TurtleBay.WebControl
 {
@@ -26,7 +27,7 @@ namespace TurtleBay.WebControl
 
             Items.Add(new ControlNavigationItemLink()
             {
-                Text = context.I18N("turtlebay.setting.day.label"),
+                Text = "turtlebay:turtlebay.setting.day.label",
                 Uri = context.Uri.Root.Append("settings"),
                 Active = context.Page is PageSettings ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Sun)
@@ -34,7 +35,7 @@ namespace TurtleBay.WebControl
 
             Items.Add(new ControlNavigationItemLink()
             {
-                Text = context.I18N("turtlebay.setting.heating.label"),
+                Text = "turtlebay:turtlebay.setting.heating.label",
                 Uri = context.Uri.Root.Append("settings").Append("heating"),
                 Active = context.Page is PageSettingsHeating ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Fire)
@@ -42,7 +43,7 @@ namespace TurtleBay.WebControl
 
             Items.Add(new ControlNavigationItemLink()
             {
-                Text = context.I18N("turtlebay.setting.lighting.label"),
+                Text = "turtlebay:turtlebay.setting.lighting.label",
                 Uri = context.Uri.Root.Append("settings").Append("lighting"),
                 Active = context.Page is PageSettingsLighting ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Lightbulb)
@@ -50,7 +51,7 @@ namespace TurtleBay.WebControl
 
             Items.Add(new ControlNavigationItemLink()
             {
-                Text = context.I18N("turtlebay.setting.socket1.label"),
+                Text = "turtlebay:turtlebay.setting.socket1.label",
                 Uri = context.Uri.Root.Append("settings").Append("socket1"),
                 Active = context.Page is PageSettingsSocket1 ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Plug)
@@ -58,7 +59,7 @@ namespace TurtleBay.WebControl
 
             Items.Add(new ControlNavigationItemLink()
             {
-                Text = context.I18N("turtlebay.setting.socket2.label"),
+                Text = "turtlebay:turtlebay.setting.socket2.label",
                 Uri = context.Uri.Root.Append("settings").Append("socket2"),
                 Active = context.Page is PageSettingsSocket2 ? TypeActive.Active : TypeActive.None,
                 Icon = new PropertyIcon(TypeIcon.Plug)

@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using WebExpress.Plugin;
+using WebExpress.WebPlugin;
 
 namespace TurtleBay.Model
 {
@@ -23,7 +23,7 @@ namespace TurtleBay.Model
         /// <summary>
         /// Die momentane Temperatur
         /// </summary>
-        private Dictionary<string, double> _temperature = new Dictionary<string, double>();
+        private Dictionary<string, double> _temperature = new();
 
         /// <summary>
         /// Liefert oder setzt die letzte Stunde

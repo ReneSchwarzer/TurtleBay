@@ -1,21 +1,26 @@
-﻿using System.Linq;
-using TurtleBay.Model;
-using WebExpress.Attribute;
-using WebExpress.Html;
+﻿using TurtleBay.Model;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebAttribute;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebApp.WebSettingPage;
+using WebExpress.WebAttribute;
+using WebExpress.WebResource;
 
-namespace TurtleBay.WebResource
+namespace TurtleBay.WebPageSetting
 {
     [ID("DS18B201")]
-    [Title("turtlebay.ds18b201.label")]
-    [Segment("ds18b201", "turtlebay.ds18b201.label")]
+    [Title("turtlebay:turtlebay.ds18b201.label")]
+    [Segment("ds18b201", "turtlebay:turtlebay.ds18b201.label")]
     [Path("/")]
     [Module("TurtleBay")]
-    [Context("general")]
+    [Context("setting")]
     [Context("ds18b201")]
-    public sealed class PageDS18B201 : PageTemplateWebApp, IPageDS18B201
+    [SettingSection(SettingSection.Preferences)]
+    [SettingIcon(TypeIcon.Microchip)]
+    [SettingGroup("webexpress.webapp:setting.tab.general.label")]
+    [SettingContext("webexpress.webapp:setting.general.label")]
+    public sealed class PageDS18B201 : PageWebAppSetting, IPageDS18B201
     {
         /// <summary>
         /// Liefert oder setzt die Form
@@ -37,23 +42,21 @@ namespace TurtleBay.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            base.Initialization();
-
-            Favicons.Add(new Favicon(Uri.Root.Append("/assets/img/Favicon.png").ToString(), TypeFavicon.PNG));
+            base.Initialization(context);
 
             Form = new ControlFormular()
             {
                 Name = "Settings",
-                EnableCancelButton = false,
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             };
 
             PrimaryIDCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "primary",
-                Label = this.I18N("turtlebay.ds18b201.primary.label")
+                Label = "turtlebay:turtlebay.ds18b201.primary.label"
             };
 
             // Werte festlegen
@@ -83,13 +86,9 @@ namespace TurtleBay.WebResource
             {
                 var id = e.Value;
 
-                if (!ViewModel.Instance.Temperature.Keys.Contains(id))
+                if (!ViewModel.Instance.Temperature.ContainsKey(id))
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Text = this.I18N("turtlebay.ds18b201.validation.invalid"),
-                        Type = TypesInputValidity.Error
-                    });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, this.I18N("turtlebay.ds18b201.validation.invalid")));
                 }
             };
         }
@@ -97,18 +96,19 @@ namespace TurtleBay.WebResource
         /// <summary>
         /// Verarbeitung
         /// </summary>
-        public override void Process()
+        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        public override void Process(RenderContextWebApp context)
         {
-            base.Process();
+            base.Process(context);
 
             foreach (var v in ViewModel.Instance.Temperature)
             {
-                Content.Preferences.Add(new ControlText() { Text = this.I18N(string.Format("turtlebay.ds18b201.current", v.Key, v.Value)) });
+                context.VisualTree.Content.Preferences.Add(new ControlText() { Text = string.Format(this.I18N("turtlebay:turtlebay.ds18b201.current"), v.Key, v.Value) });
             }
 
-            Content.Primary.Add(new ControlPanelCard(Form)
+            context.VisualTree.Content.Primary.Add(new ControlPanelCard(Form)
             {
-                Header = this.I18N("turtlebay.settings.label"),
+                Header = "turtlebay:turtlebay.settings.label",
                 BackgroundColor = new PropertyColorBackground(TypeColorBackground.Light),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             });

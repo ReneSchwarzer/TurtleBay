@@ -1,19 +1,20 @@
 ﻿using TurtleBay.Model;
-using WebExpress.Attribute;
-using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebAttribute;
+using WebExpress.WebPage;
+using WebExpress.WebResource;
 
-namespace TurtleBay.WebResource
+namespace TurtleBay.WebPage
 {
     [ID("Status")]
-    [Title("turtlebay.status.label")]
-    [Segment("status", "turtlebay.status.label")]
+    [Title("turtlebay:turtlebay.status.label")]
+    [Segment("status", "turtlebay:turtlebay.status.label")]
     [Path("/")]
     [Module("TurtleBay")]
     [Context("general")]
     [Context("status")]
-    public sealed class PageStatus : PageTemplateWebApp
+    public sealed class PageStatus : PageWebApp
     {
         /// <summary>
         /// Konstruktor
@@ -25,19 +26,19 @@ namespace TurtleBay.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            base.Initialization();
-
-            Favicons.Add(new Favicon(Uri.Root.Append("/Assets/img/Favicon.png").ToString(), TypeFavicon.PNG));
+            base.Initialization(context);
         }
 
         /// <summary>
         /// Verarbeitung
         /// </summary>
-        public override void Process()
+        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        public override void Process(RenderContextWebApp context)
         {
-            base.Process();
+            base.Process(context);
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace TurtleBay.WebResource
                 Icon = new PropertyIcon(TypeIcon.ThermometerQuarter),
                 TextColor = new PropertyColorText(TypeColorText.White),
                 BackgroundColor = new PropertyColorBackground(layout)
-            }.Render(new RenderContext(this)).ToString();
+            }.Render(new RenderContext()).ToString();
         }
     }
 }

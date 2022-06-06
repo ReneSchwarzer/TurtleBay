@@ -1,6 +1,7 @@
 ﻿using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebPage;
 
 namespace TurtleBay.WebControl
 {
@@ -32,25 +33,25 @@ namespace TurtleBay.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.I18N("turtlebay.reset.description");
+            Text = "turtlebay:turtlebay.reset.description";
 
-            Modal = new ControlModal
+            Modal = new PropertyModal(TypeModal.Modal, new ControlModal
             (
                 "reset",
                 context.I18N("turtlebay.reset.label"),
                 new ControlText()
                 {
-                    Text = context.I18N("turtlebay.reset.help")
+                    Text = "turtlebay:turtlebay.reset.help"
                 },
                 new ControlButton()
                 {
-                    Text = context.I18N("turtlebay.reset.label"),
+                    Text = "turtlebay:turtlebay.reset.label",
                     Icon = new PropertyIcon(TypeIcon.Undo),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.One),
                     BackgroundColor = new PropertyColorButton(TypeColorButton.Warning),
-                    OnClick = $"window.location.href = '{ context.Uri.Root.Append("reset") }'"
+                    OnClick = new PropertyOnClick($"window.location.href = '{ context.Uri.Root.Append("reset") }'")
                 }
-            );
+            ));
 
             return base.Render(context);
         }

@@ -1,16 +1,17 @@
 ﻿using TurtleBay.Model;
-using WebExpress.Attribute;
 using WebExpress.Html;
-using WebExpress.UI.Attribute;
-using WebExpress.UI.Component;
+using WebExpress.UI.WebAttribute;
+using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Components;
+using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
+using WebExpress.WebPage;
 
 namespace TurtleBay.WebControl
 {
     [Section(Section.FooterPrimary)]
     [Application("TurtleBay")]
-    public sealed class ControlFooterPrimary : ControlText, IComponent
+    public sealed class ControlFooterPrimary : ControlText
     {
         /// <summary>
         /// Konstruktor
@@ -18,13 +19,13 @@ namespace TurtleBay.WebControl
         public ControlFooterPrimary()
             : base()
         {
-            Init();
         }
 
         /// <summary>
         /// Initialisierung
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext</param>
+        public void Initialization(IComponentContext context)
         {
             Text = string.Format("{0}", ViewModel.Now);
             TextColor = new PropertyColorText(TypeColorText.Muted);

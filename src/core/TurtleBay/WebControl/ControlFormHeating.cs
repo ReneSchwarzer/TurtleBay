@@ -3,6 +3,7 @@ using TurtleBay.Model;
 using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebPage;
 
 namespace TurtleBay.WebControl
 {
@@ -39,25 +40,24 @@ namespace TurtleBay.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             Name = "heating";
-            EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
             NightMinCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "NightMin",
-                Label = context.I18N("turtlebay.setting.heating.nightmin.label")
+                Label = "turtlebay:turtlebay.setting.heating.nightmin.label"
             };
 
             DayMinCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "DayMin",
-                Label = context.I18N("turtlebay.setting.heating.daymin.label")
+                Label = "turtlebay:turtlebay.setting.heating.daymin.label"
             };
 
             MaxCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "Max",
-                Label = context.I18N("turtlebay.setting.heating.max.label")
+                Label = "turtlebay:turtlebay.setting.heating.max.label"
             };
 
             // Werte festlegen
@@ -111,37 +111,21 @@ namespace TurtleBay.WebControl
 
                     if (nightMin < 0)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = context.I18N("turtlebay.setting.heating.validation.night.low"),
-                            Type = TypesInputValidity.Warning
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Warning, "turtlebay:turtlebay.setting.heating.validation.night.low"));
                     }
                     else if (nightMin > 40)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = context.I18N("turtlebay.setting.heating.validation.night.high"),
-                            Type = TypesInputValidity.Warning
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Warning, "turtlebay:turtlebay.setting.heating.validation.night.high"));
                     }
 
                     if (nightMin > max)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = context.I18N("turtlebay.setting.heating.validation.night.max"),
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "turtlebay:turtlebay.setting.heating.validation.night.max"));
                     }
                 }
                 catch (Exception ex)
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Text = ex.Message,
-                        Type = TypesInputValidity.Error
-                    });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, ex.Message));
                 }
             };
 
@@ -154,37 +138,21 @@ namespace TurtleBay.WebControl
 
                     if (dayMin < 0)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = context.I18N("turtlebay.setting.heating.validation.day.low"),
-                            Type = TypesInputValidity.Warning
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Warning, "turtlebay:turtlebay.setting.heating.validation.day.low"));
                     }
                     else if (dayMin > 40)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = context.I18N("turtlebay.setting.heating.validation.day.high"),
-                            Type = TypesInputValidity.Warning
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Warning, "turtlebay:turtlebay.setting.heating.validation.day.high"));
                     }
 
                     if (dayMin > max)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = context.I18N("turtlebay.setting.heating.validation.day.max"),
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "turtlebay:turtlebay.setting.heating.validation.day.max"));
                     }
                 }
                 catch (Exception ex)
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Text = ex.Message,
-                        Type = TypesInputValidity.Error
-                    });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, ex.Message));
                 }
             };
 
@@ -196,28 +164,16 @@ namespace TurtleBay.WebControl
 
                     if (max < 1)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = context.I18N("turtlebay.setting.heating.validation.max.low"),
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "turtlebay:turtlebay.setting.heating.validation.max.low"));
                     }
                     else if (max > 40)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = context.I18N("turtlebay.setting.heating.validation.max.high"),
-                            Type = TypesInputValidity.Warning
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Warning, "turtlebay:turtlebay.setting.heating.validation.max.high"));
                     }
                 }
                 catch (Exception ex)
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Text = ex.Message,
-                        Type = TypesInputValidity.Error
-                    });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, ex.Message));
                 }
             };
 

@@ -1,32 +1,36 @@
-﻿using TurtleBay.WebResource;
-using WebExpress.Attribute;
+﻿using TurtleBay.WebPageSetting;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.UI.Attribute;
-using WebExpress.UI.Component;
+using WebExpress.UI.WebAttribute;
+using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Components;
+using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
+using WebExpress.WebPage;
 
-namespace TurtleBay.WebControl
+namespace TurtleBay.WebComponent
 {
     [Section(Section.AppSettingsPrimary)]
     [Application("TurtleBay")]
-    public sealed class ControlSettingsDS18B201 : ControlDropdownItemLink, IComponent
+    public sealed class ComponentSettingsDS18B201 : ComponentControlDropdownItemLink
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlSettingsDS18B201()
+        public ComponentSettingsDS18B201()
             : base()
         {
-            Init();
         }
 
         /// <summary>
         /// Initialisierung
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext</param>
+        /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
+        public override void Initialization(IComponentContext context, IPage page)
         {
+            base.Initialization(context, page);
+
         }
 
         /// <summary>
@@ -36,8 +40,8 @@ namespace TurtleBay.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.I18N("turtlebay.ds18b201.label");
-            Uri = context.Page.Uri.Root.Append("ds18b201");
+            Text = "turtlebay:turtlebay.ds18b201.label";
+            Uri = context.Request.Uri.Root.Append("ds18b201");
             Active = context.Page is IPageDS18B201 ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.Microchip);
 

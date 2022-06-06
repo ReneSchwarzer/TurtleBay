@@ -1,32 +1,36 @@
-﻿using TurtleBay.WebResource;
-using WebExpress.Attribute;
+﻿using TurtleBay.WebPage;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.UI.Attribute;
-using WebExpress.UI.Component;
+using WebExpress.UI.WebAttribute;
+using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Components;
+using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
+using WebExpress.WebPage;
 
-namespace TurtleBay.WebControl
+namespace TurtleBay.WebComponent
 {
     [Section(Section.AppNavigationSecondary)]
     [Application("TurtleBay")]
-    public sealed class ControlAppNavigationHelp : ControlNavigationItemLink, IComponent
+    public sealed class ComponentAppNavigationHelp : ComponentControlNavigationItemLink
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlAppNavigationHelp()
+        public ComponentAppNavigationHelp()
             : base()
         {
-            Init();
         }
 
         /// <summary>
         /// Initialisierung
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext</param>
+        /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
+        public override void Initialization(IComponentContext context, IPage page)
         {
+            base.Initialization(context, page);
+
         }
 
         /// <summary>
@@ -36,8 +40,8 @@ namespace TurtleBay.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.I18N("turtlebay.help.label");
-            Uri = context.Page.Uri.Root.Append("help");
+            Text = "turtlebay:turtlebay.help.label";
+            Uri = context.Request.Uri.Root.Append("help");
             Active = context.Page is IPageHelp ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.InfoCircle);
 

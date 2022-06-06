@@ -1,21 +1,20 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using TurtleBay.Model;
-using WebExpress.Attribute;
-using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebAttribute;
+using WebExpress.WebResource;
 
-namespace TurtleBay.WebResource
+namespace TurtleBay.WebPage
 {
     [ID("Log")]
-    [Title("turtlebay.log.label")]
-    [Segment("log", "turtlebay.log.label")]
+    [Title("turtlebay:turtlebay.log.label")]
+    [Segment("log", "turtlebay:turtlebay.log.label")]
     [Path("/")]
     [Module("TurtleBay")]
     [Context("general")]
     [Context("log")]
-    public sealed class PageLog : PageTemplateWebApp, IPageLog
+    public sealed class PageLog : PageWebApp, IPageLog
     {
         /// <summary>
         /// Konstruktor
@@ -27,21 +26,21 @@ namespace TurtleBay.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            base.Initialization();
-
-            Favicons.Add(new Favicon(Uri.Root.Append("/Assets/img/Favicon.png").ToString(), TypeFavicon.PNG));
+            base.Initialization(context);
         }
 
         /// <summary>
         /// Verarbeitung
         /// </summary>
-        public override void Process()
+        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        public override void Process(RenderContextWebApp context)
         {
-            base.Process();
+            base.Process(context);
 
-            Content.Preferences.Add(new ControlText()
+            context.VisualTree.Content.Preferences.Add(new ControlText()
             {
                 Text = "Ereignisse",
                 Format = TypeFormatText.Center,
@@ -55,7 +54,7 @@ namespace TurtleBay.WebResource
             table.AddColumn("Nachricht", new PropertyIcon(TypeIcon.CommentAlt), TypesLayoutTableRow.Danger);
             table.AddColumn("Zeit", new PropertyIcon(TypeIcon.Clock), TypesLayoutTableRow.Warning);
 
-            Func<LogItem.LogLevel, PropertyIcon> func = (level) =>
+            static PropertyIcon func(LogItem.LogLevel level)
             {
                 return level switch
                 {
@@ -66,7 +65,7 @@ namespace TurtleBay.WebResource
                     LogItem.LogLevel.Exception => new PropertyIcon(TypeIcon.Bomb),
                     _ => new PropertyIcon(TypeIcon.None),
                 };
-            };
+            }
 
             var log = ViewModel.Instance.Logging;
 
@@ -86,13 +85,13 @@ namespace TurtleBay.WebResource
                 table.Rows.Add(row);
             }
 
-            Content.Primary.Add(table);
-            Content.Primary.Add(new ControlPanelCenter(new ControlButtonLink()
+            context.VisualTree.Content.Primary.Add(table);
+            context.VisualTree.Content.Primary.Add(new ControlPanelCenter(new ControlButtonLink()
             {
                 Text = ViewModel.Instance.Settings.DebugMode ? "Debug-Ausgaben ausblenden" : "Debug-Ausgaben einblenden",
                 Icon = new PropertyIcon(TypeIcon.Bug),
                 TextColor = new PropertyColorText(TypeColorText.Warning),
-                Uri = Uri.Root.Append("debug"),
+                Uri = context.Request.Uri.Root.Append("debug"),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             }));
         }

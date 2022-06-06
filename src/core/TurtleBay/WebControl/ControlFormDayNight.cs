@@ -1,8 +1,8 @@
 ﻿using System;
 using TurtleBay.Model;
 using WebExpress.Html;
-using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebPage;
 
 namespace TurtleBay.WebControl
 {
@@ -35,32 +35,31 @@ namespace TurtleBay.WebControl
         public override IHtmlNode Render(RenderContext context)
         {
             Name = "daynight";
-            EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
             DayFromCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "DayFrom",
-                Label = context.I18N("turtlebay.setting.daynight.from.label")
+                Label = "turtlebay:turtlebay.setting.daynight.from.label"
             };
 
             DayTillCtrl = new ControlFormularItemInputComboBox()
             {
                 Name = "DayTill",
-                Label = context.I18N("turtlebay.setting.daynight.till.label")
+                Label = "turtlebay:turtlebay.setting.daynight.till.label"
             };
 
             if (ViewModel.Instance.Solarcalendar.Count > 0)
             {
                 DayFromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
-                    Text = context.I18N("turtlebay.setting.daynight.sunrise.label"),
+                    Text = "turtlebay:turtlebay.setting.daynight.sunrise.label",
                     Value = string.Format("-1")
                 });
 
                 DayTillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
                 {
-                    Text = context.I18N("turtlebay.setting.daynight.sunset.label"),
+                    Text = "turtlebay:turtlebay.setting.daynight.sunset.label",
                     Value = string.Format("-1")
                 });
             }
@@ -106,29 +105,17 @@ namespace TurtleBay.WebControl
 
                     if (dayfrom < -1 || dayfrom > 24)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = context.I18N("turtlebay.setting.daynight.validation.invalid"),
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "turtlebay:turtlebay.setting.daynight.validation.invalid"));
                     }
 
                     if (dayfrom > daytill && daytill != -1)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = "Der Tagesanfang darf nicht nach dem Tagesende liegen",
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Der Tagesanfang darf nicht nach dem Tagesende liegen"));
                     }
                 }
                 catch (Exception ex)
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Text = ex.Message,
-                        Type = TypesInputValidity.Error
-                    });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, ex.Message));
                 }
             };
 
@@ -141,29 +128,17 @@ namespace TurtleBay.WebControl
 
                     if (daytill < -1 || daytill > 24)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = context.I18N("turtlebay.setting.daynight.validation.invalid"),
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "turtlebay:turtlebay.setting.daynight.validation.invalid"));
                     }
 
                     if (dayfrom > daytill && daytill != -1)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = "Das Tagesende darf nicht vor dem Tagesbeginn liegen",
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Das Tagesende darf nicht vor dem Tagesbeginn liegen"));
                     }
                 }
                 catch (Exception ex)
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Text = ex.Message,
-                        Type = TypesInputValidity.Error
-                    });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, ex.Message));
                 }
             };
 

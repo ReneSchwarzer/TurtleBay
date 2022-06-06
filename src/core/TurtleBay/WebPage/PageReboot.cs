@@ -1,20 +1,20 @@
 ﻿
 using TurtleBay.Model;
-using WebExpress.Attribute;
-using WebExpress.Html;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebAttribute;
+using WebExpress.WebResource;
 
-namespace TurtleBay.WebResource
+namespace TurtleBay.WebPage
 {
     [ID("Reboot")]
-    [Title("turtlebay.reboot.label")]
-    [Segment("reboot", "turtlebay.reboot.label")]
+    [Title("turtlebay:turtlebay.reboot.label")]
+    [Segment("reboot", "turtlebay:turtlebay.reboot.label")]
     [Path("/")]
     [Module("TurtleBay")]
     [Context("general")]
     [Context("reboot")]
-    public sealed class PageReboot : PageTemplateWebApp
+    public sealed class PageReboot : PageWebApp
     {
         /// <summary>
         /// Konstruktor
@@ -26,27 +26,27 @@ namespace TurtleBay.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            base.Initialization();
-
-            Favicons.Add(new Favicon(Uri.Root.Append("/Assets/img/Favicon.png").ToString(), TypeFavicon.PNG));
+            base.Initialization(context);
         }
 
         /// <summary>
         /// Verarbeitung
         /// </summary>
-        public override void Process()
+        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        public override void Process(RenderContextWebApp context)
         {
-            base.Process();
+            base.Process(context);
 
-            Content.Primary.Add
+            context.VisualTree.Content.Primary.Add
             (
                 new ControlPanelCenter
                 (
                     new ControlImage()
                     {
-                        Uri = Uri.Root.Append("assets/img/reboot.png"),
+                        Uri = context.Request.Uri.Root.Append("assets/img/reboot.png"),
                         Width = 200
                     },
                     new ControlText()

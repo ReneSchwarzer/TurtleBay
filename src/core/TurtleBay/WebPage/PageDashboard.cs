@@ -1,21 +1,20 @@
 ﻿using TurtleBay.Model;
 using TurtleBay.WebControl;
-using WebExpress.Attribute;
-using WebExpress.Html;
-using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebAttribute;
+using WebExpress.WebResource;
 
-namespace TurtleBay.WebResource
+namespace TurtleBay.WebPage
 {
     [ID("Home")]
-    [Title("turtlebay.dashboard.label")]
-    [Segment("", "turtlebay.dashboard.label")]
+    [Title("turtlebay:turtlebay.dashboard.label")]
+    [Segment("", "turtlebay:turtlebay.dashboard.label")]
     [Path("")]
     [Module("TurtleBay")]
     [Context("general")]
     [Context("dashboard")]
-    public sealed class PageDashboard : PageTemplateWebApp, IPageDashboard
+    public sealed class PageDashboard : PageWebApp, IPageDashboard
     {
         /// <summary>
         /// Konstruktor
@@ -28,20 +27,21 @@ namespace TurtleBay.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            base.Initialization();
+            base.Initialization(context);
 
-            Favicons.Add(new Favicon(Uri.Root.Append("/assets/img/Favicon.png").ToString(), TypeFavicon.PNG));
-            HeaderScriptLinks.Add(Uri.Root.Append("/assets/js/dashboard.js"));
+            //HeaderScriptLinks.Add(Uri.Root.Append("/assets/js/dashboard.js"));
         }
 
         /// <summary>
         /// Verarbeitung
         /// </summary>
-        public override void Process()
+        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        public override void Process(RenderContextWebApp context)
         {
-            base.Process();
+            base.Process(context);
 
             var converter = new TimeSpanConverter();
 
@@ -95,7 +95,7 @@ namespace TurtleBay.WebResource
 
             flexboxTop.Content.Add(new ControlCardCounter("temperature")
             {
-                Text = this.I18N("turtlebay.dashboard.temperature.current.label"),
+                Text = "turtlebay:turtlebay.dashboard.temperature.current.label",
                 Value = string.Format("{0} °C", temp.ToString("0.0")),
                 Icon = new PropertyIcon(TypeIcon.ThermometerQuarter),
                 TextColor = new PropertyColorText(TypeColorText.White),
@@ -107,8 +107,8 @@ namespace TurtleBay.WebResource
 
             flexboxTop.Content.Add(new ControlCardCounter("lighting")
             {
-                Text = this.I18N("turtlebay.dashboard.lighting.label"),
-                Value = ViewModel.Instance.Lighting ? this.I18N("turtlebay.dashboard.lighting.on") : this.I18N("turtlebay.dashboard.lighting.off"),
+                Text = "turtlebay:turtlebay.dashboard.lighting.label",
+                Value = ViewModel.Instance.Lighting ? "turtlebay:turtlebay.dashboard.lighting.on" : "turtlebay:turtlebay.dashboard.lighting.off",
                 Icon = new PropertyIcon(TypeIcon.Lightbulb),
                 TextColor = new PropertyColorText(TypeColorText.White),
                 BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Heating ? TypeColorBackground.Success : TypeColorBackground.Info),
@@ -118,8 +118,8 @@ namespace TurtleBay.WebResource
 
             flexboxTop.Content.Add(new ControlCardCounter("heating")
             {
-                Text = this.I18N("turtlebay.dashboard.heating.label"),
-                Value = ViewModel.Instance.Heating ? this.I18N("turtlebay.dashboard.heating.on") : this.I18N("turtlebay.dashboard.heating.off"),
+                Text = "turtlebay:turtlebay.dashboard.heating.label",
+                Value = ViewModel.Instance.Heating ? "turtlebay:turtlebay.dashboard.heating.on" : "turtlebay:turtlebay.dashboard.heating.off",
                 Icon = new PropertyIcon(TypeIcon.Fire),
                 TextColor = new PropertyColorText(TypeColorText.White),
                 BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Heating ? TypeColorBackground.Success : TypeColorBackground.Info),
@@ -129,8 +129,8 @@ namespace TurtleBay.WebResource
 
             flexboxSwitch.Content.Add(new ControlCardCounter("socket1")
             {
-                Text = string.IsNullOrWhiteSpace(ViewModel.Instance.Settings.Socket1.Name) ? this.I18N("turtlebay.dashboard.socket1.label") : ViewModel.Instance.Settings.Socket1.Name,
-                Value = ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch ? this.I18N("turtlebay.dashboard.socket1.on") : this.I18N("turtlebay.dashboard.socket1.off"),
+                Text = string.IsNullOrWhiteSpace(ViewModel.Instance.Settings.Socket1.Name) ? "turtlebay:turtlebay.dashboard.socket1.label" : ViewModel.Instance.Settings.Socket1.Name,
+                Value = ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch ? "turtlebay:turtlebay.dashboard.socket1.on" : "turtlebay:turtlebay.dashboard.socket1.off",
                 Icon = new PropertyIcon(TypeIcon.Plug),
                 TextColor = new PropertyColorText(TypeColorText.White),
                 BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch ? TypeColorBackground.Success : TypeColorBackground.Info),
@@ -138,18 +138,18 @@ namespace TurtleBay.WebResource
                 GridColumn = new PropertyGrid(TypeDevice.Auto, 2)
             });
 
-            flexboxSwitch.Content.Add(new ControlButtonLink() 
-            { 
-                Text = ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch ? this.I18N("turtlebay.dashboard.socket1.off") : this.I18N("turtlebay.dashboard.socket1.on"),
-                Uri = Uri.Root.Append("socket1"),
+            flexboxSwitch.Content.Add(new ControlButtonLink()
+            {
+                Text = ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch ? "turtlebay:turtlebay.dashboard.socket1.off" : "turtlebay:turtlebay.dashboard.socket1.on",
+                Uri = context.Request.Uri.Root.Append("socket1"),
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two)
             });
 
             flexboxSwitch.Content.Add(new ControlCardCounter("socket2")
             {
-                Text = string.IsNullOrWhiteSpace(ViewModel.Instance.Settings.Socket2.Name) ? this.I18N("turtlebay.dashboard.socket2.label") : ViewModel.Instance.Settings.Socket2.Name,
-                Value = ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch ? this.I18N("turtlebay.dashboard.socket2.on") : this.I18N("turtlebay.dashboard.socket2.off"),
+                Text = string.IsNullOrWhiteSpace(ViewModel.Instance.Settings.Socket2.Name) ? "turtlebay:turtlebay.dashboard.socket2.label" : ViewModel.Instance.Settings.Socket2.Name,
+                Value = ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch ? "turtlebay:turtlebay.dashboard.socket2.on" : "turtlebay:turtlebay.dashboard.socket2.off",
                 Icon = new PropertyIcon(TypeIcon.Plug),
                 TextColor = new PropertyColorText(TypeColorText.White),
                 BackgroundColor = new PropertyColorBackground(ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch ? TypeColorBackground.Success : TypeColorBackground.Info),
@@ -157,17 +157,17 @@ namespace TurtleBay.WebResource
                 GridColumn = new PropertyGrid(TypeDevice.Auto, 2)
             });
 
-            flexboxSwitch.Content.Add(new ControlButtonLink() 
-            { 
-                Text = ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch ? this.I18N("turtlebay.dashboard.socket2.off") : this.I18N("turtlebay.dashboard.socket2.on"),
-                Uri = Uri.Root.Append("socket2"),
+            flexboxSwitch.Content.Add(new ControlButtonLink()
+            {
+                Text = ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch ? "turtlebay:turtlebay.dashboard.socket2.off" : "turtlebay:turtlebay.dashboard.socket2.on",
+                Uri = context.Request.Uri.Root.Append("socket2"),
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two)
             });
 
             flexboxMiddle.Content.Add(new ControlCardCounter("lc")
             {
-                Text = this.I18N("turtlebay.dashboard.lighting.total"),
+                Text = "turtlebay:turtlebay.dashboard.lighting.total",
                 Value = converter.Convert(ViewModel.Instance.Statistic.LightingCounter, typeof(string), null, null).ToString(),
                 Icon = new PropertyIcon(TypeIcon.Lightbulb),
                 TextColor = new PropertyColorText(ViewModel.Instance.Lighting ? TypeColorText.Success : TypeColorText.Info),
@@ -177,7 +177,7 @@ namespace TurtleBay.WebResource
 
             flexboxMiddle.Content.Add(new ControlCardCounter("hc")
             {
-                Text = this.I18N("turtlebay.dashboard.heating.total"),
+                Text = "turtlebay:turtlebay.dashboard.heating.total",
                 Value = converter.Convert(ViewModel.Instance.Statistic.HeatingCounter, typeof(string), null, null).ToString(),
                 Icon = new PropertyIcon(TypeIcon.Fire),
                 TextColor = new PropertyColorText(ViewModel.Instance.Heating ? TypeColorText.Success : TypeColorText.Info),
@@ -187,7 +187,7 @@ namespace TurtleBay.WebResource
 
             flexboxBottom.Content.Add(new ControlCardCounter("pc")
             {
-                Text = this.I18N("turtlebay.dashboard.run"),
+                Text = "turtlebay:turtlebay.dashboard.run",
                 Value = converter.Convert(ViewModel.Instance.ProgramCounter, typeof(string), null, null).ToString(),
                 Icon = new PropertyIcon(TypeIcon.Stopwatch),
                 TextColor = new PropertyColorText(TypeColorText.Info),
@@ -195,12 +195,12 @@ namespace TurtleBay.WebResource
                 GridColumn = new PropertyGrid(TypeDevice.Auto, 2)
             });
 
-            Content.Preferences.Add(flexboxTop);
-            Content.Primary.Add(flexboxSwitch);
-            Content.Primary.Add(flexboxMiddle);
-            Content.Primary.Add(flexboxBottom);
+            context.VisualTree.Content.Preferences.Add(flexboxTop);
+            context.VisualTree.Content.Primary.Add(flexboxSwitch);
+            context.VisualTree.Content.Primary.Add(flexboxMiddle);
+            context.VisualTree.Content.Primary.Add(flexboxBottom);
 
-            Content.Secondary.Add(new ControlButtonReset());
+            context.VisualTree.Content.Secondary.Add(new ControlButtonReset());
         }
     }
 }

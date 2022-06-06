@@ -1,4 +1,4 @@
-﻿using WebExpress.Attribute;
+﻿using WebExpress.WebAttribute;
 
 namespace TurtleBay.WebResource
 {
@@ -18,14 +18,6 @@ namespace TurtleBay.WebResource
         /// </summary>
         public ResourceAsset()
         {
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        public override void Initialization()
-        {
-            base.Initialization();
         }
     }
 }

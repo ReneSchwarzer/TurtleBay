@@ -41,7 +41,6 @@ namespace TurtleBay.WebControl
         public void Init()
         {
             Name = "lighting";
-            EnableCancelButton = false;
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
             FromCtrl = new ControlFormularItemInputComboBox()
@@ -179,29 +178,17 @@ namespace TurtleBay.WebControl
 
                     if (from < -2 || from > 24)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = "Ungültiger Wert",
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Ungültiger Wert"));
                     }
 
                     if (from > till && till >= 0)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = "Der erste Startzeitpunkt des Scheinwerfers darf nicht nach dem ersten Ende liegen",
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Der erste Startzeitpunkt des Scheinwerfers darf nicht nach dem ersten Ende liegen"));
                     }
                 }
                 catch (Exception ex)
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Text = ex.Message,
-                        Type = TypesInputValidity.Error
-                    });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, ex.Message));
                 }
             };
 
@@ -214,29 +201,17 @@ namespace TurtleBay.WebControl
 
                     if (till < -2 || till > 24)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = "Ungültiger Wert",
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Ungültiger Wert"));
                     }
 
                     if (from > till && till >= 0)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = "Das erste Ende darf nicht vor dem ersten Startzeitpunkt des Scheinwerfers liegen",
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Das erste Ende darf nicht vor dem ersten Startzeitpunkt des Scheinwerfers liegen"));
                     }
                 }
                 catch (Exception ex)
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Text = ex.Message,
-                        Type = TypesInputValidity.Error
-                    });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, ex.Message));
                 }
             };
 
@@ -249,29 +224,17 @@ namespace TurtleBay.WebControl
 
                     if (from < -2 || from > 24)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = "Ungültiger Wert",
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error,"Ungültiger Wert"));
                     }
 
                     if (from > till)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = "Der zweite Startzeitpunkt des Scheinwerfers darf nicht nach dem zweiten Ende liegen",
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Der zweite Startzeitpunkt des Scheinwerfers darf nicht nach dem zweiten Ende liegen"));
                     }
                 }
                 catch (Exception ex)
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Text = ex.Message,
-                        Type = TypesInputValidity.Error
-                    });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, ex.Message));
                 }
             };
 
@@ -284,29 +247,17 @@ namespace TurtleBay.WebControl
 
                     if (till < 0 || till > 24)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = "Ungültiger Wert",
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Ungültiger Wert"));
                     }
 
                     if (from > till)
                     {
-                        e.Results.Add(new ValidationResult()
-                        {
-                            Text = "Das zweite Ende darf nicht vor dem zweiten Startzeitpunkt des Scheinwerfers liegen",
-                            Type = TypesInputValidity.Error
-                        });
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Das zweite Ende darf nicht vor dem zweiten Startzeitpunkt des Scheinwerfers liegen"));
                     }
                 }
                 catch (Exception ex)
                 {
-                    e.Results.Add(new ValidationResult()
-                    {
-                        Text = ex.Message,
-                        Type = TypesInputValidity.Error
-                    });
+                    e.Results.Add(new ValidationResult(TypesInputValidity.Error, ex.Message));
                 }
             };
         }

@@ -1,32 +1,36 @@
-﻿using TurtleBay.WebResource;
-using WebExpress.Attribute;
+﻿using TurtleBay.WebPage;
 using WebExpress.Html;
 using WebExpress.Internationalization;
-using WebExpress.UI.Attribute;
-using WebExpress.UI.Component;
+using WebExpress.UI.WebAttribute;
+using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.Components;
+using WebExpress.WebApp.WebComponent;
+using WebExpress.WebAttribute;
+using WebExpress.WebPage;
 
-namespace TurtleBay.WebControl
+namespace TurtleBay.WebComponent
 {
     [Section(Section.AppNavigationPrimary)]
     [Application("TurtleBay")]
-    public sealed class ControlAppNavigationLog : ControlNavigationItemLink, IComponent
+    public sealed class ComponentAppNavigationLog : ComponentControlNavigationItemLink
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ControlAppNavigationLog()
+        public ComponentAppNavigationLog()
             : base()
         {
-            Init();
         }
 
         /// <summary>
         /// Initialisierung
         /// </summary>
-        private void Init()
+        /// <param name="context">Der Kontext</param>
+        /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
+        public override void Initialization(IComponentContext context, IPage page)
         {
+            base.Initialization(context, page);
+
         }
 
         /// <summary>
@@ -36,8 +40,8 @@ namespace TurtleBay.WebControl
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = context.I18N("turtlebay.log.label");
-            Uri = context.Page.Uri.Root.Append("log");
+            Text = "turtlebay:turtlebay.log.label";
+            Uri = context.Request.Uri.Root.Append("log");
             Active = context.Page is IPageLog ? TypeActive.Active : TypeActive.None;
             Icon = new PropertyIcon(TypeIcon.Book);
 

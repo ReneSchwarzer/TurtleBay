@@ -1,22 +1,22 @@
 ﻿using System.Reflection;
 using TurtleBay.WebControl;
-using WebExpress.Attribute;
-using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
-using WebExpress.WebApp.WebResource;
+using WebExpress.WebApp.WebPage;
+using WebExpress.WebAttribute;
+using WebExpress.WebResource;
 
-namespace TurtleBay.WebResource
+namespace TurtleBay.WebPage
 {
     [ID("Help")]
-    [Title("turtlebay.help.label")]
-    [Segment("help", "turtlebay.help.label")]
+    [Title("turtlebay:turtlebay.help.label")]
+    [Segment("help", "turtlebay:turtlebay.help.label")]
     [Path("/")]
     [Module("TurtleBay")]
     [Context("general")]
     [Context("help")]
-    public sealed class PageHelp : PageTemplateWebApp, IPageHelp
+    public sealed class PageHelp : PageWebApp, IPageHelp
     {
         /// <summary>
         /// Konstruktor
@@ -28,32 +28,32 @@ namespace TurtleBay.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            base.Initialization();
-
-            Favicons.Add(new Favicon(Uri.Root.Append("/assets/img/Favicon.png").ToString(), TypeFavicon.PNG));
+            base.Initialization(context);
         }
 
         /// <summary>
         /// Verarbeitung
         /// </summary>
-        public override void Process()
+        /// <param name="context">Der Kontext zum Rendern der Seite</param>
+        public override void Process(RenderContextWebApp context)
         {
-            base.Process();
+            base.Process(context);
 
-            Content.Primary.Add
+            context.VisualTree.Content.Primary.Add
             (
                 new ControlPanelCenter
                 (
                     new ControlImage()
                     {
-                        Uri = Uri.Root.Append("assets/img/turtle.png"),
+                        Uri = context.Request.Uri.Root.Append("assets/img/turtle.png"),
                         Width = 200
                     },
                     new ControlText()
                     {
-                        Text = this.I18N("turtlebay.help.version.label"),
+                        Text = "turtlebay:turtlebay.help.version.label",
                         TextColor = new PropertyColorText(TypeColorText.Primary)
                     },
                     new ControlText()
@@ -63,7 +63,7 @@ namespace TurtleBay.WebResource
                     },
                     new ControlText()
                     {
-                        Text = this.I18N("turtlebay.help.contact.label"),
+                        Text = "turtlebay:turtlebay.help.contact.label",
                         TextColor = new PropertyColorText(TypeColorText.Primary)
                     },
                     new ControlLink()
@@ -81,29 +81,29 @@ namespace TurtleBay.WebResource
                 )
             );
 
-            Content.Primary.Add(new ControlLine());
+            context.VisualTree.Content.Primary.Add(new ControlLine());
 
-            Content.Primary.Add(new ControlText()
+            context.VisualTree.Content.Primary.Add(new ControlText()
             {
-                Text = this.I18N("turtlebay.help.privacypolicy.label"),
+                Text = "turtlebay:turtlebay.help.privacypolicy.label",
                 Format = TypeFormatText.H4
             });
 
-            Content.Primary.Add(new ControlText()
+            context.VisualTree.Content.Primary.Add(new ControlText()
             {
-                Text = this.I18N("turtlebay.help.privacypolicy.description"),
+                Text = "turtlebay:turtlebay.help.privacypolicy.description",
                 Format = TypeFormatText.Paragraph
             });
 
-            Content.Primary.Add(new ControlText()
+            context.VisualTree.Content.Primary.Add(new ControlText()
             {
-                Text = this.I18N("turtlebay.help.disclaimer.label"),
+                Text = "turtlebay:turtlebay.help.disclaimer.label",
                 Format = TypeFormatText.H4
             });
 
-            Content.Primary.Add(new ControlText()
+            context.VisualTree.Content.Primary.Add(new ControlText()
             {
-                Text = this.I18N("turtlebay.help.disclaimer.description"),
+                Text = "turtlebay:turtlebay.help.disclaimer.description",
                 Format = TypeFormatText.Paragraph
             });
 

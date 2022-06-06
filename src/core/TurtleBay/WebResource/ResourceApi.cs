@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using TurtleBay.Model;
-using WebExpress.Attribute;
+using WebExpress.Message;
+using WebExpress.WebAttribute;
 using WebExpress.WebResource;
 
 namespace TurtleBay.WebResource
@@ -9,7 +10,7 @@ namespace TurtleBay.WebResource
     [Segment("api")]
     [Path("/")]
     [Module("TurtleBay")]
-    public sealed class ResourceApi : WebExpress.WebResource.ResourceApi
+    public sealed class ResourceApi : WebExpress.WebResource.ResourceRest
     {
         /// <summary>
         /// Konstruktor
@@ -22,18 +23,19 @@ namespace TurtleBay.WebResource
         /// <summary>
         /// Initialisierung
         /// </summary>
-        public override void Initialization()
+        /// <param name="context">Der Kontext</param>
+        public override void Initialization(IResourceContext context)
         {
-            base.Initialization();
+            base.Initialization(context);
         }
 
         /// <summary>
         /// Verarbeitung
         /// </summary>
-        public override void Process()
+        /// <param name="request">Die Anfrage</param>
+        /// <returns>Ein Objekt welches mittels JsonSerializer serialisiert werden kann.</returns>
+        public override object GetData(Request request)
         {
-            base.Process();
-
             var converter = new TimeSpanConverter();
 
             var api = new API()
@@ -57,7 +59,7 @@ namespace TurtleBay.WebResource
                 WriteIndented = true
             };
 
-            Content = JsonSerializer.Serialize(api, options);
+            return JsonSerializer.Serialize(api, options);
         }
     }
 }
