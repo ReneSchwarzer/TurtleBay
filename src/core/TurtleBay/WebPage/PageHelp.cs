@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using TurtleBay.WebControl;
-using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
 using WebExpress.Uri;
 using WebExpress.WebApp.WebPage;
@@ -9,7 +8,7 @@ using WebExpress.WebResource;
 
 namespace TurtleBay.WebPage
 {
-    [ID("Help")]
+    [Id("Help")]
     [Title("turtlebay:turtlebay.help.label")]
     [Segment("help", "turtlebay:turtlebay.help.label")]
     [Path("/")]

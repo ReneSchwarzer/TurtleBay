@@ -5,7 +5,7 @@ using WebExpress.WebResource;
 
 namespace TurtleBay.WebPage
 {
-    [ID("Debug")]
+    [Id("Debug")]
     [Title("turtlebay:turtlebay.debug.label")]
     [Segment("debug", "turtlebay:turtlebay.debug.label")]
     [Path("/")]

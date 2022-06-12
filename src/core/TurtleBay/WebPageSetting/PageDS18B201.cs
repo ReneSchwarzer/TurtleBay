@@ -9,7 +9,7 @@ using WebExpress.WebResource;
 
 namespace TurtleBay.WebPageSetting
 {
-    [ID("DS18B201")]
+    [Id("DS18B201")]
     [Title("turtlebay:turtlebay.ds18b201.label")]
     [Segment("ds18b201", "turtlebay:turtlebay.ds18b201.label")]
     [Path("/")]

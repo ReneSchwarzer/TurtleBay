@@ -7,7 +7,7 @@ using WebExpress.WebResource;
 
 namespace TurtleBay.WebResource
 {
-    [ID("SettingLighting")]
+    [Id("SettingLighting")]
     [Title("turtlebay:turtlebay.setting.lighting.label")]
     [Segment("lighting", "turtlebay:turtlebay.setting.lighting.label")]
     [Path("/Setting")]

@@ -6,7 +6,7 @@ using WebExpress.WebResource;
 
 namespace TurtleBay.WebResource
 {
-    [ID("API")]
+    [Id("API")]
     [Segment("api")]
     [Path("/")]
     [Module("TurtleBay")]

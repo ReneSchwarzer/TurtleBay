@@ -3,7 +3,7 @@ using WebExpress.WebModule;
 
 namespace TurtleBay
 {
-    [ID("TurtleBay")]
+    [Id("TurtleBay")]
     [Name("module.name")]
     [Description("module.description")]
     [Icon("/assets/img/Logo.png")]

@@ -7,7 +7,7 @@ using WebExpress.WebResource;
 
 namespace TurtleBay.WebResource
 {
-    [ID("SettingSocket1")]
+    [Id("SettingSocket1")]
     [Title("turtlebay:turtlebay.setting.socket1.label")]
     [Segment("socket1", "turtlebay:turtlebay.setting.socket1.label")]
     [Path("/Setting")]
