@@ -47,7 +47,7 @@ namespace TurtleBay.WebPageSetting
         {
             base.Initialization(context);
 
-            Form = new ControlFormular()
+            Form = new ControlFormular("170eddfe-6fcf-4f60-923f-58132d34b343")
             {
                 Name = "Settings",
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
