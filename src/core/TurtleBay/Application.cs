@@ -3,7 +3,6 @@ using WebExpress.WebAttribute;
 
 namespace TurtleBay
 {
-    [Id("TurtleBay")]
     [Name("app.name")]
     [Description("app.description")]
     [Icon("/assets/img/turtle.svg")]

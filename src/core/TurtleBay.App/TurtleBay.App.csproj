@@ -1,40 +1,46 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Version>1.2.4.0</Version>
-    <AssemblyVersion>1.2.4.0</AssemblyVersion>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ApplicationIcon>TurtleBay.ico</ApplicationIcon>
-    <StartupObject>TurtleBay.Program</StartupObject>
-    <RuntimeIdentifiers>win10-x64;win-arm;linux-arm;ubuntu.14.04-arm;ubuntu.16.04-arm</RuntimeIdentifiers>
-    <Copyright></Copyright>
-    <RepositoryUrl>https://github.com/ReneSchwarzer/TurtleBay.git</RepositoryUrl>
-    <Authors>Rene_Schwarzer@hotmail.de</Authors>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Company />
-    <AssemblyName>TurtleBay.App</AssemblyName>
-    <RootNamespace>TurtleBay.App</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Version>1.2.5.0</Version>
+		<AssemblyVersion>1.2.5.0</AssemblyVersion>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net7.0</TargetFramework>
+		<ApplicationIcon>TurtleBay.ico</ApplicationIcon>
+		<StartupObject>TurtleBay.Program</StartupObject>
+		<RuntimeIdentifiers>win10-x64;win-arm;linux-arm;ubuntu.14.04-arm;ubuntu.16.04-arm</RuntimeIdentifiers>
+		<Copyright></Copyright>
+		<RepositoryUrl>https://github.com/ReneSchwarzer/TurtleBay.git</RepositoryUrl>
+		<Authors>Rene_Schwarzer@hotmail.de</Authors>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Company />
+		<AssemblyName>TurtleBay.App</AssemblyName>
+		<RootNamespace>TurtleBay.App</RootNamespace>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\WebExpress\core\WebExpress\WebExpress.csproj" />
-    <ProjectReference Include="..\TurtleBay\TurtleBay.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="WebExpress" Version="1.4.7-alpha" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="Assets\StoreLogo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Config\agent.settings.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Config\webexpress.config.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Config\solarcalendar.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\TurtleBay\TurtleBay.csproj" />
+	</ItemGroup>
 
+	<ItemGroup>
+		<None Update="Assets\StoreLogo.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Config\agent.settings.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Config\webexpress.config.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="Config\solarcalendar.xml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Release'">
+		<Exec Command="$(SolutionDir)$(AssemblyName)\bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).exe -s $(SolutionDir)..\InventoryExpress.spec -c $(Configuration) -t $(TargetFramework) -o $(SolutionDir)..\pkg\$(Configuration)" />
+	</Target>
 </Project>

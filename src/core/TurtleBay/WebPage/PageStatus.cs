@@ -4,17 +4,15 @@ using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebPage;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebPage
 {
-    [Id("Status")]
     [Title("turtlebay:turtlebay.status.label")]
     [Segment("status", "turtlebay:turtlebay.status.label")]
-    [Path("/")]
-    [Module("TurtleBay")]
-    [Context("general")]
-    [Context("status")]
-    public sealed class PageStatus : PageWebApp
+    [ContextPath("/")]
+    [Module<Module>]
+    public sealed class PageStatus : PageWebApp, IScope
     {
         /// <summary>
         /// Konstruktor

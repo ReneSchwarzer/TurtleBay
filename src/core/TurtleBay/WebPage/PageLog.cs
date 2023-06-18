@@ -3,18 +3,17 @@ using TurtleBay.Model;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebPage
 {
-    [Id("Log")]
     [Title("turtlebay:turtlebay.log.label")]
     [Segment("log", "turtlebay:turtlebay.log.label")]
-    [Path("/")]
-    [Module("TurtleBay")]
-    [Context("general")]
-    [Context("log")]
-    public sealed class PageLog : PageWebApp, IPageLog
+    [ContextPath("/")]
+    [Module<Module>]
+    public sealed class PageLog : PageWebApp, IPageLog, IScope
     {
         /// <summary>
         /// Konstruktor
@@ -91,7 +90,7 @@ namespace TurtleBay.WebPage
                 Text = ViewModel.Instance.Settings.DebugMode ? "Debug-Ausgaben ausblenden" : "Debug-Ausgaben einblenden",
                 Icon = new PropertyIcon(TypeIcon.Bug),
                 TextColor = new PropertyColorText(TypeColorText.Warning),
-                Uri = context.Request.Uri.Root.Append("debug"),
+                Uri = ComponentManager.SitemapManager.GetUri<PageDebug>(),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             }));
         }

@@ -4,17 +4,15 @@ using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebPage
 {
-    [Id("History")]
     [Title("turtlebay:turtlebay.history.label")]
     [Segment("history", "turtlebay:turtlebay.history.label")]
-    [Path("/")]
-    [Module("TurtleBay")]
-    [Context("general")]
-    [Context("history")]
-    public sealed class PageHistory : PageWebApp, IPageHistory
+    [ContextPath("/")]
+    [Module<Module>]
+    public sealed class PageHistory : PageWebApp, IPageHistory, IScope
     {
         /// <summary>
         /// Konstruktor

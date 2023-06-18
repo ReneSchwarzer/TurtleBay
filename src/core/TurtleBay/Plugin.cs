@@ -6,7 +6,6 @@ using WebExpress.WebPlugin;
 
 namespace TurtleBay
 {
-    [Id("TurtleBay")]
     [Name("plugin.name")]
     [Description("plugin.description")]
     [Icon("/assets/img/Logo.png")]

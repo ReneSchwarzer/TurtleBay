@@ -1,36 +1,34 @@
 ﻿using TurtleBay.Model;
 using WebExpress.Internationalization;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebPageSetting
 {
-    [Id("DS18B201")]
     [Title("turtlebay:turtlebay.ds18b201.label")]
     [Segment("ds18b201", "turtlebay:turtlebay.ds18b201.label")]
-    [Path("/")]
-    [Module("TurtleBay")]
-    [Context("setting")]
-    [Context("ds18b201")]
+    [ContextPath("/")]
+    [Module<Module>]
     [SettingSection(SettingSection.Preferences)]
     [SettingIcon(TypeIcon.Microchip)]
     [SettingGroup("webexpress.webapp:setting.tab.general.label")]
     [SettingContext("webexpress.webapp:setting.general.label")]
-    public sealed class PageDS18B201 : PageWebAppSetting, IPageDS18B201
+    public sealed class PageDS18B201 : PageWebAppSetting, IPageDS18B201, IScope
     {
         /// <summary>
         /// Liefert oder setzt die Form
         /// </summary>
-        private ControlFormular Form { get; set; }
+        private ControlForm Form { get; set; }
 
         /// <summary>
         /// Liefert oder setzt den primären Sensor
         /// </summary>
-        private ControlFormularItemInputComboBox PrimaryIDCtrl { get; set; }
+        private ControlFormItemInputComboBox PrimaryIDCtrl { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -47,13 +45,13 @@ namespace TurtleBay.WebPageSetting
         {
             base.Initialization(context);
 
-            Form = new ControlFormular("170eddfe-6fcf-4f60-923f-58132d34b343")
+            Form = new ControlForm("170eddfe-6fcf-4f60-923f-58132d34b343")
             {
                 Name = "Settings",
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Three)
             };
 
-            PrimaryIDCtrl = new ControlFormularItemInputComboBox()
+            PrimaryIDCtrl = new ControlFormItemInputComboBox()
             {
                 Name = "primary",
                 Label = "turtlebay:turtlebay.ds18b201.primary.label"
@@ -62,7 +60,7 @@ namespace TurtleBay.WebPageSetting
             // Werte festlegen
             foreach (var v in ViewModel.Instance.Temperature.Keys)
             {
-                PrimaryIDCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                PrimaryIDCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0}", v),
                     Value = string.Format("{0}", v)

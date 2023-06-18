@@ -1,15 +1,14 @@
 ﻿using System.Text.Json;
 using TurtleBay.Model;
-using WebExpress.Message;
 using WebExpress.WebAttribute;
+using WebExpress.WebMessage;
 using WebExpress.WebResource;
 
 namespace TurtleBay.WebResource
 {
-    [Id("API")]
     [Segment("api")]
-    [Path("/")]
-    [Module("TurtleBay")]
+    [ContextPath("/")]
+    [Module<Module>]
     public sealed class ResourceApi : WebExpress.WebResource.ResourceRest
     {
         /// <summary>

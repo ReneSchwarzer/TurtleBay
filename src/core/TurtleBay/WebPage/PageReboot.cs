@@ -1,20 +1,17 @@
-﻿
-using TurtleBay.Model;
+﻿using TurtleBay.Model;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebPage
 {
-    [Id("Reboot")]
     [Title("turtlebay:turtlebay.reboot.label")]
     [Segment("reboot", "turtlebay:turtlebay.reboot.label")]
-    [Path("/")]
-    [Module("TurtleBay")]
-    [Context("general")]
-    [Context("reboot")]
-    public sealed class PageReboot : PageWebApp
+    [ContextPath("/")]
+    [Module<Module>]
+    public sealed class PageReboot : PageWebApp, IScope
     {
         /// <summary>
         /// Konstruktor
@@ -46,7 +43,7 @@ namespace TurtleBay.WebPage
                 (
                     new ControlImage()
                     {
-                        Uri = context.Request.Uri.Root.Append("assets/img/reboot.png"),
+                        Uri = ResourceContext.ApplicationContext.ContextPath.Append("assets/img/reboot.png"),
                         Width = 200
                     },
                     new ControlText()

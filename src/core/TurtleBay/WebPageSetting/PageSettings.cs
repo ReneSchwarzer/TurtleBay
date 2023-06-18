@@ -1,24 +1,23 @@
 ﻿using TurtleBay.WebControl;
+using WebExpress.UI.WebAttribute;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebResource
 {
-    [Id("Setting")]
     [Title("turtlebay:turtlebay.settings.label")]
     [Segment("settings", "turtlebay:turtlebay.settings.label")]
-    [Path("/")]
-    [Module("TurtleBay")]
+    [ContextPath("/")]
+    [Module<Module>]
     [SettingSection(SettingSection.Preferences)]
     [SettingIcon(TypeIcon.Wrench)]
     [SettingGroup("webexpress.webapp:setting.tab.general.label")]
     [SettingContext("webexpress.webapp:setting.general.label")]
-    [Context("setting")]
-    public sealed class PageSettings : PageWebAppSetting, IPageSetting
+    public sealed class PageSettings : PageWebAppSetting, IPageSetting, IScope
     {
         /// <summary>
         /// Konstruktor

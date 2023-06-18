@@ -1,19 +1,19 @@
 ﻿
 using TurtleBay.Model;
+using TurtleBay.WebResource;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebPage
 {
-    [Id("Socket1")]
     [Title("turtlebay:turtlebay.socket1.label")]
     [Segment("socket1", "turtlebay:turtlebay.socket1.label")]
-    [Path("/")]
-    [Module("TurtleBay")]
-    [Context("general")]
-    [Context("socket")]
-    public sealed class PageSocket1 : PageWebApp
+    [ContextPath("/")]
+    [Module<Module>]
+    public sealed class PageSocket1 : PageWebApp, IScope
     {
         /// <summary>
         /// Konstruktor
@@ -41,7 +41,7 @@ namespace TurtleBay.WebPage
 
             ViewModel.Instance.Socket1Switch = !ViewModel.Instance.Socket1Switch;
 
-            Redirecting(context.Request.Uri.Root);
+            Redirecting(ComponentManager.SitemapManager.GetUri<PageDashboard>());
         }
     }
 }

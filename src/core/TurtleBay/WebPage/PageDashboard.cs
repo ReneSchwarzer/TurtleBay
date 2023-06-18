@@ -3,18 +3,17 @@ using TurtleBay.WebControl;
 using WebExpress.UI.WebControl;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebPage
 {
-    [Id("Home")]
     [Title("turtlebay:turtlebay.dashboard.label")]
     [Segment("", "turtlebay:turtlebay.dashboard.label")]
-    [Path("")]
-    [Module("TurtleBay")]
-    [Context("general")]
-    [Context("dashboard")]
-    public sealed class PageDashboard : PageWebApp, IPageDashboard
+    [ContextPath("/")]
+    [Module<Module>]
+    public sealed class PageDashboard : PageWebApp, IPageDashboard, IScope
     {
         /// <summary>
         /// Konstruktor
@@ -141,7 +140,7 @@ namespace TurtleBay.WebPage
             flexboxSwitch.Content.Add(new ControlButtonLink()
             {
                 Text = ViewModel.Instance.Socket1 || ViewModel.Instance.Socket1Switch ? "turtlebay:turtlebay.dashboard.socket1.off" : "turtlebay:turtlebay.dashboard.socket1.on",
-                Uri = context.Request.Uri.Root.Append("socket1"),
+                Uri = ComponentManager.SitemapManager.GetUri<PageSocket1>(),
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two)
             });
@@ -160,7 +159,7 @@ namespace TurtleBay.WebPage
             flexboxSwitch.Content.Add(new ControlButtonLink()
             {
                 Text = ViewModel.Instance.Socket2 || ViewModel.Instance.Socket2Switch ? "turtlebay:turtlebay.dashboard.socket2.off" : "turtlebay:turtlebay.dashboard.socket2.on",
-                Uri = context.Request.Uri.Root.Append("socket2"),
+                Uri = ComponentManager.SitemapManager.GetUri<PageSocket2>(),
                 BackgroundColor = new PropertyColorButton(TypeColorButton.Secondary),
                 Margin = new PropertySpacingMargin(PropertySpacing.Space.Null, PropertySpacing.Space.Two)
             });

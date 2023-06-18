@@ -1,21 +1,21 @@
 ﻿using TurtleBay.WebControl;
-using WebExpress.WebApp.WebAttribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebResource
 {
-    [Id("SettingLighting")]
     [Title("turtlebay:turtlebay.setting.lighting.label")]
     [Segment("lighting", "turtlebay:turtlebay.setting.lighting.label")]
-    [Path("/Setting")]
-    [Module("TurtleBay")]
-    [Context("setting")]
+    [ContextPath("/")]
+    [Parent<PageSettings>]
+    [Module<Module>]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.general.label")]
-    public sealed class PageSettingsLighting : PageWebAppSetting, IPageSetting
+    public sealed class PageSettingsLighting : PageWebAppSetting, IPageSetting, IScope
     {
         /// <summary>
         /// Konstruktor

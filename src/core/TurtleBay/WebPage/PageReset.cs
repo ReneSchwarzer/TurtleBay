@@ -1,18 +1,17 @@
 ﻿using TurtleBay.Model;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebPage
 {
-    [Id("Reset")]
     [Title("turtlebay:turtlebay.reset.label")]
     [Segment("reset", "turtlebay:turtlebay.reset.label")]
-    [Path("/")]
-    [Module("TurtleBay")]
-    [Context("general")]
-    [Context("reset")]
-    public sealed class PageReset : PageWebApp
+    [ContextPath("/")]
+    [Module<Module>]
+    public sealed class PageReset : PageWebApp, IScope
     {
         /// <summary>
         /// Konstruktor
@@ -40,7 +39,7 @@ namespace TurtleBay.WebPage
 
             ViewModel.Instance.ResetCounter();
 
-            Redirecting(context.Request.Uri.Root);
+            Redirecting(ComponentManager.SitemapManager.GetUri<PageDashboard>());
         }
     }
 }

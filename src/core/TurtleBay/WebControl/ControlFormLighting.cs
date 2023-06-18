@@ -4,27 +4,27 @@ using WebExpress.UI.WebControl;
 
 namespace TurtleBay.WebControl
 {
-    public class ControlFormLighting : ControlFormular
+    public class ControlFormLighting : ControlForm
     {
         /// <summary>
         /// Liefert oder setzt die Startzeit 1 der UVB-Lampe
         /// </summary>
-        private ControlFormularItemInputComboBox FromCtrl { get; set; }
+        private ControlFormItemInputComboBox FromCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Startzeit 2 der UVB-Lampe
         /// </summary>
-        private ControlFormularItemInputComboBox From2Ctrl { get; set; }
+        private ControlFormItemInputComboBox From2Ctrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Endzeit 1 der UVB-Lampe
         /// </summary>
-        private ControlFormularItemInputComboBox TillCtrl { get; set; }
+        private ControlFormItemInputComboBox TillCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Endzeit 2 der UVB-Lampe
         /// </summary>
-        private ControlFormularItemInputComboBox Till2Ctrl { get; set; }
+        private ControlFormItemInputComboBox Till2Ctrl { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -43,25 +43,25 @@ namespace TurtleBay.WebControl
             Name = "lighting";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
-            FromCtrl = new ControlFormularItemInputComboBox()
+            FromCtrl = new ControlFormItemInputComboBox()
             {
                 Name = "From",
                 Label = "Erste Startzeit des Scheinwerfers:"
             };
 
-            TillCtrl = new ControlFormularItemInputComboBox()
+            TillCtrl = new ControlFormItemInputComboBox()
             {
                 Name = "Till",
                 Label = "Erste Endzeit des Scheinwerfers:"
             };
 
-            From2Ctrl = new ControlFormularItemInputComboBox()
+            From2Ctrl = new ControlFormItemInputComboBox()
             {
                 Name = "From2",
                 Label = "Zweite Startzeit des Scheinwerfers:"
             };
 
-            Till2Ctrl = new ControlFormularItemInputComboBox()
+            Till2Ctrl = new ControlFormItemInputComboBox()
             {
                 Name = "Till2",
                 Label = "Zweite Endzeit des Scheinwerfers:"
@@ -69,49 +69,49 @@ namespace TurtleBay.WebControl
 
             if (ViewModel.Instance.Solarcalendar.Count > 0)
             {
-                FromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                FromCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesanfang"),
                     Value = string.Format("-1")
                 });
 
-                FromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                FromCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesende"),
                     Value = string.Format("-2")
                 });
 
-                TillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                TillCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesanfang"),
                     Value = string.Format("-1")
                 });
 
-                TillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                TillCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesende"),
                     Value = string.Format("-2")
                 });
 
-                From2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                From2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesanfang"),
                     Value = string.Format("-1")
                 });
 
-                From2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                From2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesende"),
                     Value = string.Format("-2")
                 });
 
-                Till2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                Till2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesanfang"),
                     Value = string.Format("-1")
                 });
 
-                Till2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                Till2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesende"),
                     Value = string.Format("-2")
@@ -121,25 +121,25 @@ namespace TurtleBay.WebControl
             // Werte festlegen
             for (var i = 0; i < 24; i++)
             {
-                FromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                FromCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
                 });
 
-                From2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                From2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
                 });
 
-                TillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                TillCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
                 });
 
-                Till2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                Till2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
@@ -224,7 +224,7 @@ namespace TurtleBay.WebControl
 
                     if (from < -2 || from > 24)
                     {
-                        e.Results.Add(new ValidationResult(TypesInputValidity.Error,"Ungültiger Wert"));
+                        e.Results.Add(new ValidationResult(TypesInputValidity.Error, "Ungültiger Wert"));
                     }
 
                     if (from > till)

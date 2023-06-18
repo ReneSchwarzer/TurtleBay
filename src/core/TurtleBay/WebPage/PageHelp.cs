@@ -1,21 +1,19 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using TurtleBay.WebControl;
 using WebExpress.UI.WebControl;
-using WebExpress.Uri;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebPage
 {
-    [Id("Help")]
     [Title("turtlebay:turtlebay.help.label")]
     [Segment("help", "turtlebay:turtlebay.help.label")]
-    [Path("/")]
-    [Module("TurtleBay")]
-    [Context("general")]
-    [Context("help")]
-    public sealed class PageHelp : PageWebApp, IPageHelp
+    [ContextPath("/")]
+    [Module<Module>]
+    public sealed class PageHelp : PageWebApp, IPageHelp, IScope
     {
         /// <summary>
         /// Konstruktor
@@ -47,7 +45,7 @@ namespace TurtleBay.WebPage
                 (
                     new ControlImage()
                     {
-                        Uri = context.Request.Uri.Root.Append("assets/img/turtle.png"),
+                        Uri = context.ApplicationContext.Icon,
                         Width = 200
                     },
                     new ControlText()
@@ -57,7 +55,7 @@ namespace TurtleBay.WebPage
                     },
                     new ControlText()
                     {
-                        Text = string.Format("{0}", Context.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion),
+                        Text = string.Format("{0}", ResourceContext.PluginContext.Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion),
                         TextColor = new PropertyColorText(TypeColorText.Dark)
                     },
                     new ControlText()
@@ -68,11 +66,7 @@ namespace TurtleBay.WebPage
                     new ControlLink()
                     {
                         Text = string.Format("rene_schwarzer@hotmail.de"),
-                        Uri = new UriAbsolute()
-                        {
-                            Scheme = UriScheme.Mailto,
-                            Authority = new UriAuthority("rene_schwarzer@hotmail.de")
-                        },
+                        Uri = "rene_schwarzer@hotmail.de",
                         TextColor = new PropertyColorText(TypeColorText.Dark)
                     },
                     new ControlLine(),

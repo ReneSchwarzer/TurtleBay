@@ -1,18 +1,17 @@
 ﻿using TurtleBay.Model;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebPage
 {
-    [Id("Debug")]
     [Title("turtlebay:turtlebay.debug.label")]
     [Segment("debug", "turtlebay:turtlebay.debug.label")]
-    [Path("/")]
-    [Module("TurtleBay")]
-    [Context("general")]
-    [Context("debug")]
-    public sealed class PageDebug : PageWebApp
+    [ContextPath("/")]
+    [Module<Module>]
+    public sealed class PageDebug : PageWebApp, IScope
     {
         /// <summary>
         /// Konstruktor
@@ -41,7 +40,7 @@ namespace TurtleBay.WebPage
             ViewModel.Instance.Settings.DebugMode = !ViewModel.Instance.Settings.DebugMode;
             ViewModel.Instance.SaveSettings();
 
-            Redirecting(context.Request.Uri.Root.Append("log"));
+            Redirecting(ComponentManager.SitemapManager.GetUri<PageLog>());
         }
     }
 }

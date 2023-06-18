@@ -3,13 +3,12 @@ using WebExpress.WebModule;
 
 namespace TurtleBay
 {
-    [Id("TurtleBay")]
     [Name("module.name")]
     [Description("module.description")]
     [Icon("/assets/img/Logo.png")]
     [AssetPath("/")]
     [ContextPath("/")]
-    [Application("TurtleBay")]
+    [Application<Application>]
     public sealed class Module : IModule
     {
         /// <summary>

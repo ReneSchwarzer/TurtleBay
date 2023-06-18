@@ -1,10 +1,9 @@
 ﻿using TurtleBay.Model;
-using WebExpress.Html;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebComponent;
+using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
 
 namespace TurtleBay.WebControl
@@ -18,14 +17,6 @@ namespace TurtleBay.WebControl
         /// </summary>
         public ControlFooterPrimary()
             : base()
-        {
-        }
-
-        /// <summary>
-        /// Initialisierung
-        /// </summary>
-        /// <param name="context">Der Kontext</param>
-        public void Initialization(IComponentContext context)
         {
             Text = string.Format("{0}", ViewModel.Now);
             TextColor = new PropertyColorText(TypeColorText.Muted);

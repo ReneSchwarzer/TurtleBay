@@ -4,32 +4,32 @@ using WebExpress.UI.WebControl;
 
 namespace TurtleBay.WebControl
 {
-    public class ControlFormSocket1 : ControlFormular
+    public class ControlFormSocket1 : ControlForm
     {
         /// <summary>
         /// Liefert oder setzt den Namen der Steckdose
         /// </summary>
-        private ControlFormularItemInputTextBox NameCtrl { get; set; }
+        private ControlFormItemInputTextBox NameCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Startzeit 1 der Steckdose
         /// </summary>
-        private ControlFormularItemInputComboBox FromCtrl { get; set; }
+        private ControlFormItemInputComboBox FromCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Startzeit 2 der Steckdose
         /// </summary>
-        private ControlFormularItemInputComboBox From2Ctrl { get; set; }
+        private ControlFormItemInputComboBox From2Ctrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Endzeit 1 der Steckdose
         /// </summary>
-        private ControlFormularItemInputComboBox TillCtrl { get; set; }
+        private ControlFormItemInputComboBox TillCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Endzeit 2 der Steckdose
         /// </summary>
-        private ControlFormularItemInputComboBox Till2Ctrl { get; set; }
+        private ControlFormItemInputComboBox Till2Ctrl { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -48,31 +48,31 @@ namespace TurtleBay.WebControl
             Name = "socket1";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
-            NameCtrl = new ControlFormularItemInputTextBox()
+            NameCtrl = new ControlFormItemInputTextBox()
             {
                 Name = "Name",
                 Label = "Der Name der Steckdose:"
             };
 
-            FromCtrl = new ControlFormularItemInputComboBox()
+            FromCtrl = new ControlFormItemInputComboBox()
             {
                 Name = "From",
                 Label = "Erste Startzeit der Steckdose:"
             };
 
-            TillCtrl = new ControlFormularItemInputComboBox()
+            TillCtrl = new ControlFormItemInputComboBox()
             {
                 Name = "Till",
                 Label = "Erste Endzeit der Steckdose:"
             };
 
-            From2Ctrl = new ControlFormularItemInputComboBox()
+            From2Ctrl = new ControlFormItemInputComboBox()
             {
                 Name = "From2",
                 Label = "Zweite Startzeit der Steckdose:"
             };
 
-            Till2Ctrl = new ControlFormularItemInputComboBox()
+            Till2Ctrl = new ControlFormItemInputComboBox()
             {
                 Name = "Till2",
                 Label = "Zweite Endzeit der Steckdose:"
@@ -80,49 +80,49 @@ namespace TurtleBay.WebControl
 
             if (ViewModel.Instance.Solarcalendar.Count > 0)
             {
-                FromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                FromCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesanfang"),
                     Value = string.Format("-1")
                 });
 
-                FromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                FromCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesende"),
                     Value = string.Format("-2")
                 });
 
-                TillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                TillCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesanfang"),
                     Value = string.Format("-1")
                 });
 
-                TillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                TillCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesende"),
                     Value = string.Format("-2")
                 });
 
-                From2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                From2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesanfang"),
                     Value = string.Format("-1")
                 });
 
-                From2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                From2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesende"),
                     Value = string.Format("-2")
                 });
 
-                Till2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                Till2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesanfang"),
                     Value = string.Format("-1")
                 });
 
-                Till2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                Till2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("Tagesende"),
                     Value = string.Format("-2")
@@ -132,25 +132,25 @@ namespace TurtleBay.WebControl
             // Werte festlegen
             for (var i = 0; i < 24; i++)
             {
-                FromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                FromCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
                 });
 
-                From2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                From2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
                 });
 
-                TillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                TillCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
                 });
 
-                Till2Ctrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                Till2Ctrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)

@@ -1,21 +1,21 @@
 ﻿using TurtleBay.WebControl;
-using WebExpress.WebApp.WebAttribute;
+using WebExpress.UI.WebAttribute;
 using WebExpress.WebApp.WebPage;
 using WebExpress.WebApp.WebSettingPage;
 using WebExpress.WebAttribute;
 using WebExpress.WebResource;
+using WebExpress.WebScope;
 
 namespace TurtleBay.WebResource
 {
-    [Id("SettingSocket2")]
     [Title("turtlebay:turtlebay.setting.socket2.label")]
     [Segment("socket2", "turtlebay:turtlebay.setting.socket2.label")]
-    [Path("/Setting")]
-    [Module("TurtleBay")]
-    [Context("setting")]
+    [ContextPath("/")]
+    [Parent<PageSettings>]
+    [Module<Module>]
     [SettingHide()]
     [SettingContext("webexpress.webapp:setting.general.label")]
-    public sealed class PageSettingsSocket2 : PageWebAppSetting, IPageSetting
+    public sealed class PageSettingsSocket2 : PageWebAppSetting, IPageSetting, IScope
     {
         /// <summary>
         /// Konstruktor

@@ -5,12 +5,11 @@ namespace TurtleBay.WebResource
     /// <summary>
     /// Lieferung einer im Assamby eingebetteten Ressource
     /// </summary>
-    [Id("Asset")]
     [Title("Assets")]
     [Segment("assets", "")]
-    [Path("/")]
+    [ContextPath("/")]
     [IncludeSubPaths(true)]
-    [Module("TurtleBay")]
+    [Module<Module>]
     public sealed class ResourceAsset : WebExpress.WebResource.ResourceAsset
     {
         /// <summary>

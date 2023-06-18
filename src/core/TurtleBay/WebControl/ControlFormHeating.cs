@@ -1,28 +1,28 @@
 ﻿using System;
 using TurtleBay.Model;
-using WebExpress.Html;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
 
 namespace TurtleBay.WebControl
 {
-    public class ControlFormHeating : ControlFormular
+    public class ControlFormHeating : ControlForm
     {
         /// <summary>
         /// Liefert oder setzt die minimale Nachttemperatur
         /// </summary>
-        private ControlFormularItemInputComboBox NightMinCtrl { get; set; }
+        private ControlFormItemInputComboBox NightMinCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die minimale Tagestemperatur
         /// </summary>
-        private ControlFormularItemInputComboBox DayMinCtrl { get; set; }
+        private ControlFormItemInputComboBox DayMinCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt die Maximaltemperatur
         /// </summary>
-        private ControlFormularItemInputComboBox MaxCtrl { get; set; }
+        private ControlFormItemInputComboBox MaxCtrl { get; set; }
 
         /// <summary>
         /// Konstruktor
@@ -42,19 +42,19 @@ namespace TurtleBay.WebControl
             Name = "heating";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
-            NightMinCtrl = new ControlFormularItemInputComboBox()
+            NightMinCtrl = new ControlFormItemInputComboBox()
             {
                 Name = "NightMin",
                 Label = "turtlebay:turtlebay.setting.heating.nightmin.label"
             };
 
-            DayMinCtrl = new ControlFormularItemInputComboBox()
+            DayMinCtrl = new ControlFormItemInputComboBox()
             {
                 Name = "DayMin",
                 Label = "turtlebay:turtlebay.setting.heating.daymin.label"
             };
 
-            MaxCtrl = new ControlFormularItemInputComboBox()
+            MaxCtrl = new ControlFormItemInputComboBox()
             {
                 Name = "Max",
                 Label = "turtlebay:turtlebay.setting.heating.max.label"
@@ -64,19 +64,19 @@ namespace TurtleBay.WebControl
             // Werte festlegen
             for (var i = 0; i < 40; i++)
             {
-                NightMinCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                NightMinCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format(context.Culture, "{0} °C", i),
                     Value = string.Format(context.Culture, "{0}", i)
                 });
 
-                DayMinCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                DayMinCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format(context.Culture, "{0} °C", i),
                     Value = string.Format(context.Culture, "{0}", i)
                 });
 
-                MaxCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                MaxCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format(context.Culture, "{0} °C", i),
                     Value = string.Format(context.Culture, "{0}", i)

@@ -976,19 +976,19 @@ namespace TurtleBay.Model
             switch (logItem.Level)
             {
                 case LogItem.LogLevel.Info:
-                    //Context.Log.Info(logItem.Instance, logItem.Massage);
+                    //Context.Host.Log.Info(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Debug:
-                    //Context.Log.Debug(logItem.Instance, logItem.Massage);
+                    //Context.Host.Log.Debug(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Warning:
-                    Context.Log.Warning(logItem.Instance, logItem.Massage);
+                    Context.Host.Log.Warning(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Error:
-                    Context.Log.Error(logItem.Instance, logItem.Massage);
+                    Context.Host.Log.Error(logItem.Instance, logItem.Massage);
                     break;
                 case LogItem.LogLevel.Exception:
-                    Context.Log.Error(logItem.Instance, logItem.Massage);
+                    Context.Host.Log.Error(logItem.Instance, logItem.Massage);
                     break;
             }
         }

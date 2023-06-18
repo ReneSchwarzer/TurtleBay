@@ -1,6 +1,9 @@
-﻿using WebExpress.Html;
+﻿using TurtleBay.WebPage;
+using TurtleBay.WebResource;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
 
 namespace TurtleBay.WebControl
@@ -20,7 +23,7 @@ namespace TurtleBay.WebControl
         /// </summary>
         private void Init()
         {
-            
+
             Margin = new PropertySpacingMargin(PropertySpacing.Space.One);
             Icon = new PropertyIcon(TypeIcon.PowerOff);
             BackgroundColor = new PropertyColorButton(TypeColorButton.Danger);
@@ -49,7 +52,7 @@ namespace TurtleBay.WebControl
                     Icon = new PropertyIcon(TypeIcon.PowerOff),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.One),
                     BackgroundColor = new PropertyColorButton(TypeColorButton.Danger),
-                    OnClick = new PropertyOnClick($"window.location.href = '{ context.Uri.Root.Append("reboot") }'")
+                    OnClick = new PropertyOnClick($"window.location.href = '{ComponentManager.SitemapManager.GetUri<PageReboot>()}'")
                 }
             ));
 

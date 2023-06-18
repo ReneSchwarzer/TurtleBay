@@ -1,23 +1,24 @@
-﻿using TurtleBay.WebResource;
-using WebExpress.Html;
+﻿using TurtleBay.WebPage;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebComponent;
+using WebExpress.UI.WebFragment;
+using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
 
-namespace TurtleBay.WebComponent
+namespace TurtleBay.WebFragment
 {
-    [Section(Section.AppSettingsSecondary)]
-    [Application("TurtleBay")]
-    public sealed class ComponentAppSettingsSettings : ComponentControlDropdownItemLink
+    [Section(Section.AppNavigationSecondary)]
+    [Module<Module>]
+    public sealed class FragmentAppNavigationHelp : FragmentControlNavigationItemLink
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ComponentAppSettingsSettings()
+        public FragmentAppNavigationHelp()
             : base()
         {
         }
@@ -27,7 +28,7 @@ namespace TurtleBay.WebComponent
         /// </summary>
         /// <param name="context">Der Kontext</param>
         /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
-        public override void Initialization(IComponentContext context, IPage page)
+        public override void Initialization(IFragmentContext context, IPage page)
         {
             base.Initialization(context, page);
 
@@ -40,10 +41,10 @@ namespace TurtleBay.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = "turtlebay:turtlebay.settings.label";
-            Uri = context.Request.Uri.Root.Append("settings");
-            Active = context.Page is IPageSetting ? TypeActive.Active : TypeActive.None;
-            Icon = new PropertyIcon(TypeIcon.Cog);
+            Text = "turtlebay:turtlebay.help.label";
+            Uri = ComponentManager.SitemapManager.GetUri<PageHelp>();
+            Active = context.Page is IPageHelp ? TypeActive.Active : TypeActive.None;
+            Icon = new PropertyIcon(TypeIcon.InfoCircle);
 
             return base.Render(context);
         }

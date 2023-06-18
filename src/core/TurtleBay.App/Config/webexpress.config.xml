@@ -2,8 +2,9 @@
 <config version = "1">
 
 	<!-- Loggingeinstellungen Off, Override, Append-->
-	<log modus="Off" path="/var/log/" encoding="iso-8859-15" filename="turtlebay.log" timepattern="dd.MM.yyyy HH:mm:ss" />
+	<log modus="Off" path="/var/log/" encoding="utf-8" filename="turtlebay.log" timepattern="dd.MM.yyyy HH:mm:ss" />
 
+	<uri>http://localhost/</uri>
 	<endpoint uri="http://localhost/"/>
 
 	<limit>
@@ -11,9 +12,11 @@
 		<uploadlimit>3000000000</uploadlimit>
 	</limit>
 
+	<culture>de-DE</culture>
+
+	<packages>./packages</packages>
 	<assets>./assets</assets>
 	<data>./data</data>
 	<contextpath></contextpath>
-	<stagedirectory>./</stagedirectory>
 
 </config>

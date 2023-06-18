@@ -1,6 +1,9 @@
-﻿using WebExpress.Html;
+﻿using TurtleBay.WebPage;
+using TurtleBay.WebResource;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebControl;
+using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
 
 namespace TurtleBay.WebControl
@@ -49,7 +52,7 @@ namespace TurtleBay.WebControl
                     Icon = new PropertyIcon(TypeIcon.Undo),
                     Margin = new PropertySpacingMargin(PropertySpacing.Space.One),
                     BackgroundColor = new PropertyColorButton(TypeColorButton.Warning),
-                    OnClick = new PropertyOnClick($"window.location.href = '{ context.Uri.Root.Append("reset") }'")
+                    OnClick = new PropertyOnClick($"window.location.href = '{ComponentManager.SitemapManager.GetUri<PageReset>()}'")
                 }
             ));
 

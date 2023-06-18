@@ -1,23 +1,24 @@
-﻿using TurtleBay.WebPageSetting;
-using WebExpress.Html;
+﻿using TurtleBay.WebPage;
 using WebExpress.Internationalization;
 using WebExpress.UI.WebAttribute;
-using WebExpress.UI.WebComponent;
 using WebExpress.UI.WebControl;
-using WebExpress.WebApp.WebComponent;
+using WebExpress.UI.WebFragment;
+using WebExpress.WebApp.WebFragment;
 using WebExpress.WebAttribute;
+using WebExpress.WebComponent;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
 
-namespace TurtleBay.WebComponent
+namespace TurtleBay.WebFragment
 {
-    [Section(Section.AppSettingsPrimary)]
-    [Application("TurtleBay")]
-    public sealed class ComponentSettingsDS18B201 : ComponentControlDropdownItemLink
+    [Section(Section.AppNavigationPreferences)]
+    [Module<Module>]
+    public sealed class FragmentAppNavigationDashboard : FragmentControlNavigationItemLink
     {
         /// <summary>
         /// Konstruktor
         /// </summary>
-        public ComponentSettingsDS18B201()
+        public FragmentAppNavigationDashboard()
             : base()
         {
         }
@@ -27,10 +28,9 @@ namespace TurtleBay.WebComponent
         /// </summary>
         /// <param name="context">Der Kontext</param>
         /// <param name="page">Die Seite, indem die Komonente aktiv ist</param>
-        public override void Initialization(IComponentContext context, IPage page)
+        public override void Initialization(IFragmentContext context, IPage page)
         {
             base.Initialization(context, page);
-
         }
 
         /// <summary>
@@ -40,10 +40,10 @@ namespace TurtleBay.WebComponent
         /// <returns>Das Control als HTML</returns>
         public override IHtmlNode Render(RenderContext context)
         {
-            Text = "turtlebay:turtlebay.ds18b201.label";
-            Uri = context.Request.Uri.Root.Append("ds18b201");
-            Active = context.Page is IPageDS18B201 ? TypeActive.Active : TypeActive.None;
-            Icon = new PropertyIcon(TypeIcon.Microchip);
+            Text = "turtlebay:turtlebay.dashboard.label";
+            Uri = ComponentManager.SitemapManager.GetUri<PageDashboard>();
+            Active = context.Page is IPageDashboard ? TypeActive.Active : TypeActive.None;
+            Icon = new PropertyIcon(TypeIcon.TachometerAlt);
 
             return base.Render(context);
         }

@@ -1,22 +1,22 @@
 ﻿using System;
 using TurtleBay.Model;
-using WebExpress.Html;
 using WebExpress.UI.WebControl;
+using WebExpress.WebHtml;
 using WebExpress.WebPage;
 
 namespace TurtleBay.WebControl
 {
-    public class ControlFormDayNight : ControlFormular
+    public class ControlFormDayNight : ControlForm
     {
         /// <summary>
         /// Liefert oder setzt das Tagesbeginn
         /// </summary>
-        private ControlFormularItemInputComboBox DayFromCtrl { get; set; }
+        private ControlFormItemInputComboBox DayFromCtrl { get; set; }
 
         /// <summary>
         /// Liefert oder setzt das Tagesende
         /// </summary>
-        private ControlFormularItemInputComboBox DayTillCtrl { get; set; }
+        private ControlFormItemInputComboBox DayTillCtrl { get; set; }
 
 
         /// <summary>
@@ -37,13 +37,13 @@ namespace TurtleBay.WebControl
             Name = "daynight";
             Margin = new PropertySpacingMargin(PropertySpacing.Space.Three);
 
-            DayFromCtrl = new ControlFormularItemInputComboBox()
+            DayFromCtrl = new ControlFormItemInputComboBox()
             {
                 Name = "DayFrom",
                 Label = "turtlebay:turtlebay.setting.daynight.from.label"
             };
 
-            DayTillCtrl = new ControlFormularItemInputComboBox()
+            DayTillCtrl = new ControlFormItemInputComboBox()
             {
                 Name = "DayTill",
                 Label = "turtlebay:turtlebay.setting.daynight.till.label"
@@ -51,13 +51,13 @@ namespace TurtleBay.WebControl
 
             if (ViewModel.Instance.Solarcalendar.Count > 0)
             {
-                DayFromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                DayFromCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = "turtlebay:turtlebay.setting.daynight.sunrise.label",
                     Value = string.Format("-1")
                 });
 
-                DayTillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                DayTillCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = "turtlebay:turtlebay.setting.daynight.sunset.label",
                     Value = string.Format("-1")
@@ -67,13 +67,13 @@ namespace TurtleBay.WebControl
             // Werte festlegen
             for (var i = 0; i < 24; i++)
             {
-                DayFromCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                DayFromCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
                 });
 
-                DayTillCtrl.Items.Add(new ControlFormularItemInputComboBoxItem()
+                DayTillCtrl.Items.Add(new ControlFormItemInputComboBoxItem()
                 {
                     Text = string.Format("{0} Uhr", i),
                     Value = string.Format("{0}", i)
